@@ -59,23 +59,50 @@
   }
   
   /* Custom scrollbar for webkit browsers */
-  .custom-scrollbar::-webkit-scrollbar {
-    height: 6px;
+.custom-scrollbar::-webkit-scrollbar {
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #d4af37;
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #b8941f;
+}
+
+/* Day Streak Animations */
+@keyframes streak-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(245, 158, 11, 0.3);
   }
-  
-  .custom-scrollbar::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 3px;
+  50% {
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.6);
   }
-  
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #d4af37;
-    border-radius: 3px;
+}
+
+@keyframes streak-float {
+  0%, 100% {
+    transform: translateY(0px);
   }
-  
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #b8941f;
+  50% {
+    transform: translateY(-2px);
   }
+}
+
+.streak-glow {
+  animation: streak-glow 2s ease-in-out infinite;
+}
+
+.streak-float {
+  animation: streak-float 3s ease-in-out infinite;
+}
 }
 
 @keyframes float {

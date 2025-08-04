@@ -6,8 +6,10 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import DayStreak from "@/components/ui/day-streak";
 import { authService } from "@/lib/auth";
 import { User, DashboardStats, ActivityFeedItem, QuickAction, CulturalCalendarEvent, ElderWisdomDaily, HeritageDiscovery, UbuntuCircleStatus } from "@/types";
+import AuthenticatedLayout from "@/components/layout/AuthenticatedLayout";
 
 export default function UbuntuDashboard() {
   const [user, setUser] = useState<User | null>(null);
@@ -59,7 +61,7 @@ export default function UbuntuDashboard() {
       title: "Spiritual Awakening",
       description: "Traditional African spirituality and modern practice",
       progress: 0,
-      thumbnail: "✨",
+      thumbnail: "⭐",
       duration: "4h 20m",
       lessons: 15,
       category: "Spirituality"
@@ -194,55 +196,54 @@ export default function UbuntuDashboard() {
   const canScrollRight = currentCourseIndex < featuredCourses.length - 1;
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero Banner Section */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-heritage-gold via-terracotta-500 to-ochre-500">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="relative z-10 px-6 py-12">
-          <div className="max-w-7xl mx-auto">
-            <div className="flex flex-col lg:flex-row items-center justify-between">
-              <div className="text-white mb-8 lg:mb-0">
-                <h1 className="text-5xl lg:text-6xl font-ubuntu font-bold mb-4">
-                  {getGreeting()}, <br />
-                  <span className="text-white drop-shadow-lg">{user?.full_name || "Ubuntu Seeker"}</span>
-                </h1>
-                <p className="text-xl lg:text-2xl font-ubuntu font-light mb-6">
-                  {getHeritageGreeting()} - Day {stats.days_in_journey} of your transformation
-                </p>
-                <div className="flex items-center space-x-6">
-                  <div className="text-center">
-                    <div className="text-3xl font-ubuntu font-bold">{stats.heritage_completion}%</div>
-                    <div className="text-sm font-ubuntu opacity-90">Heritage Complete</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-ubuntu font-bold">{stats.community_impact_score}</div>
-                    <div className="text-sm font-ubuntu opacity-90">Impact Score</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-ubuntu font-bold">{stats.wisdom_paths_completed}</div>
-                    <div className="text-sm font-ubuntu opacity-90">Paths Completed</div>
-                  </div>
-                </div>
-              </div>
-              <div className="text-center lg:text-right">
-                <Button 
-                  size="lg" 
-                  className="bg-white text-heritage-gold hover:bg-gray-100 px-8 py-4 text-lg font-ubuntu font-semibold shadow-lg"
-                >
-                  Resume Course
-                </Button>
-                <p className="text-white/80 text-sm font-ubuntu mt-2">
-                  Continue your Ubuntu journey
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Content */}
+    <AuthenticatedLayout>
       <div className="px-6 py-8">
         <div className="max-w-7xl mx-auto space-y-12">
+          
+          {/* Quick Stats Section */}
+          <section>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-ubuntu font-bold text-gray-900">Your Progress</h2>
+              <DayStreak currentStreak={stats.days_in_journey} />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+              <Card className="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <CardContent className="p-6 text-center">
+                  <div className="text-3xl font-ubuntu font-bold text-heritage-gold mb-2">
+                    {stats.heritage_completion}%
+                  </div>
+                  <div className="text-sm text-gray-600 font-ubuntu">Heritage Complete</div>
+                </CardContent>
+              </Card>
+              
+              <Card className="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <CardContent className="p-6 text-center">
+                  <div className="text-3xl font-ubuntu font-bold text-heritage-gold mb-2">
+                    {stats.community_impact_score}
+                  </div>
+                  <div className="text-sm text-gray-600 font-ubuntu">Impact Score</div>
+                </CardContent>
+              </Card>
+              
+              <Card className="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <CardContent className="p-6 text-center">
+                  <div className="text-3xl font-ubuntu font-bold text-heritage-gold mb-2">
+                    {stats.wisdom_paths_completed}
+                  </div>
+                  <div className="text-sm text-gray-600 font-ubuntu">Paths Completed</div>
+                </CardContent>
+              </Card>
+              
+              <Card className="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <CardContent className="p-6 text-center">
+                  <div className="text-3xl font-ubuntu font-bold text-heritage-gold mb-2">
+                    Day {stats.days_in_journey}
+                  </div>
+                  <div className="text-sm text-gray-600 font-ubuntu">Journey Progress</div>
+                </CardContent>
+              </Card>
+            </div>
+          </section>
           
           {/* Featured Courses Carousel */}
           <section>
@@ -341,7 +342,7 @@ export default function UbuntuDashboard() {
             <Card className="bg-gradient-to-br from-heritage-gold/5 to-terracotta-500/5 border-heritage-gold/20">
               <CardContent className="p-8">
                 <div className="text-center max-w-4xl mx-auto">
-                  <div className="text-6xl mb-6">🧙‍♀️</div>
+                  <div className="text-6xl mb-6">👴</div>
                   <h2 className="text-3xl font-ubuntu font-bold text-gray-900 mb-4">
                     Today's Ubuntu Wisdom
                   </h2>
@@ -398,10 +399,10 @@ export default function UbuntuDashboard() {
                       </div>
                     </div>
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        <span className="text-heritage-gold">❤️</span>
-                        <span className="text-sm font-ubuntu text-gray-600">{highlight.reactions} reactions</span>
-                      </div>
+                                          <div className="flex items-center space-x-2">
+                      <span className="text-heritage-gold">❤</span>
+                      <span className="text-sm font-ubuntu text-gray-600">{highlight.reactions} reactions</span>
+                    </div>
                       <Button size="sm" variant="outline" className="border-heritage-gold/30 text-heritage-gold hover:bg-heritage-gold/10 font-ubuntu">
                         Celebrate
                       </Button>
@@ -424,10 +425,10 @@ export default function UbuntuDashboard() {
               {calendarEvents.map((event) => (
                 <Card key={event.id} className="min-w-[300px] bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
                   <CardHeader className="pb-4">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-2xl">
-                        {event.type === 'ceremony' ? '🌙' : event.type === 'workshop' ? '📚' : '🎉'}
-                      </span>
+                                         <div className="flex items-center justify-between mb-3">
+                       <span className="text-2xl">
+                         {event.type === 'ceremony' ? '🌙' : event.type === 'workshop' ? '📖' : '🎉'}
+                       </span>
                       <Badge className={`${
                         event.rsvp_status === 'attending' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
                       } font-ubuntu`}>
@@ -471,53 +472,60 @@ export default function UbuntuDashboard() {
           <section>
             <h2 className="text-3xl font-ubuntu font-bold text-gray-900 mb-6">Quick Actions</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <Card className="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <CardContent className="p-6 text-center">
-                  <div className="text-4xl mb-4">🌳</div>
-                  <h3 className="font-ubuntu font-semibold text-gray-900 mb-2">Family Tree</h3>
-                  <p className="text-sm text-gray-600 font-ubuntu mb-4">Add 3 more family members</p>
-                  <Button className="w-full heritage-gradient hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 font-ubuntu font-semibold text-white">
-                    Continue
-                  </Button>
-                </CardContent>
-              </Card>
+                             <Card className="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
+                 <CardContent className="p-6 text-center">
+                   <div className="w-12 h-12 bg-heritage-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                     <svg className="w-6 h-6 text-heritage-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                     </svg>
+                   </div>
+                   <h3 className="font-ubuntu font-semibold text-gray-900 mb-2">Heritage Discovery</h3>
+                   <p className="text-sm text-gray-600 font-ubuntu mb-4">Begin your Sankofa journey</p>
+                   <Button 
+                     className="w-full heritage-gradient hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 font-ubuntu font-semibold text-white"
+                     onClick={() => window.location.href = '/heritage'}
+                   >
+                     Start Journey
+                   </Button>
+                 </CardContent>
+               </Card>
 
-              <Card className="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <CardContent className="p-6 text-center">
-                  <div className="text-4xl mb-4">👥</div>
-                  <h3 className="font-ubuntu font-semibold text-gray-900 mb-2">Circle Meeting</h3>
-                  <p className="text-sm text-gray-600 font-ubuntu mb-4">Join in 2 hours</p>
-                  <Button className="w-full heritage-gradient hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 font-ubuntu font-semibold text-white">
-                    Join Now
-                  </Button>
-                </CardContent>
-              </Card>
+               <Card className="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
+                 <CardContent className="p-6 text-center">
+                   <div className="text-4xl mb-4">👥</div>
+                   <h3 className="font-ubuntu font-semibold text-gray-900 mb-2">Circle Meeting</h3>
+                   <p className="text-sm text-gray-600 font-ubuntu mb-4">Join in 2 hours</p>
+                   <Button className="w-full heritage-gradient hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 font-ubuntu font-semibold text-white">
+                     Join Now
+                   </Button>
+                 </CardContent>
+               </Card>
 
-              <Card className="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <CardContent className="p-6 text-center">
-                  <div className="text-4xl mb-4">📚</div>
-                  <h3 className="font-ubuntu font-semibold text-gray-900 mb-2">Next Lesson</h3>
-                  <p className="text-sm text-gray-600 font-ubuntu mb-4">25 minutes remaining</p>
-                  <Button className="w-full heritage-gradient hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 font-ubuntu font-semibold text-white">
-                    Resume
-                  </Button>
-                </CardContent>
-              </Card>
+               <Card className="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
+                 <CardContent className="p-6 text-center">
+                   <div className="text-4xl mb-4">📖</div>
+                   <h3 className="font-ubuntu font-semibold text-gray-900 mb-2">Next Lesson</h3>
+                   <p className="text-sm text-gray-600 font-ubuntu mb-4">25 minutes remaining</p>
+                   <Button className="w-full heritage-gradient hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 font-ubuntu font-semibold text-white">
+                     Resume
+                   </Button>
+                 </CardContent>
+               </Card>
 
-              <Card className="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <CardContent className="p-6 text-center">
-                  <div className="text-4xl mb-4">🧙‍♀️</div>
-                  <h3 className="font-ubuntu font-semibold text-gray-900 mb-2">Elder Guidance</h3>
-                  <p className="text-sm text-gray-600 font-ubuntu mb-4">Book your session</p>
-                  <Button className="w-full heritage-gradient hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 font-ubuntu font-semibold text-white">
-                    Schedule
-                  </Button>
-                </CardContent>
-              </Card>
+               <Card className="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
+                 <CardContent className="p-6 text-center">
+                   <div className="text-4xl mb-4">👴</div>
+                   <h3 className="font-ubuntu font-semibold text-gray-900 mb-2">Elder Guidance</h3>
+                   <p className="text-sm text-gray-600 font-ubuntu mb-4">Book your session</p>
+                   <Button className="w-full heritage-gradient hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 font-ubuntu font-semibold text-white">
+                     Schedule
+                   </Button>
+                 </CardContent>
+               </Card>
             </div>
           </section>
         </div>
       </div>
-    </div>
+    </AuthenticatedLayout>
   );
 } 

@@ -49,7 +49,7 @@ export function WisdomCard({
   const categoryIcon = categoryIcons[category as keyof typeof categoryIcons] || '📚';
   
   return (
-    <Card className="group hover:shadow-lg transition-all duration-300 border-amber-200 bg-white/80 backdrop-blur-sm overflow-hidden">
+    <Card className="group hover:shadow-lg transition-all duration-300 border-heritage-gold/20 bg-white/80 backdrop-blur-sm overflow-hidden">
       {/* Image Section */}
       {imageUrl && (
         <div className="relative h-48 overflow-hidden">
@@ -76,7 +76,7 @@ export function WisdomCard({
           <div className="flex items-center space-x-2">
             <span className="text-2xl">{categoryIcon}</span>
             <div>
-              <CardTitle className="text-lg text-gray-900 group-hover:text-amber-600 transition-colors">
+              <CardTitle className="text-lg text-gray-900 group-hover:text-heritage-gold transition-colors">
                 {title}
               </CardTitle>
               {instructor && (
@@ -96,7 +96,7 @@ export function WisdomCard({
         {/* Tags */}
         <div className="flex flex-wrap gap-2 mb-4">
           {tags.slice(0, 3).map((tag, index) => (
-            <Badge key={index} variant="outline" className="text-xs border-amber-200 text-amber-700">
+            <Badge key={index} variant="outline" className="text-xs border-heritage-gold/20 text-heritage-gold">
               {tag}
             </Badge>
           ))}
@@ -115,10 +115,10 @@ export function WisdomCard({
               <span>{progress}%</span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-2">
-              <div 
-                className="bg-gradient-to-r from-amber-500 to-orange-500 h-2 rounded-full transition-all duration-300"
-                style={{ width: `${progress}%` }}
-              />
+                          <div 
+              className="heritage-gradient h-2 rounded-full transition-all duration-300"
+              style={{ width: `${progress}%` }}
+            />
             </div>
           </div>
         )}
@@ -128,7 +128,7 @@ export function WisdomCard({
           {isEnrolled ? (
             <Button 
               onClick={onContinue}
-              className="w-full bg-amber-600 hover:bg-amber-700 text-white"
+              className="w-full heritage-gradient text-white"
             >
               Continue Learning
             </Button>
@@ -136,7 +136,7 @@ export function WisdomCard({
             <Button 
               onClick={onEnroll}
               variant="outline"
-              className="w-full border-amber-300 text-amber-600 hover:bg-amber-50"
+              className="w-full border-heritage-gold/30 text-heritage-gold hover:bg-heritage-gold/5"
             >
               Begin Journey
             </Button>
@@ -144,8 +144,8 @@ export function WisdomCard({
         </div>
 
         {/* Ubuntu Quote */}
-        <div className="mt-4 p-3 bg-amber-50 rounded-lg border border-amber-200">
-          <p className="text-sm text-amber-800 italic text-center">
+        <div className="mt-4 p-3 bg-heritage-gold/5 rounded-lg border border-heritage-gold/20">
+          <p className="text-sm text-heritage-gold italic text-center">
             "I am because we are"
           </p>
         </div>
