@@ -325,4 +325,95 @@ export type ImpactType =
   | 'mentorship'
   | 'cultural-preservation'
   | 'leadership'
-  | 'healing-practice'; 
+  | 'healing-practice';
+
+// Dashboard and Activity Types
+export interface DashboardStats {
+  heritage_completion: number;
+  ubuntu_circle_health: number;
+  wisdom_paths_completed: number;
+  community_impact_score: number;
+  days_in_journey: number;
+  next_meeting_countdown?: number;
+  community_energy: 'high' | 'medium' | 'low';
+}
+
+export interface ActivityFeedItem {
+  id: string;
+  type: 'heritage_discovery' | 'circle_activity' | 'learning_achievement' | 'community_celebration' | 'elder_wisdom' | 'heritage_match';
+  title: string;
+  description: string;
+  user_id?: string;
+  user_name?: string;
+  timestamp: string;
+  image_url?: string;
+  action_url?: string;
+  priority: 'high' | 'medium' | 'low';
+}
+
+export interface QuickAction {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+  action_url: string;
+  priority: 'urgent' | 'recommended' | 'optional';
+  progress?: number;
+  time_estimate?: number;
+}
+
+export interface CulturalCalendarEvent {
+  id: string;
+  title: string;
+  description: string;
+  date: string;
+  type: 'ceremony' | 'celebration' | 'workshop' | 'moon_phase' | 'seasonal' | 'personal_milestone';
+  cultural_significance: string;
+  user_relevance: 'high' | 'medium' | 'low';
+  rsvp_required: boolean;
+  rsvp_status?: 'attending' | 'maybe' | 'declined';
+}
+
+export interface ElderWisdomDaily {
+  id: string;
+  elder_name: string;
+  cultural_background: string;
+  wisdom_quote: string;
+  modern_application: string;
+  audio_url?: string;
+  video_url?: string;
+  cultural_practices: string[];
+  community_discussion_id?: string;
+}
+
+export interface HeritageDiscovery {
+  id: string;
+  type: 'family_member' | 'cultural_connection' | 'dna_match' | 'historical_document' | 'traditional_recipe';
+  title: string;
+  description: string;
+  discovery_date: string;
+  significance: string;
+  next_steps: string[];
+  completion_percentage: number;
+  related_heritage_categories: string[];
+}
+
+export interface UbuntuCircleStatus {
+  circle_id: string;
+  circle_name: string;
+  member_count: number;
+  online_members: number;
+  next_meeting?: {
+    date: string;
+    time: string;
+    topic: string;
+    join_url?: string;
+  };
+  recent_activity: {
+    wisdom_shared: number;
+    support_given: number;
+    conflicts_resolved: number;
+  };
+  circle_health_score: number;
+  user_participation_score: number;
+} 

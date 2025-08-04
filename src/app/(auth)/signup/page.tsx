@@ -1,10 +1,78 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { authService } from "@/lib/auth";
 
 export default function SignupPage() {
+  const router = useRouter();
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    heritage: ""
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
+
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match");
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      const result = await authService.signup({
+        email: formData.email,
+        full_name: `${formData.firstName} ${formData.lastName}`,
+        heritage_profile: {
+          id: "",
+          user_id: "",
+          regional_origins: formData.heritage ? [formData.heritage] : ["West Africa"],
+          cultural_identities: ["African"],
+          heritage_completion_percentage: 25,
+          cultural_preferences: {
+            preferred_languages: ["English"],
+            cultural_practices: ["Meditation"],
+            spiritual_traditions: ["Ancestral Worship"],
+            community_focus: "global",
+            learning_style: "community"
+          }
+        }
+      });
+      
+      if (result.success && result.user) {
+        // Redirect to Ubuntu dashboard
+        router.push("/ubuntu");
+      } else {
+        setError(result.error || "Signup failed");
+      }
+    } catch (err) {
+      setError("An error occurred during signup");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen relative overflow-hidden">
       {/* Animated Background */}
@@ -62,35 +130,44 @@ export default function SignupPage() {
             </CardHeader>
             
             <CardContent>
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={handleSubmit}>
+                {error && (
+                  <div className="p-3 bg-red-50 border border-red-200 rounded-md">
+                    <p className="text-red-600 text-sm font-ubuntu">{error}</p>
+                  </div>
+                )}
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="firstName" className="font-ubuntu font-medium text-gray-700">
                       First Name
                     </Label>
-                    <Input
-                      id="firstName"
-                      name="firstName"
-                      type="text"
-                      autoComplete="given-name"
-                      required
-                      className="border-2 border-heritage-gold/30 focus:border-heritage-gold focus:ring-heritage-gold/20 transition-all duration-300 font-ubuntu bg-white/80 backdrop-blur-sm"
-                      placeholder="First name"
-                    />
+                                      <Input
+                    id="firstName"
+                    name="firstName"
+                    type="text"
+                    autoComplete="given-name"
+                    required
+                    value={formData.firstName}
+                    onChange={handleInputChange}
+                    className="border-2 border-heritage-gold/30 focus:border-heritage-gold focus:ring-heritage-gold/20 transition-all duration-300 font-ubuntu bg-white/80 backdrop-blur-sm"
+                    placeholder="First name"
+                  />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="lastName" className="font-ubuntu font-medium text-gray-700">
                       Last Name
                     </Label>
-                    <Input
-                      id="lastName"
-                      name="lastName"
-                      type="text"
-                      autoComplete="family-name"
-                      required
-                      className="border-2 border-heritage-gold/30 focus:border-heritage-gold focus:ring-heritage-gold/20 transition-all duration-300 font-ubuntu bg-white/80 backdrop-blur-sm"
-                      placeholder="Last name"
-                    />
+                                      <Input
+                    id="lastName"
+                    name="lastName"
+                    type="text"
+                    autoComplete="family-name"
+                    required
+                    value={formData.lastName}
+                    onChange={handleInputChange}
+                    className="border-2 border-heritage-gold/30 focus:border-heritage-gold focus:ring-heritage-gold/20 transition-all duration-300 font-ubuntu bg-white/80 backdrop-blur-sm"
+                    placeholder="Last name"
+                  />
                   </div>
                 </div>
 
@@ -104,6 +181,8 @@ export default function SignupPage() {
                     type="email"
                     autoComplete="email"
                     required
+                    value={formData.email}
+                    onChange={handleInputChange}
                     className="border-2 border-heritage-gold/30 focus:border-heritage-gold focus:ring-heritage-gold/20 transition-all duration-300 font-ubuntu bg-white/80 backdrop-blur-sm"
                     placeholder="Enter your email"
                   />
@@ -119,6 +198,8 @@ export default function SignupPage() {
                     type="password"
                     autoComplete="new-password"
                     required
+                    value={formData.password}
+                    onChange={handleInputChange}
                     className="border-2 border-heritage-gold/30 focus:border-heritage-gold focus:ring-heritage-gold/20 transition-all duration-300 font-ubuntu bg-white/80 backdrop-blur-sm"
                     placeholder="Create a password"
                   />
@@ -134,6 +215,8 @@ export default function SignupPage() {
                     type="password"
                     autoComplete="new-password"
                     required
+                    value={formData.confirmPassword}
+                    onChange={handleInputChange}
                     className="border-2 border-heritage-gold/30 focus:border-heritage-gold focus:ring-heritage-gold/20 transition-all duration-300 font-ubuntu bg-white/80 backdrop-blur-sm"
                     placeholder="Confirm your password"
                   />
@@ -146,6 +229,8 @@ export default function SignupPage() {
                   <select
                     id="heritage"
                     name="heritage"
+                    value={formData.heritage}
+                    onChange={handleInputChange}
                     className="w-full px-3 py-2 border-2 border-heritage-gold/30 rounded-md focus:outline-none focus:ring-2 focus:ring-heritage-gold/20 focus:border-heritage-gold transition-all duration-300 font-ubuntu bg-white/80 backdrop-blur-sm"
                   >
                     <option value="">Select your heritage background</option>
@@ -193,13 +278,26 @@ export default function SignupPage() {
 
                 <Button 
                   type="submit" 
-                  className="w-full heritage-gradient hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 font-ubuntu font-semibold text-white py-3"
+                  disabled={isLoading}
+                  className="w-full heritage-gradient hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 font-ubuntu font-semibold text-white py-3 disabled:opacity-50"
                 >
                   <span className="flex items-center justify-center space-x-2">
-                    <span>Create Account</span>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                    </svg>
+                    {isLoading ? (
+                      <>
+                        <svg className="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <span>Creating Account...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Create Account</span>
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                      </>
+                    )}
                   </span>
                 </Button>
               </form>

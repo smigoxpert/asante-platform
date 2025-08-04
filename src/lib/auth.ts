@@ -20,14 +20,28 @@ class AuthService {
     // Simulate API delay
     await new Promise(resolve => setTimeout(resolve, 1000));
 
-    // Mock validation
-    if (email === "test@example.com" && password === "password") {
+    // Mock validation - accept any email/password for demo
+    if (email && password) {
       const user: User = {
         id: "1",
         email: email,
-        full_name: "Test User",
+        full_name: email.split('@')[0] || "Ubuntu Seeker",
         subscription_tier: "ubuntu_connector",
         ubuntu_values_score: 85,
+        heritage_profile: {
+          id: "1",
+          user_id: "1",
+          regional_origins: ["West Africa", "East Africa"],
+          cultural_identities: ["Yoruba", "Swahili"],
+          heritage_completion_percentage: 65,
+          cultural_preferences: {
+            preferred_languages: ["English", "Yoruba"],
+            cultural_practices: ["Meditation", "Storytelling"],
+            spiritual_traditions: ["Ancestral Worship"],
+            community_focus: "global",
+            learning_style: "community"
+          }
+        },
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
       };
@@ -47,14 +61,27 @@ class AuthService {
       return { success: false, error: "Email and full name are required" };
     }
 
-    // Create new user
+    // Create new user with heritage profile
     const newUser: User = {
       id: Math.random().toString(36).substr(2, 9),
       email: userData.email,
       full_name: userData.full_name,
       subscription_tier: "seeker",
       ubuntu_values_score: 50,
-      heritage_profile: userData.heritage_profile,
+      heritage_profile: {
+        id: Math.random().toString(36).substr(2, 9),
+        user_id: Math.random().toString(36).substr(2, 9),
+        regional_origins: userData.heritage_profile?.regional_origins || ["West Africa"],
+        cultural_identities: userData.heritage_profile?.cultural_identities || ["African"],
+        heritage_completion_percentage: 25,
+        cultural_preferences: {
+          preferred_languages: ["English"],
+          cultural_practices: ["Meditation"],
+          spiritual_traditions: ["Ancestral Worship"],
+          community_focus: "global",
+          learning_style: "community"
+        }
+      },
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString()
     };
