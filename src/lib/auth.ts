@@ -1,153 +1,107 @@
-import { User } from "@/types";
+import { User, HeritageBackground } from '@/types';
 
-// Mock user data for development
-const mockUsers: User[] = [
-  {
-    id: "1",
-    email: "demo@asante.com",
-    firstName: "Ubuntu",
-    lastName: "Warrior",
-    avatar: "/avatars/default.jpg",
-    heritage: {
-      primaryRegion: "west-africa",
-      familyTraditions: "Storytelling and community gatherings",
-      ancestralStories: ["The wisdom of our elders", "Community leadership"]
-    },
-    location: "Accra, Ghana",
-    ageRange: "26-35",
-    occupation: "Community Leader",
-    interests: [
-      "Connect with African heritage and culture",
-      "Learn traditional wisdom and philosophy",
-      "Build community and relationships"
-    ],
-    communityPreferences: [
-      "Join discussion circles",
-      "Connect with mentors",
-      "Share stories and experiences"
-    ],
-    createdAt: new Date("2024-01-01"),
-    updatedAt: new Date()
-  }
-];
-
-export interface AuthState {
-  user: User | null;
-  isAuthenticated: boolean;
-  isLoading: boolean;
-}
-
-export class AuthService {
-  private static instance: AuthService;
+class AuthService {
   private currentUser: User | null = null;
 
-  private constructor() {}
-
-  static getInstance(): AuthService {
-    if (!AuthService.instance) {
-      AuthService.instance = new AuthService();
-    }
-    return AuthService.instance;
+  constructor() {
+    // Initialize with a mock user for development
+    this.currentUser = {
+      id: "1",
+      email: "ubuntu@asante.com",
+      full_name: "Ubuntu Seeker",
+      subscription_tier: "seeker",
+      ubuntu_values_score: 75,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    };
   }
 
   async login(email: string, password: string): Promise<{ success: boolean; user?: User; error?: string }> {
-    try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      const user = mockUsers.find(u => u.email === email);
-      if (user && password === "demo123") {
-        this.currentUser = user;
-        return { success: true, user };
-      }
-      
-      return { success: false, error: "Invalid credentials" };
-    } catch (error) {
-      return { success: false, error: "Login failed" };
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    // Mock validation
+    if (email === "test@example.com" && password === "password") {
+      const user: User = {
+        id: "1",
+        email: email,
+        full_name: "Test User",
+        subscription_tier: "ubuntu_connector",
+        ubuntu_values_score: 85,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      };
+      this.currentUser = user;
+      return { success: true, user };
     }
+
+    return { success: false, error: "Invalid credentials" };
   }
 
   async signup(userData: Partial<User>): Promise<{ success: boolean; user?: User; error?: string }> {
-    try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      const newUser: User = {
-        id: Date.now().toString(),
-        email: userData.email!,
-        firstName: userData.firstName!,
-        lastName: userData.lastName!,
-        interests: userData.interests || [],
-        communityPreferences: userData.communityPreferences || [],
-        heritage: userData.heritage,
-        location: userData.location,
-        ageRange: userData.ageRange,
-        occupation: userData.occupation,
-        familyTraditions: userData.familyTraditions,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      };
-      
-      this.currentUser = newUser;
-      return { success: true, user: newUser };
-    } catch (error) {
-      return { success: false, error: "Signup failed" };
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 1500));
+
+    // Mock validation
+    if (!userData.email || !userData.full_name) {
+      return { success: false, error: "Email and full name are required" };
     }
+
+    // Create new user
+    const newUser: User = {
+      id: Math.random().toString(36).substr(2, 9),
+      email: userData.email,
+      full_name: userData.full_name,
+      subscription_tier: "seeker",
+      ubuntu_values_score: 50,
+      heritage_profile: userData.heritage_profile,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    };
+
+    this.currentUser = newUser;
+    return { success: true, user: newUser };
   }
 
   async logout(): Promise<{ success: boolean }> {
-    try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 500));
-      
-      this.currentUser = null;
-      return { success: true };
-    } catch (error) {
-      return { success: false };
-    }
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    this.currentUser = null;
+    return { success: true };
   }
 
   async getCurrentUser(): Promise<User | null> {
-    // Simulate API call
+    // Simulate API delay
     await new Promise(resolve => setTimeout(resolve, 300));
+    
     return this.currentUser;
   }
 
   async updateProfile(updates: Partial<User>): Promise<{ success: boolean; user?: User; error?: string }> {
-    try {
-      if (!this.currentUser) {
-        return { success: false, error: "Not authenticated" };
-      }
-      
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      this.currentUser = { ...this.currentUser, ...updates, updatedAt: new Date() };
-      return { success: true, user: this.currentUser };
-    } catch (error) {
-      return { success: false, error: "Profile update failed" };
+    if (!this.currentUser) {
+      return { success: false, error: "No user logged in" };
     }
-  }
 
-  isAuthenticated(): boolean {
-    return this.currentUser !== null;
-  }
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 800));
 
-  getUser(): User | null {
-    return this.currentUser;
+    // Update user
+    this.currentUser = { ...this.currentUser, ...updates, updated_at: new Date().toISOString() };
+    return { success: true, user: this.currentUser };
   }
 }
 
 // Export singleton instance
-export const authService = AuthService.getInstance();
+export const authService = new AuthService();
 
 // Utility functions
-export const validateEmail = (email: string): boolean => {
+export function validateEmail(email: string): boolean {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
-};
+}
 
-export const validatePassword = (password: string): { isValid: boolean; errors: string[] } => {
+export function validatePassword(password: string): { isValid: boolean; errors: string[] } {
   const errors: string[] = [];
   
   if (password.length < 8) {
@@ -165,9 +119,9 @@ export const validatePassword = (password: string): { isValid: boolean; errors: 
   if (!/\d/.test(password)) {
     errors.push("Password must contain at least one number");
   }
-  
+
   return {
     isValid: errors.length === 0,
     errors
   };
-}; 
+} 
