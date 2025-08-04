@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -9,7 +9,6 @@ export const metadata: Metadata = {
   description: "An Ubuntu-inspired learning platform connecting African heritage with modern wisdom for personal and community transformation.",
   keywords: "African learning, Ubuntu philosophy, transformational education, heritage, wisdom, community",
   authors: [{ name: "Asante Platform" }],
-  viewport: "width=device-width, initial-scale=1",
   robots: "index, follow",
   openGraph: {
     title: "Asante - African-Centered Transformational Learning",
@@ -22,6 +21,11 @@ export const metadata: Metadata = {
     title: "Asante - African-Centered Transformational Learning",
     description: "An Ubuntu-inspired learning platform connecting African heritage with modern wisdom for personal and community transformation.",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({

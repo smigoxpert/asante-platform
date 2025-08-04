@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -12,6 +13,7 @@ import { User, DashboardStats, ActivityFeedItem, QuickAction, CulturalCalendarEv
 import AuthenticatedLayout from "@/components/layout/AuthenticatedLayout";
 
 export default function UbuntuDashboard() {
+  const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [currentCourseIndex, setCurrentCourseIndex] = useState(0);
   const coursesRef = useRef<HTMLDivElement>(null);
@@ -195,6 +197,14 @@ export default function UbuntuDashboard() {
   const canScrollLeft = currentCourseIndex > 0;
   const canScrollRight = currentCourseIndex < featuredCourses.length - 1;
 
+  const handleViewAllCourses = () => {
+    router.push('/courses');
+  };
+
+  const handleCourseClick = (courseId: string) => {
+    router.push(`/courses/${courseId}`);
+  };
+
   return (
     <AuthenticatedLayout>
       <div className="px-6 py-8">
@@ -249,7 +259,11 @@ export default function UbuntuDashboard() {
           <section>
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-3xl font-ubuntu font-bold text-gray-900">Featured Courses</h2>
-              <Button variant="outline" className="border-heritage-gold text-heritage-gold hover:bg-heritage-gold/10 font-ubuntu">
+              <Button 
+                variant="outline" 
+                className="border-heritage-gold text-heritage-gold hover:bg-heritage-gold/10 font-ubuntu"
+                onClick={handleViewAllCourses}
+              >
                 View All Courses
               </Button>
             </div>
@@ -326,6 +340,7 @@ export default function UbuntuDashboard() {
                       </div>
                       <Button 
                         className="w-full heritage-gradient hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 font-ubuntu font-semibold text-white"
+                        onClick={() => handleCourseClick(course.id)}
                       >
                         {course.progress > 0 ? 'Continue' : 'Start Course'}
                       </Button>

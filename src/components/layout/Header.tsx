@@ -59,6 +59,26 @@ export default function Header() {
         </svg>
       )
     },
+    
+    { 
+      href: "/wisdom-paths", 
+      label: "Paths", 
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+      )
+    },
+    { 
+      href: "/courses", 
+      label: "Courses", 
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+        </svg>
+      )
+    },
     { 
       href: "/heritage", 
       label: "Heritage", 
@@ -69,17 +89,8 @@ export default function Header() {
       )
     },
     { 
-      href: "/wisdom-paths", 
-      label: "Wisdom Paths", 
-      icon: (
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-        </svg>
-      )
-    },
-    { 
       href: "/circles", 
-      label: "Ubuntu Circles", 
+      label: "Community", 
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -87,11 +98,11 @@ export default function Header() {
       )
     },
     { 
-      href: "/impact", 
-      label: "Impact", 
+      href: "/donate", 
+      label: "Donate", 
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
         </svg>
       )
     },
@@ -142,19 +153,19 @@ export default function Header() {
             </div>
 
             {/* Navigation */}
-            <nav className="hidden md:flex items-center space-x-1">
+            <nav className="hidden md:flex items-center space-x-0.5">
               {navigationItems.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-ubuntu font-medium transition-all duration-200 ${
+                  className={`flex items-center space-x-2 px-3 py-1.5 rounded-md font-ubuntu font-medium transition-all duration-200 ${
                     pathname === item.href
                       ? "bg-heritage-gold/10 text-heritage-gold border border-heritage-gold/20"
                       : "text-gray-600 hover:text-heritage-gold hover:bg-heritage-gold/5"
                   }`}
                 >
                   <span className="text-lg">{item.icon}</span>
-                  <span>{item.label}</span>
+                  <span className="text-sm">{item.label}</span>
                 </Link>
               ))}
             </nav>
@@ -164,8 +175,8 @@ export default function Header() {
               {/* Notifications */}
               <button className="relative p-2 text-gray-600 hover:text-heritage-gold transition-colors">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-5 5v-5z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
                 </svg>
                 <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></span>
               </button>
@@ -202,12 +213,12 @@ export default function Header() {
 
         {/* Mobile Navigation */}
         <div className="md:hidden border-t border-heritage-gold/10">
-          <div className="flex space-x-1 px-4 py-2 overflow-x-auto">
+          <div className="flex space-x-0.5 px-4 py-1.5 overflow-x-auto">
             {navigationItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex flex-col items-center space-y-1 px-3 py-2 rounded-lg font-ubuntu text-xs transition-all duration-200 flex-shrink-0 ${
+                className={`flex flex-col items-center space-y-1 px-2 py-1.5 rounded-md font-ubuntu text-xs transition-all duration-200 flex-shrink-0 min-w-[50px] ${
                   pathname === item.href
                     ? "bg-heritage-gold/10 text-heritage-gold"
                     : "text-gray-600 hover:text-heritage-gold hover:bg-heritage-gold/5"
