@@ -299,7 +299,7 @@ export default function LandingPage() {
               <Button size="lg" className="bg-heritage-gold hover:bg-heritage-bronze text-white px-8 py-3 text-lg">
                 <Link href="/signup">Begin Heritage Discovery</Link>
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 px-8 py-3 text-lg">
+              <Button size="lg" className="border-white text-white hover:bg-white/10 px-8 py-3 text-lg bg-transparent">
                 <Download className="mr-2" />
                 Download Mobile App
               </Button>
@@ -489,7 +489,65 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+      
+        {/* Learning Paths Preview */}
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-ubuntu-50 to-ubuntu-100">
+        <div className="max-w-7xl mx-auto">
+          <motion.div 
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              Transform Through <span className="text-ubuntu-600">Ancient Wisdom</span>
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Six transformative paths guided by African wisdom traditions and Ubuntu philosophy
+            </p>
+          </motion.div>
 
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {wisdomPaths.map((path, index) => (
+              <motion.div
+                key={path.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+              >
+                <Card className="border-ubuntu-200 hover:shadow-ubuntu transition-all duration-300 hover:-translate-y-2">
+                  <CardHeader>
+                    <div className="w-12 h-12 bg-ubuntu-100 rounded-full flex items-center justify-center mb-4">
+                      <path.icon className="w-6 h-6 text-ubuntu-600" />
+                    </div>
+                    <CardTitle className="text-ubuntu-600">{path.title}</CardTitle>
+                    <CardDescription>{path.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex items-center justify-between text-sm text-gray-600 mb-4">
+                      <span>{path.duration}</span>
+                      <div className="flex space-x-1">
+                        {[...Array(5)].map((_, i) => (
+                          <div
+                            key={i}
+                            className={`w-2 h-2 rounded-full ${
+                              i < path.difficulty ? 'bg-ubuntu-400' : 'bg-gray-200'
+                            }`}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                    <Button variant="outline" className="w-full border-ubuntu-300 text-ubuntu-600 hover:bg-ubuntu-50">
+                      Explore Path
+                    </Button>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+      
       {/* Ubuntu Community Showcase */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
@@ -577,63 +635,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Learning Paths Preview */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-ubuntu-50 to-ubuntu-100">
-        <div className="max-w-7xl mx-auto">
-          <motion.div 
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Transform Through <span className="text-ubuntu-600">Ancient Wisdom</span>
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Six transformative paths guided by African wisdom traditions and Ubuntu philosophy
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {wisdomPaths.map((path, index) => (
-              <motion.div
-                key={path.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-              >
-                <Card className="border-ubuntu-200 hover:shadow-ubuntu transition-all duration-300 hover:-translate-y-2">
-                  <CardHeader>
-                    <div className="w-12 h-12 bg-ubuntu-100 rounded-full flex items-center justify-center mb-4">
-                      <path.icon className="w-6 h-6 text-ubuntu-600" />
-                    </div>
-                    <CardTitle className="text-ubuntu-600">{path.title}</CardTitle>
-                    <CardDescription>{path.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex items-center justify-between text-sm text-gray-600 mb-4">
-                      <span>{path.duration}</span>
-                      <div className="flex space-x-1">
-                        {[...Array(5)].map((_, i) => (
-                          <div
-                            key={i}
-                            className={`w-2 h-2 rounded-full ${
-                              i < path.difficulty ? 'bg-ubuntu-400' : 'bg-gray-200'
-                            }`}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                    <Button variant="outline" className="w-full border-ubuntu-300 text-ubuntu-600 hover:bg-ubuntu-50">
-                      Explore Path
-                    </Button>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+    
 
       {/* Mobile App Download Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
@@ -888,14 +890,14 @@ export default function LandingPage() {
                     <div className="bg-gradient-to-r from-ubuntu-500 to-ubuntu-600 p-6 rounded-lg text-white">
                       <h4 className="font-semibold mb-2">Traditional Welcome Ceremony</h4>
                       <p className="text-ubuntu-100 mb-4">Experience the warmth of African hospitality and community connection</p>
-                      <Button variant="outline" className="border-white text-white hover:bg-white hover:text-ubuntu-600">
+                      <Button className="border-white text-white hover:bg-white hover:text-ubuntu-600 bg-transparent">
                         Join Ceremony
                       </Button>
                     </div>
                     <div className="bg-gradient-to-r from-heritage-gold to-heritage-bronze p-6 rounded-lg text-white">
                       <h4 className="font-semibold mb-2">Elder Wisdom Circle</h4>
                       <p className="text-heritage-gold/80 mb-4">Learn from traditional wisdom keepers and cultural mentors</p>
-                      <Button variant="outline" className="border-white text-white hover:bg-white hover:text-heritage-bronze">
+                      <Button className="border-white text-white hover:bg-white hover:text-heritage-bronze bg-transparent">
                         Register Now
                       </Button>
                     </div>
