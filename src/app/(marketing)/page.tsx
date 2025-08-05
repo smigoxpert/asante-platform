@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Logo } from "@/components/ui/logo";
 import { FaStar, FaMagic } from "react-icons/fa";
 import { GiSparkles } from "react-icons/gi";
 
@@ -30,11 +31,8 @@ export default function LandingPage() {
         <section className="relative py-20 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center">
           <div className="max-w-7xl mx-auto text-center">
             {/* Header Icon */}
-            <div className="inline-block p-6 rounded-full heritage-gradient heritage-glow mb-8">
-              <svg className="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/>
-                <path d="M10 14l-2-2 1.41-1.41L10 11.17l4.59-4.58L16 8l-6 6z" fill="rgba(255,255,255,0.8)"/>
-              </svg>
+            <div className="flex justify-center mb-8">
+              <Logo size="xl" showText={false} />
             </div>
 
             <div className="mb-12">

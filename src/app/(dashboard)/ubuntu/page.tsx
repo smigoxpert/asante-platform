@@ -8,6 +8,8 @@ import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import DayStreak from "@/components/ui/day-streak";
+import { DashboardSkeleton } from "@/components/ui/dashboard-skeleton";
+import { LoadingButton } from "@/components/ui/loading";
 import { authService } from "@/lib/auth";
 import { User, DashboardStats, ActivityFeedItem, QuickAction, CulturalCalendarEvent, ElderWisdomDaily, HeritageDiscovery, UbuntuCircleStatus } from "@/types";
 import AuthenticatedLayout from "@/components/layout/AuthenticatedLayout";
@@ -19,6 +21,7 @@ import { getRandomCountryCode } from "@/lib/countryFlags";
 export default function UbuntuDashboard() {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [currentCourseIndex, setCurrentCourseIndex] = useState(0);
   const coursesRef = useRef<HTMLDivElement>(null);
   const [stats, setStats] = useState<DashboardStats>({
@@ -154,8 +157,14 @@ export default function UbuntuDashboard() {
 
   useEffect(() => {
     const loadUser = async () => {
-      const currentUser = await authService.getCurrentUser();
-      setUser(currentUser);
+      try {
+        const currentUser = await authService.getCurrentUser();
+        setUser(currentUser);
+      } catch (error) {
+        console.error("Failed to load user:", error);
+      } finally {
+        setIsLoading(false);
+      }
     };
     loadUser();
   }, []);
@@ -208,6 +217,18 @@ export default function UbuntuDashboard() {
   const handleCourseClick = (courseId: string) => {
     router.push(`/courses/${courseId}`);
   };
+
+  if (isLoading) {
+    return (
+      <AuthenticatedLayout>
+        <div className="px-6 py-8">
+          <div className="max-w-7xl mx-auto">
+            <DashboardSkeleton />
+          </div>
+        </div>
+      </AuthenticatedLayout>
+    );
+  }
 
   return (
     <AuthenticatedLayout>

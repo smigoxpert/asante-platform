@@ -5,13 +5,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Logo } from "@/components/ui/logo";
+import { LoadingButton } from "@/components/ui/loading";
 import { authService } from "@/lib/auth";
+import { useLoading } from "@/components/providers/loading-provider";
 import { User } from "@/types";
 
 export default function Header() {
   const [user, setUser] = useState<User | null>(null);
   const [showGreeting, setShowGreeting] = useState(false);
   const pathname = usePathname();
+  const { showLoading, hideLoading } = useLoading();
 
   useEffect(() => {
     const loadUser = async () => {
@@ -109,8 +113,14 @@ export default function Header() {
   ];
 
   const handleLogout = async () => {
-    await authService.logout();
-    window.location.href = "/login";
+    showLoading("Signing out...");
+    try {
+      await authService.logout();
+      window.location.href = "/login";
+    } catch (error) {
+      hideLoading();
+      console.error("Logout failed:", error);
+    }
   };
 
   return (
@@ -142,14 +152,7 @@ export default function Header() {
           <div className="flex items-center justify-between h-16">
             {/* Logo and Brand */}
             <div className="flex items-center space-x-4">
-              <Link href="/ubuntu" className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-heritage-gold to-heritage-bronze rounded-lg flex items-center justify-center shadow-md">
-                  <span className="text-white text-xl font-bold">A</span>
-                </div>
-                <div>
-                  <h1 className="text-xl font-ubuntu font-bold text-gray-900">Asante</h1>
-                </div>
-              </Link>
+              <Logo href="/ubuntu" size="md" />
             </div>
 
             {/* Navigation */}
@@ -199,14 +202,15 @@ export default function Header() {
               </div>
 
               {/* Logout Button */}
-              <Button
+              <LoadingButton
                 variant="outline"
                 size="sm"
                 onClick={handleLogout}
                 className="border-heritage-gold/30 text-heritage-gold hover:bg-heritage-gold/10 font-ubuntu"
+                loadingText="Signing out..."
               >
                 Logout
-              </Button>
+              </LoadingButton>
             </div>
           </div>
         </div>

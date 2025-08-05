@@ -7,7 +7,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Logo } from "@/components/ui/logo";
+import { LoadingButton } from "@/components/ui/loading";
 import { authService } from "@/lib/auth";
+import { useLoading } from "@/components/providers/loading-provider";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -15,24 +18,33 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const { showLoading, hideLoading } = useLoading();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    showLoading("Signing you in...");
     setError("");
 
     try {
       const result = await authService.login(email, password);
       if (result.success && result.user) {
-        // Redirect to Ubuntu dashboard
-        router.push("/ubuntu");
+        // Clear loading states before redirect
+        setIsLoading(false);
+        hideLoading();
+        // Small delay to ensure loading states are cleared before redirect
+        setTimeout(() => {
+          router.push("/ubuntu");
+        }, 100);
       } else {
+        setIsLoading(false);
+        hideLoading();
         setError(result.error || "Login failed");
       }
     } catch (err) {
-      setError("An error occurred during login");
-    } finally {
       setIsLoading(false);
+      hideLoading();
+      setError("An error occurred during login");
     }
   };
 
@@ -59,11 +71,8 @@ export default function LoginPage() {
         <div className="max-w-md w-full space-y-8">
           {/* Header with Enhanced Typography */}
           <div className="text-center space-y-4">
-            <div className="inline-block p-4 rounded-full heritage-gradient heritage-glow mb-4">
-              <svg className="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/>
-                <path d="M10 14l-2-2 1.41-1.41L10 11.17l4.59-4.58L16 8l-6 6z" fill="rgba(255,255,255,0.8)"/>
-              </svg>
+            <div className="flex justify-center mb-6">
+              <Logo size="xl" showText={false} />
             </div>
             
             <h1 className="text-4xl font-ubuntu font-bold text-white mb-2 text-balance">
@@ -156,30 +165,19 @@ export default function LoginPage() {
                   </div>
                 </div>
 
-                <Button 
+                <LoadingButton 
                   type="submit" 
-                  disabled={isLoading}
+                  loading={isLoading}
+                  loadingText="Signing In..."
                   className="w-full heritage-gradient hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 font-ubuntu font-semibold text-white py-3 disabled:opacity-50"
                 >
                   <span className="flex items-center justify-center space-x-2">
-                    {isLoading ? (
-                      <>
-                        <svg className="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        <span>Signing In...</span>
-                      </>
-                    ) : (
-                      <>
-                        <span>Sign In</span>
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                        </svg>
-                      </>
-                    )}
+                    <span>Sign In</span>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
                   </span>
-                </Button>
+                </LoadingButton>
               </form>
 
               {/* Social Login Section */}
