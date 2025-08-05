@@ -1,75 +1,105 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { LoadingProvider } from "@/components/providers/loading-provider";
-import { StorageProvider } from "@/components/providers/storage-provider";
-import { AuthProvider } from "@/hooks/useAuth";
-import { AuthGuard } from "@/components/auth/auth-guard";
+import { Ubuntu } from "next/font/google";
 import "./globals.css";
-import { GlobalLoading } from "@/components/ui/global-loading";
-import { PageTransition } from "@/components/ui/page-transition";
-import { StorageMonitor } from "@/components/ui/storage-monitor";
+import { ThemeProvider } from "@/components/providers/theme-provider";
+import { StorageProvider } from "@/components/providers/storage-provider";
+import { LoadingProvider } from "@/components/providers/loading-provider";
 
-const inter = Inter({ subsets: ["latin"] });
+// Optimized font loading
+const ubuntu = Ubuntu({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "700"],
+  display: "swap",
+  preload: true,
+  fallback: ["system-ui", "sans-serif"],
+});
 
 export const metadata: Metadata = {
-  title: "Asante - African Heritage Discovery Platform",
-  description: "Discover your African roots through advanced heritage analysis, cultural connections, and ancestral wisdom. Join the Asante community to explore your heritage journey.",
-  keywords: "African heritage, ancestry, cultural discovery, heritage analysis, African roots, cultural identity",
-  authors: [{ name: "Asante Team" }],
+  title: "Asante - African-Centered Learning Platform",
+  description: "An African-centered transformational learning platform that connects you with your heritage, wisdom traditions, and community for personal and collective growth.",
+  keywords: ["African", "learning", "heritage", "wisdom", "community", "ubuntu", "transformation"],
+  authors: [{ name: "Asante Platform" }],
   creator: "Asante Platform",
-  publisher: "Asante",
+  publisher: "Asante Platform",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://asante-platform.com'),
+  metadataBase: new URL("https://asante-platform.com"),
   openGraph: {
-    title: "Asante - African Heritage Discovery Platform",
-    description: "Discover your African roots through advanced heritage analysis and cultural connections.",
-    url: 'https://asante-platform.com',
-    siteName: 'Asante',
+    title: "Asante - African-Centered Learning Platform",
+    description: "An African-centered transformational learning platform that connects you with your heritage, wisdom traditions, and community for personal and collective growth.",
+    url: "https://asante-platform.com",
+    siteName: "Asante Platform",
     images: [
       {
-        url: '/images/paths/asante-logo.png',
+        url: "/images/paths/asante-logo.png",
         width: 1200,
         height: 630,
-        alt: 'Asante Heritage Platform',
+        alt: "Asante Platform",
       },
     ],
-    locale: 'en_US',
-    type: 'website',
+    locale: "en_US",
+    type: "website",
   },
   twitter: {
-    card: 'summary_large_image',
-    title: "Asante - African Heritage Discovery Platform",
-    description: "Discover your African roots through advanced heritage analysis and cultural connections.",
-    images: ['/images/paths/asante-logo.png'],
+    card: "summary_large_image",
+    title: "Asante - African-Centered Learning Platform",
+    description: "An African-centered transformational learning platform that connects you with your heritage, wisdom traditions, and community for personal and collective growth.",
+    images: ["/images/paths/asante-logo.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  verification: {
+    google: "your-google-verification-code",
   },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en" data-scroll-behavior="smooth">
-      <body className={`${inter.className} antialiased`}>
-        <AuthProvider>
+    <html lang="en" className={ubuntu.className} suppressHydrationWarning>
+      <head>
+        {/* Preload critical resources */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        
+        {/* Preload critical images */}
+        <link rel="preload" as="image" href="/images/paths/asante-logo.png" />
+        
+        {/* Performance optimizations */}
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+        <meta name="theme-color" content="#d4af37" />
+        <meta name="color-scheme" content="light dark" />
+        
+        {/* Resource hints */}
+        <link rel="prefetch" href="/signup" />
+        <link rel="prefetch" href="/about" />
+      </head>
+      <body className="antialiased">
+        <ThemeProvider
+          defaultTheme="system"
+        >
           <StorageProvider>
             <LoadingProvider>
-              <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50">
-                <AuthGuard>
-                  {children}
-                </AuthGuard>
-              </div>
-              <GlobalLoading />
-              <PageTransition />
-              <StorageMonitor />
+              {children}
             </LoadingProvider>
           </StorageProvider>
-        </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

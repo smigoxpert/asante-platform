@@ -24,8 +24,8 @@ class StorageManager {
   }
 
   // Generic storage methods
-  private getStorage(type: 'local' | 'session'): Storage {
-    return type === 'local' ? localStorage : sessionStorage;
+  private getStorage(type: 'local' | 'session'): globalThis.Storage {
+    return type === 'local' ? globalThis.localStorage : globalThis.sessionStorage;
   }
 
   private getKey(key: string): string {
@@ -229,6 +229,9 @@ export const STORAGE_KEYS = {
 
 // Type-safe storage helpers
 export const storage = {
+  // Expose storage instances
+  localStorage,
+  sessionStorage,
   // User preferences
   setUserPreferences: (prefs: any) => localStorage.set(STORAGE_KEYS.USER_PREFERENCES, prefs),
   getUserPreferences: () => localStorage.get(STORAGE_KEYS.USER_PREFERENCES),

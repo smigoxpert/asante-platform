@@ -29,7 +29,7 @@ asante-platform/
 │   │   │   ├── wisdom-paths/ # Learning journeys
 │   │   │   ├── circles/      # Community spaces
 │   │   │   └── impact/       # Impact tracking
-│   │   ├── (marketing)/      # Public marketing pages
+
 │   │   │   ├── page.tsx      # Landing page
 │   │   │   ├── about/
 │   │   │   ├── pricing/

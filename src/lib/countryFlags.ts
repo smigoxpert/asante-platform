@@ -101,7 +101,6 @@ export const getCountryFromCode = (countryCode: string): string => {
     'IQ': 'Iraq',
     'IR': 'Iran',
     'AF': 'Afghanistan',
-    'PK': 'Pakistan',
     'CN': 'China',
     'JP': 'Japan',
     'KR': 'South Korea',
