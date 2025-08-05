@@ -23,7 +23,7 @@ export default function LoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    showLoading("Signing you in...");
+    showLoading("Signing you in..."); // Global loading overlay
     setError("");
 
     try {
@@ -32,10 +32,8 @@ export default function LoginPage() {
         // Clear loading states before redirect
         setIsLoading(false);
         hideLoading();
-        // Small delay to ensure loading states are cleared before redirect
-        setTimeout(() => {
-          router.push("/ubuntu");
-        }, 100);
+        // Use window.location.href to avoid loading loops
+        window.location.href = "/ubuntu";
       } else {
         setIsLoading(false);
         hideLoading();

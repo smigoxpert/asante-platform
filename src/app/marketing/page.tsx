@@ -5,7 +5,7 @@ import { Logo } from "@/components/ui/logo";
 import { FaStar, FaMagic } from "react-icons/fa";
 import { GiSparkles } from "react-icons/gi";
 
-export default function LandingPage() {
+export default function MarketingPage() {
   return (
     <div className="min-h-screen relative overflow-hidden">
       {/* Animated Background */}
@@ -84,8 +84,6 @@ export default function LandingPage() {
             </div>
           </div>
         </section>
-
-
 
         {/* Features Section */}
         <section className="py-12 px-4 sm:px-6 lg:px-8 relative">

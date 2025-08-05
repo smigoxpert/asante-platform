@@ -36,8 +36,8 @@ export default function SignupPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    showLoading("Creating your account...");
-    setError("");
+    showLoading("Creating your account..."); // Global loading overlay
+    setError(""); 
 
     if (formData.password !== formData.confirmPassword) {
       setIsLoading(false);
@@ -51,15 +51,15 @@ export default function SignupPage() {
         email: formData.email,
         full_name: `${formData.firstName} ${formData.lastName}`,
         heritage_profile: {
-          id: "",
-          user_id: "",
-          regional_origins: formData.heritage ? [formData.heritage] : ["West Africa"],
-          cultural_identities: ["African"],
-          heritage_completion_percentage: 25,
+          id: "1",
+          user_id: "1",
+          regional_origins: [],
+          cultural_identities: [],
+          heritage_completion_percentage: 0,
           cultural_preferences: {
-            preferred_languages: ["English"],
-            cultural_practices: ["Meditation"],
-            spiritual_traditions: ["Ancestral Worship"],
+            preferred_languages: [],
+            cultural_practices: [],
+            spiritual_traditions: [],
             community_focus: "global",
             learning_style: "community"
           }
@@ -70,10 +70,8 @@ export default function SignupPage() {
         // Clear loading states before redirect
         setIsLoading(false);
         hideLoading();
-        // Small delay to ensure loading states are cleared before redirect
-        setTimeout(() => {
-          router.push("/ubuntu");
-        }, 100);
+        // Use window.location.href to avoid loading loops
+        window.location.href = "/ubuntu";
       } else {
         setIsLoading(false);
         hideLoading();
