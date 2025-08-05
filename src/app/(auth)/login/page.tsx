@@ -67,7 +67,7 @@ export default function LoginPage() {
             </div>
             
             <h1 className="text-4xl font-ubuntu font-bold text-white mb-2 text-balance">
-              Welcome to <span className="text-white drop-shadow-lg shadow-black/50 ubuntu-pulse font-extrabold">Asante</span>
+              Welcome to <span className="bg-gradient-to-r from-heritage-gold via-orange-600 to-red-600 bg-clip-text text-transparent drop-shadow-lg shadow-black/50 ubuntu-pulse font-extrabold">Asante</span>
             </h1>
             <p className="text-white/90 text-lg font-ubuntu font-light">
               Continue your Ubuntu journey of growth and connection
@@ -84,7 +84,7 @@ export default function LoginPage() {
           {/* Enhanced Card with Glassmorphism */}
           <Card className="backdrop-blur-xl bg-white/95 border-white/30 shadow-2xl heritage-glow">
             <CardHeader className="text-center pb-6">
-              <CardTitle className="text-2xl font-ubuntu font-bold heritage-gradient bg-clip-text text-transparent">
+              <CardTitle className="text-2xl font-ubuntu font-bold bg-gradient-to-r from-heritage-gold via-orange-600 to-red-600 bg-clip-text text-transparent">
                 Sign In
               </CardTitle>
               <CardDescription className="text-gray-600 font-ubuntu">

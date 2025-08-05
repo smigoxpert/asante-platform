@@ -11,6 +11,10 @@ import DayStreak from "@/components/ui/day-streak";
 import { authService } from "@/lib/auth";
 import { User, DashboardStats, ActivityFeedItem, QuickAction, CulturalCalendarEvent, ElderWisdomDaily, HeritageDiscovery, UbuntuCircleStatus } from "@/types";
 import AuthenticatedLayout from "@/components/layout/AuthenticatedLayout";
+import { FaGlobe, FaCrown, FaHeart, FaStar, FaMoon, FaBook, FaGift, FaUsers, FaUserTie } from "react-icons/fa";
+import { IoMdSchool } from "react-icons/io";
+import { CountryFlag } from "@/components/ui/country-flag";
+import { getRandomCountryCode } from "@/lib/countryFlags";
 
 export default function UbuntuDashboard() {
   const router = useRouter();
@@ -33,7 +37,7 @@ export default function UbuntuDashboard() {
       title: "Ancestral Wisdom Foundations",
       description: "Discover the power of storytelling and oral traditions",
       progress: 75,
-      thumbnail: "🌍",
+      icon: <FaGlobe className="w-8 h-8 text-heritage-gold" />,
       duration: "2h 30m",
       lessons: 12,
       category: "Heritage"
@@ -43,7 +47,7 @@ export default function UbuntuDashboard() {
       title: "Ubuntu Leadership",
       description: "Community-centered leadership principles",
       progress: 45,
-      thumbnail: "👑",
+      icon: <FaCrown className="w-8 h-8 text-heritage-gold" />,
       duration: "3h 15m",
       lessons: 18,
       category: "Leadership"
@@ -53,7 +57,7 @@ export default function UbuntuDashboard() {
       title: "Sacred Relationships",
       description: "Building meaningful connections through Ubuntu",
       progress: 20,
-      thumbnail: "💝",
+      icon: <FaHeart className="w-8 h-8 text-heritage-gold" />,
       duration: "1h 45m",
       lessons: 8,
       category: "Relationships"
@@ -63,7 +67,7 @@ export default function UbuntuDashboard() {
       title: "Spiritual Awakening",
       description: "Traditional African spirituality and modern practice",
       progress: 0,
-      thumbnail: "⭐",
+      icon: <FaStar className="w-8 h-8 text-heritage-gold" />,
       duration: "4h 20m",
       lessons: 15,
       category: "Spirituality"
@@ -73,7 +77,7 @@ export default function UbuntuDashboard() {
   const [communityHighlights] = useState([
     {
       id: "1",
-      user: { name: "Amina", avatar: "A" },
+      user: { name: "Amina", avatar: "A", countryCode: "NG" },
       action: "shared wisdom",
       content: "Traditional healing practices from my grandmother",
       reactions: 12,
@@ -81,7 +85,7 @@ export default function UbuntuDashboard() {
     },
     {
       id: "2",
-      user: { name: "Kwame", avatar: "K" },
+      user: { name: "Kwame", avatar: "K", countryCode: "GH" },
       action: "completed",
       content: "Ancestral Wisdom Foundations course",
       reactions: 8,
@@ -89,7 +93,7 @@ export default function UbuntuDashboard() {
     },
     {
       id: "3",
-      user: { name: "Maya", avatar: "M" },
+      user: { name: "Maya", avatar: "M", countryCode: "KE" },
       action: "discovered",
       content: "new family connection in Nigeria",
       reactions: 15,
@@ -97,7 +101,7 @@ export default function UbuntuDashboard() {
     },
     {
       id: "4",
-      user: { name: "Zara", avatar: "Z" },
+      user: { name: "Zara", avatar: "Z", countryCode: "ZA" },
       action: "started",
       content: "Ubuntu Leadership journey",
       reactions: 6,
@@ -210,6 +214,18 @@ export default function UbuntuDashboard() {
       <div className="px-6 py-8">
         <div className="max-w-7xl mx-auto space-y-12">
           
+          {/* Hero Section */}
+          <section className="text-center">
+            <div className="max-w-4xl mx-auto">
+              <h1 className="text-5xl md:text-7xl font-ubuntu font-bold bg-gradient-to-r from-heritage-gold via-orange-600 to-red-600 bg-clip-text text-transparent mb-6">
+                Welcome to Asante
+              </h1>
+              <p className="text-xl md:text-2xl font-ubuntu text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                Your journey of cultural discovery, spiritual growth, and community connection begins here. Embrace the wisdom of your ancestors and build meaningful relationships.
+              </p>
+            </div>
+          </section>
+          
           {/* Quick Stats Section */}
           <section>
             <div className="flex items-center justify-between mb-6">
@@ -313,7 +329,9 @@ export default function UbuntuDashboard() {
                 <Card key={course.id} className="min-w-[320px] bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
                   <CardHeader className="pb-4">
                     <div className="flex items-center justify-between mb-3">
-                      <span className="text-4xl">{course.thumbnail}</span>
+                      <div className="flex items-center justify-center w-12 h-12">
+                        {course.icon}
+                      </div>
                       <Badge className="bg-heritage-gold/10 text-heritage-gold border-heritage-gold/20">
                         {course.category}
                       </Badge>
@@ -357,7 +375,9 @@ export default function UbuntuDashboard() {
             <Card className="bg-gradient-to-br from-heritage-gold/5 to-terracotta-500/5 border-heritage-gold/20">
               <CardContent className="p-8">
                 <div className="text-center max-w-4xl mx-auto">
-                  <div className="text-6xl mb-6">👴</div>
+                  <div className="w-16 h-16 bg-heritage-gold/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <FaUserTie className="w-8 h-8 text-heritage-gold" />
+                  </div>
                   <h2 className="text-3xl font-ubuntu font-bold text-gray-900 mb-4">
                     Today's Ubuntu Wisdom
                   </h2>
@@ -402,9 +422,14 @@ export default function UbuntuDashboard() {
                         </AvatarFallback>
                       </Avatar>
                       <div className="flex-1">
-                        <h4 className="font-ubuntu font-semibold text-gray-900">
-                          {highlight.user.name}
-                        </h4>
+                        <div className="flex items-center space-x-2">
+                          <h4 className="font-ubuntu font-semibold text-gray-900">
+                            {highlight.user.name}
+                          </h4>
+                          {highlight.user.countryCode && (
+                            <CountryFlag countryCode={highlight.user.countryCode} size="sm" />
+                          )}
+                        </div>
                         <p className="text-sm text-gray-600 font-ubuntu">
                           {highlight.action} <span className="font-medium">{highlight.content}</span>
                         </p>
@@ -442,7 +467,7 @@ export default function UbuntuDashboard() {
                   <CardHeader className="pb-4">
                                          <div className="flex items-center justify-between mb-3">
                        <span className="text-2xl">
-                         {event.type === 'ceremony' ? '🌙' : event.type === 'workshop' ? '📖' : '🎉'}
+                         {event.type === 'ceremony' ? <FaMoon className="w-6 h-6 text-heritage-gold" /> : event.type === 'workshop' ? <FaBook className="w-6 h-6 text-heritage-gold" /> : <FaGift className="w-6 h-6 text-heritage-gold" />}
                        </span>
                       <Badge className={`${
                         event.rsvp_status === 'attending' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
@@ -507,7 +532,9 @@ export default function UbuntuDashboard() {
 
                <Card className="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
                  <CardContent className="p-6 text-center">
-                   <div className="text-4xl mb-4">👥</div>
+                   <div className="w-12 h-12 bg-heritage-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                     <FaUsers className="w-6 h-6 text-heritage-gold" />
+                   </div>
                    <h3 className="font-ubuntu font-semibold text-gray-900 mb-2">Circle Meeting</h3>
                    <p className="text-sm text-gray-600 font-ubuntu mb-4">Join in 2 hours</p>
                    <Button className="w-full heritage-gradient hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 font-ubuntu font-semibold text-white">
@@ -529,7 +556,9 @@ export default function UbuntuDashboard() {
 
                <Card className="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
                  <CardContent className="p-6 text-center">
-                   <div className="text-4xl mb-4">👴</div>
+                   <div className="w-12 h-12 bg-heritage-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                     <FaUserTie className="w-6 h-6 text-heritage-gold" />
+                   </div>
                    <h3 className="font-ubuntu font-semibold text-gray-900 mb-2">Elder Guidance</h3>
                    <p className="text-sm text-gray-600 font-ubuntu mb-4">Book your session</p>
                    <Button className="w-full heritage-gradient hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 font-ubuntu font-semibold text-white">

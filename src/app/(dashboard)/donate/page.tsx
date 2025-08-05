@@ -11,20 +11,26 @@ import { Label } from "@/components/ui/label";
 import { authService } from "@/lib/auth";
 import { User } from "@/types";
 import AuthenticatedLayout from "@/components/layout/AuthenticatedLayout";
+import { FaHeart, FaCheckCircle, FaArrowUp, FaTwitter, FaFacebook, FaLinkedin, FaShare, FaInstagram, FaCrown, FaStar } from "react-icons/fa";
+import { IoMdSchool } from "react-icons/io";
+import { GiOpenBook } from "react-icons/gi";
+import { FaTiktok } from "react-icons/fa6";
+import { CountryFlag } from "@/components/ui/country-flag";
+import { getRandomCountryCode } from "@/lib/countryFlags";
 
-// Adinkra symbols for cultural elements
-const ADINKRA_SYMBOLS = {
-  sankofa: "🔄", // Return and get it
-  gyeNyame: "🌟", // Except God
-  akoma: "💝", // Heart
-  adinkrahene: "👑", // Chief of adinkra symbols
-  denkyem: "🐊", // Crocodile
-  akofena: "⚔️", // Sword of war
-  akomaNtoso: "💕", // Linked hearts
-  nkonsonkonson: "🔗", // Chain link
-  oheneAniwa: "👁️", // King's eyes
-  akokonan: "🦅", // Eagle's talons
-};
+  // Adinkra symbols for cultural elements - using SVG patterns instead of emojis
+  const ADINKRA_SYMBOLS = {
+    sankofa: "🔄", // Return and get it - keeping as emoji for cultural authenticity
+    gyeNyame: "🌟", // Except God - keeping as emoji for cultural authenticity
+    akoma: "💝", // Heart - keeping as emoji for cultural authenticity
+    adinkrahene: "👑", // Chief of adinkra symbols - keeping as emoji for cultural authenticity
+    denkyem: "🐊", // Crocodile - keeping as emoji for cultural authenticity
+    akofena: "⚔️", // Sword of war - keeping as emoji for cultural authenticity
+    akomaNtoso: "💕", // Linked hearts - keeping as emoji for cultural authenticity
+    nkonsonkonson: "🔗", // Chain link - keeping as emoji for cultural authenticity
+    oheneAniwa: "👁️", // King's eyes - keeping as emoji for cultural authenticity
+    akokonan: "🦅", // Eagle's talons - keeping as emoji for cultural authenticity
+  };
 
 export default function DonatePage() {
   const [user, setUser] = useState<User | null>(null);
@@ -50,7 +56,8 @@ export default function DonatePage() {
       date: "2024-01-15T10:30:00Z",
       message: "Education is the key to unlocking potential. Happy to support this cause!",
       isAnonymous: false,
-      tier: "supporter"
+      tier: "supporter",
+      countryCode: "US"
     },
     {
       id: 2,
@@ -60,7 +67,8 @@ export default function DonatePage() {
       date: "2024-01-15T09:15:00Z",
       message: "Keep up the amazing work!",
       isAnonymous: true,
-      tier: "supporter"
+      tier: "supporter",
+      countryCode: "CA"
     },
     {
       id: 3,
@@ -70,7 +78,8 @@ export default function DonatePage() {
       date: "2024-01-15T08:45:00Z",
       message: "This is such an important mission. Proud to be part of this community.",
       isAnonymous: false,
-      tier: "champion"
+      tier: "champion",
+      countryCode: "GB"
     },
     {
       id: 4,
@@ -80,7 +89,8 @@ export default function DonatePage() {
       date: "2024-01-15T07:20:00Z",
       message: "Every child deserves access to quality education. Thank you for making this possible!",
       isAnonymous: false,
-      tier: "supporter"
+      tier: "supporter",
+      countryCode: "IN"
     },
     {
       id: 5,
@@ -90,7 +100,8 @@ export default function DonatePage() {
       date: "2024-01-14T22:10:00Z",
       message: "Inspired by the impact you're making. This donation is in honor of my grandmother who was a teacher.",
       isAnonymous: false,
-      tier: "hero"
+      tier: "hero",
+      countryCode: "MX"
     },
     {
       id: 6,
@@ -100,7 +111,8 @@ export default function DonatePage() {
       date: "2024-01-14T21:30:00Z",
       message: "Small contribution, big impact!",
       isAnonymous: true,
-      tier: "supporter"
+      tier: "supporter",
+      countryCode: "NG"
     },
     {
       id: 7,
@@ -110,7 +122,8 @@ export default function DonatePage() {
       date: "2024-01-14T20:15:00Z",
       message: "As a former teacher, I know how crucial education is. Keep inspiring the next generation!",
       isAnonymous: false,
-      tier: "champion"
+      tier: "champion",
+      countryCode: "AU"
     },
     {
       id: 8,
@@ -120,7 +133,8 @@ export default function DonatePage() {
       date: "2024-01-14T19:45:00Z",
       message: "Supporting our future leaders. Ubuntu!",
       isAnonymous: false,
-      tier: "supporter"
+      tier: "supporter",
+      countryCode: "GH"
     },
     {
       id: 9,
@@ -130,7 +144,8 @@ export default function DonatePage() {
       date: "2024-01-14T18:20:00Z",
       message: "Education transforms lives. Happy to contribute to this meaningful cause.",
       isAnonymous: false,
-      tier: "supporter"
+      tier: "supporter",
+      countryCode: "SG"
     },
     {
       id: 10,
@@ -140,7 +155,8 @@ export default function DonatePage() {
       date: "2024-01-14T17:55:00Z",
       message: "Every little bit helps!",
       isAnonymous: true,
-      tier: "supporter"
+      tier: "supporter",
+      countryCode: "KE"
     },
     {
       id: 11,
@@ -364,7 +380,8 @@ export default function DonatePage() {
       date: new Date().toISOString(),
       message: "Thank you for supporting education!",
       isAnonymous: false,
-      tier: amount >= 500 ? 'hero' : amount >= 200 ? 'champion' : 'supporter'
+      tier: amount >= 500 ? 'hero' : amount >= 200 ? 'champion' : 'supporter',
+      countryCode: user?.country_code || getRandomCountryCode()
     };
     
     setRecentDonations(prev => [newDonation, ...prev.slice(0, 9)]);
@@ -391,7 +408,7 @@ export default function DonatePage() {
           <div className="absolute bottom-40 right-1/3 text-3xl transform -rotate-30">{ADINKRA_SYMBOLS.adinkrahene}</div>
         </div>
 
-        {/* Confetti Animation */}
+        {/* Professional Confetti Animation */}
         {showConfetti && (
           <div className="fixed inset-0 pointer-events-none z-50">
             {[...Array(50)].map((_, i) => (
@@ -405,7 +422,19 @@ export default function DonatePage() {
                   animationDuration: `${2 + Math.random() * 2}s`,
                 }}
               >
-                {["🎉", "✨", "💫", "🌟", "💝"][Math.floor(Math.random() * 5)]}
+                <div
+                  className="w-2 h-2 rounded-full"
+                  style={{
+                    backgroundColor: [
+                      '#f59e0b', // heritage-gold
+                      '#ea580c', // orange-600
+                      '#dc2626', // red-600
+                      '#7c3aed', // purple-600
+                      '#3b82f6', // blue-500
+                    ][Math.floor(Math.random() * 5)],
+                    transform: `rotate(${Math.random() * 360}deg)`,
+                  }}
+                />
               </div>
             ))}
           </div>
@@ -424,6 +453,48 @@ export default function DonatePage() {
                   Join our mission to provide quality education and cultural heritage programs to communities across Africa. 
                   Every donation creates lasting impact.
                 </p>
+                
+                {/* Social Share Buttons */}
+                <div className="flex items-center justify-center space-x-4 mt-8">
+                  <span className="text-sm font-ubuntu text-gray-600">Share this cause:</span>
+                  <div className="flex space-x-3">
+                    <button
+                      onClick={() => window.open(`https://twitter.com/intent/tweet?text=Support education and cultural heritage programs with Asante! Every donation creates lasting impact.&url=${encodeURIComponent(window.location.href)}`, '_blank')}
+                      className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors duration-300"
+                      aria-label="Share on Twitter"
+                    >
+                      <FaTwitter className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank')}
+                      className="p-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors duration-300"
+                      aria-label="Share on Facebook"
+                    >
+                      <FaFacebook className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`, '_blank')}
+                      className="p-2 bg-blue-700 text-white rounded-full hover:bg-blue-800 transition-colors duration-300"
+                      aria-label="Share on LinkedIn"
+                    >
+                      <FaLinkedin className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => window.open(`https://www.instagram.com/?url=${encodeURIComponent(window.location.href)}`, '_blank')}
+                      className="p-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full hover:from-purple-600 hover:to-pink-600 transition-colors duration-300"
+                      aria-label="Share on Instagram"
+                    >
+                      <FaInstagram className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => window.open(`https://www.tiktok.com/share?url=${encodeURIComponent(window.location.href)}&text=Support education with Asante!`, '_blank')}
+                      className="p-2 bg-black text-white rounded-full hover:bg-gray-800 transition-colors duration-300"
+                      aria-label="Share on TikTok"
+                    >
+                      <FaTiktok className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
               </div>
 
               {/* Progress Bar */}
@@ -604,9 +675,9 @@ export default function DonatePage() {
                     className="w-full py-6 text-xl font-ubuntu font-bold bg-gradient-to-r from-heritage-gold to-orange-600 hover:from-heritage-gold/90 hover:to-orange-600/90 text-white rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                   >
                     <span className="flex items-center space-x-3">
-                      <span>💝</span>
+                      <FaHeart className="w-5 h-5" />
                       <span>Make Your Donation</span>
-                      <span>💝</span>
+                      <FaHeart className="w-5 h-5" />
                     </span>
                   </Button>
                 </CardContent>
@@ -618,9 +689,9 @@ export default function DonatePage() {
               <Card className="bg-white/80 backdrop-blur-md border-heritage-gold/20 shadow-2xl">
                 <CardHeader>
                   <CardTitle className="text-2xl font-ubuntu font-bold text-gray-900 flex items-center space-x-3">
-                    <span>🌟</span>
+                    <FaHeart className="text-heritage-gold" />
                     <span>Recent Donations</span>
-                    <span>🌟</span>
+                    <FaHeart className="text-heritage-gold" />
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -640,12 +711,12 @@ export default function DonatePage() {
                             </Avatar>
                             {donation.tier === 'hero' && (
                               <div className="absolute -top-1 -right-1 w-4 h-4 bg-purple-500 rounded-full flex items-center justify-center">
-                                <span className="text-xs">👑</span>
+                                <FaCrown className="w-2 h-2 text-white" />
                               </div>
                             )}
                             {donation.tier === 'champion' && (
                               <div className="absolute -top-1 -right-1 w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center">
-                                <span className="text-xs">⭐</span>
+                                <FaStar className="w-2 h-2 text-white" />
                               </div>
                             )}
                           </div>
@@ -655,6 +726,9 @@ export default function DonatePage() {
                                 <h4 className="font-ubuntu font-semibold text-gray-900">
                                   {donation.isAnonymous ? "Anonymous" : donation.name}
                                 </h4>
+                                {!donation.isAnonymous && donation.countryCode && (
+                                  <CountryFlag countryCode={donation.countryCode} size="sm" />
+                                )}
                                 {donation.tier === 'hero' && (
                                   <Badge className="bg-purple-100 text-purple-800 border-purple-200 text-xs font-ubuntu">
                                     Hero
@@ -681,7 +755,7 @@ export default function DonatePage() {
                       ))
                     ) : (
                       <div className="text-center py-8 text-gray-500 font-ubuntu">
-                        Be the first to make a donation! 🌟
+                        Be the first to make a donation! <FaStar className="inline w-4 h-4 text-heritage-gold" />
                       </div>
                     )}
                   </div>
@@ -699,19 +773,19 @@ export default function DonatePage() {
                   {
                     title: "Sarah's Journey",
                     description: "From struggling student to confident learner",
-                    image: "📚",
+                    icon: <GiOpenBook className="w-16 h-16 text-heritage-gold" />,
                     impact: "Improved reading skills by 300%",
                   },
                   {
                     title: "Community School",
                     description: "Building dreams in rural villages",
-                    image: "🏫",
+                    icon: <IoMdSchool className="w-16 h-16 text-heritage-gold" />,
                     impact: "500+ students enrolled",
                   },
                   {
                     title: "Cultural Heritage",
                     description: "Preserving traditions for future generations",
-                    image: "🌍",
+                    icon: <FaHeart className="w-16 h-16 text-heritage-gold" />,
                     impact: "15 cultural programs launched",
                   },
                 ].map((story, index) => (
@@ -721,7 +795,7 @@ export default function DonatePage() {
                     style={{ animationDelay: `${index * 200}ms` }}
                   >
                     <CardContent className="p-6 text-center space-y-4">
-                      <div className="text-6xl mb-4">{story.image}</div>
+                      <div className="flex justify-center mb-4">{story.icon}</div>
                       <h3 className="text-xl font-ubuntu font-bold text-gray-900">
                         {story.title}
                       </h3>
@@ -744,7 +818,9 @@ export default function DonatePage() {
           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
             <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8 animate-in zoom-in duration-300">
               <div className="text-center space-y-6">
-                <div className="text-6xl">💳</div>
+                <div className="w-16 h-16 bg-heritage-gold/10 rounded-full flex items-center justify-center mx-auto">
+                  <FaCheckCircle className="w-8 h-8 text-heritage-gold" />
+                </div>
                 <h2 className="text-2xl font-ubuntu font-bold text-gray-900">
                   Complete Your Donation
                 </h2>
@@ -784,7 +860,9 @@ export default function DonatePage() {
           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
             <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8 animate-in zoom-in duration-300">
               <div className="text-center space-y-6">
-                <div className="text-6xl animate-bounce">🎉</div>
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto animate-bounce">
+                  <FaCheckCircle className="w-8 h-8 text-green-600" />
+                </div>
                 <h2 className="text-2xl font-ubuntu font-bold text-gray-900">
                   Thank You!
                 </h2>
@@ -792,10 +870,47 @@ export default function DonatePage() {
                   Your donation of ${currentAmount} has been processed successfully. 
                   You're making a real difference in someone's life.
                 </p>
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
-                  <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
+                
+                {/* Social Share Buttons */}
+                <div className="space-y-4">
+                  <p className="text-sm font-ubuntu text-gray-600">Share your impact:</p>
+                  <div className="flex justify-center space-x-3">
+                    <button
+                      onClick={() => window.open(`https://twitter.com/intent/tweet?text=I just donated $${currentAmount} to support education and cultural heritage programs with Asante! Join me in making a difference.&url=${encodeURIComponent(window.location.href)}`, '_blank')}
+                      className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors duration-300"
+                      aria-label="Share on Twitter"
+                    >
+                      <FaTwitter className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=I just donated $${currentAmount} to support education!`, '_blank')}
+                      className="p-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors duration-300"
+                      aria-label="Share on Facebook"
+                    >
+                      <FaFacebook className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}&title=I supported education with Asante&summary=I donated $${currentAmount} to support education and cultural heritage programs.`, '_blank')}
+                      className="p-2 bg-blue-700 text-white rounded-full hover:bg-blue-800 transition-colors duration-300"
+                      aria-label="Share on LinkedIn"
+                    >
+                      <FaLinkedin className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => window.open(`https://www.instagram.com/?url=${encodeURIComponent(window.location.href)}`, '_blank')}
+                      className="p-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full hover:from-purple-600 hover:to-pink-600 transition-colors duration-300"
+                      aria-label="Share on Instagram"
+                    >
+                      <FaInstagram className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => window.open(`https://www.tiktok.com/share?url=${encodeURIComponent(window.location.href)}&text=I donated $${currentAmount} to support education!`, '_blank')}
+                      className="p-2 bg-black text-white rounded-full hover:bg-gray-800 transition-colors duration-300"
+                      aria-label="Share on TikTok"
+                    >
+                      <FaTiktok className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -808,9 +923,7 @@ export default function DonatePage() {
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="w-14 h-14 bg-gradient-to-r from-heritage-gold to-orange-600 text-white rounded-full shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-            </svg>
+            <FaArrowUp className="w-6 h-6" />
           </Button>
         </div>
       </div>

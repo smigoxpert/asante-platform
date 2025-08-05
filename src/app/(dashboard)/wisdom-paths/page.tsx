@@ -131,8 +131,19 @@ export default function WisdomPathsPage() {
     <AuthenticatedLayout>
       <div className="px-6 py-8">
         <div className="max-w-7xl mx-auto">
-        {/* Header */}
-      
+          
+          {/* Hero Section */}
+          <section className="text-center mb-12">
+            <div className="max-w-4xl mx-auto">
+              <h1 className="text-5xl md:text-7xl font-ubuntu font-bold bg-gradient-to-r from-heritage-gold via-orange-600 to-red-600 bg-clip-text text-transparent mb-6">
+                Wisdom Paths
+              </h1>
+              <p className="text-xl md:text-2xl font-ubuntu text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                Embark on transformative journeys that connect you with ancestral wisdom, cultural heritage, and spiritual growth through guided learning paths.
+              </p>
+            </div>
+          </section>
+          
         {/* Search and Filter */}
         <div className="mb-8">
           <div className="flex flex-col md:flex-row gap-4 items-center justify-between">

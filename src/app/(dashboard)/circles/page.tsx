@@ -22,7 +22,7 @@ export default function UbuntuCirclesPage() {
     created_at: "2024-01-01",
     updated_at: "2024-01-01"
   });
-  const [activeTab, setActiveTab] = useState<'calendar' | 'impact' | 'gatherings' | 'elders'>('calendar');
+  const [activeTab, setActiveTab] = useState<'calendar' | 'impact' | 'gatherings' | 'elders'>('impact');
 
   const tabs = [
     
@@ -74,10 +74,10 @@ export default function UbuntuCirclesPage() {
         <div className="mb-8">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h1 className="text-4xl font-ubuntu font-bold text-gray-900 mb-2">
+              <h1 className="text-5xl md:text-7xl font-ubuntu font-bold bg-gradient-to-r from-heritage-gold via-orange-600 to-red-600 bg-clip-text text-transparent mb-2">
                 Ubuntu Circles
               </h1>
-              <p className="text-lg text-gray-600 font-ubuntu">
+              <p className="text-xl md:text-2xl font-ubuntu text-gray-700 max-w-3xl leading-relaxed">
                 Connect, grow, and serve through sacred community
               </p>
             </div>

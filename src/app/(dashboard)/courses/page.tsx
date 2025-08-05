@@ -5,6 +5,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import AuthenticatedLayout from "@/components/layout/AuthenticatedLayout";
+import { FaCrown, FaHeart, FaStar, FaUsers, FaDollarSign, FaLandmark } from "react-icons/fa";
+import { IoMdSchool } from "react-icons/io";
+import { GiOpenBook } from "react-icons/gi";
 
 interface WisdomPath {
   id: string;
@@ -250,10 +253,10 @@ export default function CoursesPage() {
           {/* Hero Section */}
           <section className="text-center">
             <div className="max-w-4xl mx-auto">
-              <h1 className="text-5xl font-ubuntu font-bold text-gray-900 mb-6">
+              <h1 className="text-5xl md:text-7xl font-ubuntu font-bold bg-gradient-to-r from-heritage-gold via-orange-600 to-red-600 bg-clip-text text-transparent mb-6">
                 Ready to discover your ancestral wisdom?
               </h1>
-              <p className="text-xl text-gray-600 font-ubuntu mb-8">
+              <p className="text-xl md:text-2xl font-ubuntu text-gray-700 max-w-3xl mx-auto leading-relaxed mb-8">
                 Join Asante Wisdom Paths and gain the cultural knowledge, spiritual practices, and community skills that connect you to your heritage and transform your life.
               </p>
             </div>
@@ -273,13 +276,15 @@ export default function CoursesPage() {
                 <Card key={path.id} className="bg-white shadow-lg hover:shadow-xl transition-all duration-300 group">
                   <div className="relative">
                     <div className="aspect-video bg-gradient-to-br from-heritage-gold/20 to-heritage-bronze/20 rounded-t-lg flex items-center justify-center">
-                      <div className="text-4xl">{path.image.includes('ancestral') ? '🏛️' : 
-                        path.image.includes('ubuntu') ? '👑' :
-                        path.image.includes('relationships') ? '💝' :
-                        path.image.includes('healing') ? '🌿' :
-                        path.image.includes('creative') ? '🎨' :
-                        path.image.includes('spiritual') ? '⭐' :
-                        path.image.includes('community') ? '👥' : '💰'}</div>
+                      <div className="text-4xl">
+                        {path.image.includes('ancestral') ? <FaLandmark className="w-12 h-12 text-heritage-gold" /> : 
+                        path.image.includes('ubuntu') ? <FaCrown className="w-12 h-12 text-heritage-gold" /> :
+                        path.image.includes('relationships') ? <FaHeart className="w-12 h-12 text-heritage-gold" /> :
+                        path.image.includes('healing') ? <IoMdSchool className="w-12 h-12 text-heritage-gold" /> :
+                        path.image.includes('creative') ? <GiOpenBook className="w-12 h-12 text-heritage-gold" /> :
+                        path.image.includes('spiritual') ? <FaStar className="w-12 h-12 text-heritage-gold" /> :
+                        path.image.includes('community') ? <FaUsers className="w-12 h-12 text-heritage-gold" /> : <FaDollarSign className="w-12 h-12 text-heritage-gold" />}
+                      </div>
                     </div>
                     <Badge className="absolute top-3 left-3 bg-heritage-gold/90 text-white">
                       {path.category}

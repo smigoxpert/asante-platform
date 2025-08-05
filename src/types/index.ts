@@ -8,6 +8,9 @@ export interface User {
   ubuntu_values_score: number;
   created_at: string;
   updated_at: string;
+  country?: string;
+  country_code?: string;
+  flag_emoji?: string;
 }
 
 export interface HeritageProfile {

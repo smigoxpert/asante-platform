@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { FaStar, FaMagic } from "react-icons/fa";
+import { GiSparkles } from "react-icons/gi";
 
 export default function LandingPage() {
   return (
@@ -36,8 +38,8 @@ export default function LandingPage() {
             </div>
 
             <div className="mb-12">
-              <h1 className="text-5xl md:text-7xl font-ubuntu font-bold text-white mb-6 text-balance">
-                <span className="text-white drop-shadow-lg shadow-black/50 ubuntu-pulse font-extrabold">Asante</span>
+              <h1 className="text-5xl md:text-7xl font-ubuntu font-bold mb-6 text-balance">
+                <span className="bg-gradient-to-r from-heritage-gold via-orange-600 to-red-600 bg-clip-text text-transparent drop-shadow-lg shadow-black/50 ubuntu-pulse font-extrabold">Asante</span>
                 <br />
                 <span className="text-2xl md:text-3xl font-ubuntu font-light text-white/90">
                   "I am because we are"
@@ -82,7 +84,7 @@ export default function LandingPage() {
         <section className="py-20 px-4 sm:px-6 lg:px-8 relative">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-ubuntu font-bold text-white mb-4 text-balance">
+              <h2 className="text-4xl font-ubuntu font-bold bg-gradient-to-r from-heritage-gold via-orange-600 to-red-600 bg-clip-text text-transparent mb-4 text-balance">
                 Discover Your Ubuntu Path
               </h2>
               <p className="text-xl text-white/90 max-w-2xl mx-auto font-ubuntu font-light">
@@ -176,7 +178,7 @@ export default function LandingPage() {
         <section className="py-20 px-4 sm:px-6 lg:px-8 relative">
           <div className="max-w-4xl mx-auto text-center">
             <div className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl p-12 shadow-2xl">
-              <h2 className="text-4xl font-ubuntu font-bold text-white mb-6 text-balance">
+              <h2 className="text-4xl font-ubuntu font-bold bg-gradient-to-r from-heritage-gold via-orange-600 to-red-600 bg-clip-text text-transparent mb-6 text-balance">
                 Ready to Begin Your Transformational Journey?
               </h2>
               <p className="text-xl text-white/90 mb-8 font-ubuntu font-light">
