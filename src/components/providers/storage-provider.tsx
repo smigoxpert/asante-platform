@@ -5,6 +5,7 @@ import { storage } from '@/lib/storage';
 
 interface StorageContextType {
   cleanup: () => void;
+  cleanupCorrupted: () => void;
   getSize: () => { local: number; session: number };
   clearAll: () => void;
   isStorageAvailable: boolean;
@@ -46,7 +47,19 @@ export function StorageProvider({ children }: { children: React.ReactNode }) {
       }
     };
 
-    // Initial cleanup
+    const cleanupCorrupted = () => {
+      try {
+        const result = storage.cleanupCorrupted();
+        if (result.localCorrupted > 0 || result.sessionCorrupted > 0) {
+          console.log(`Storage corrupted cleanup: removed ${result.localCorrupted + result.sessionCorrupted} corrupted items`);
+        }
+      } catch (error) {
+        console.warn('Storage corrupted cleanup failed:', error);
+      }
+    };
+
+    // Initial cleanup - first corrupted, then expired
+    cleanupCorrupted();
     cleanup();
 
     // Set up periodic cleanup
@@ -116,6 +129,11 @@ export function StorageProvider({ children }: { children: React.ReactNode }) {
       if (!isStorageAvailable.current) return;
       const result = storage.cleanup();
       console.log(`Manual cleanup: removed ${result.localCleaned + result.sessionCleaned} items`);
+    },
+    cleanupCorrupted: () => {
+      if (!isStorageAvailable.current) return;
+      const result = storage.cleanupCorrupted();
+      console.log(`Manual corrupted cleanup: removed ${result.localCorrupted + result.sessionCorrupted} corrupted items`);
     },
     getSize: () => {
       if (!isStorageAvailable.current) return { local: 0, session: 0 };

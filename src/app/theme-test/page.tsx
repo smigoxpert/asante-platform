@@ -169,13 +169,16 @@ export default function ThemeTestPage() {
           <CardContent>
             <div className="bg-muted p-4 rounded font-mono text-sm overflow-x-auto">
               <pre>
-                {`--background: ${getComputedStyle(document.documentElement).getPropertyValue('--background')}
+                {typeof window !== 'undefined' ? 
+                  `--background: ${getComputedStyle(document.documentElement).getPropertyValue('--background')}
 --foreground: ${getComputedStyle(document.documentElement).getPropertyValue('--foreground')}
 --primary: ${getComputedStyle(document.documentElement).getPropertyValue('--primary')}
 --primary-foreground: ${getComputedStyle(document.documentElement).getPropertyValue('--primary-foreground')}
 --secondary: ${getComputedStyle(document.documentElement).getPropertyValue('--secondary')}
 --muted: ${getComputedStyle(document.documentElement).getPropertyValue('--muted')}
---border: ${getComputedStyle(document.documentElement).getPropertyValue('--border')}`}
+--border: ${getComputedStyle(document.documentElement).getPropertyValue('--border')}` 
+                  : 'CSS variables will be displayed on client-side'
+                }
               </pre>
             </div>
           </CardContent>

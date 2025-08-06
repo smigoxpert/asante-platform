@@ -12,24 +12,21 @@ import { HeroCarousel } from "@/components/marketing/HeroCarousel";
 import { wisdomPathsGridPlaceholders, communityGridPlaceholders, mobileFeaturesGridPlaceholders, subscriptionTiersGridPlaceholders, eldersGridPlaceholders } from "@/lib/placeholder-images";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { useStorage, useAnalytics } from "@/hooks/useStorage";
-import { storage } from "@/lib/storage";
+import { NewsletterPopup } from "@/components/marketing/NewsletterPopup";
 import { 
-  Play, 
   Download, 
   Users, 
   Star, 
   Heart, 
   Globe, 
   BookOpen, 
-  Shield,
   Crown,
   Sparkles,
   Calendar,
   Video,
   MessageCircle,
   Award,
-  Zap,
-  ArrowRight
+  Zap
 } from 'lucide-react';
 
 // Mock data for the landing page
@@ -206,6 +203,7 @@ export default function LandingPage() {
     connections: 0,
     circles: 0
   });
+  const [showNewsletterPopup, setShowNewsletterPopup] = useState(false);
 
   // Storage hooks for performance optimization
   const { value: cachedStats, setValue: setCachedStats } = useStorage({
@@ -324,6 +322,52 @@ export default function LandingPage() {
     });
   }, [addEvent]);
 
+  // Newsletter popup logic
+  useEffect(() => {
+    // Check if user has already seen the popup
+    const hasSeenPopup = localStorage.getItem('asante-newsletter-popup');
+    
+    if (!hasSeenPopup) {
+      // Show popup after 10 seconds or when user scrolls 50% down the page
+      const timer = setTimeout(() => {
+        setShowNewsletterPopup(true);
+        localStorage.setItem('asante-newsletter-popup', 'true');
+      }, 10000);
+
+      const handleScroll = () => {
+        const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+        if (scrollPercent > 50) {
+          setShowNewsletterPopup(true);
+          localStorage.setItem('asante-newsletter-popup', 'true');
+          clearTimeout(timer);
+          window.removeEventListener('scroll', handleScroll);
+        }
+      };
+
+      window.addEventListener('scroll', handleScroll);
+
+      return () => {
+        clearTimeout(timer);
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }
+  }, []);
+
+  const handleNewsletterSubscribe = async (email: string) => {
+    // Track newsletter signup
+    addEvent({
+      type: 'newsletter_signup',
+      email: email,
+      timestamp: Date.now(),
+    });
+
+    // Here you would typically send the email to your backend
+    console.log('Newsletter signup:', email);
+    
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1000));
+  };
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -427,7 +471,7 @@ export default function LandingPage() {
                   Begin Heritage Discovery
                 </Button>
               </Link>
-              <Button size="lg" className="btn-secondary-glass px-10 py-4 text-lg hover-lift">
+              <Button size="lg" className="btn-primary-glass  px-10 py-4 text-lg hover-lift ">
                 <Download className="mr-2" />
                 Download Mobile App
               </Button>
@@ -487,7 +531,7 @@ export default function LandingPage() {
                     ))}
                   </div>
                 </div>
-                <p className="text-white/90 italic text-lg leading-relaxed">"{testimonials[currentTestimonial].story}"</p>
+                <p className="text-white/90 italic text-lg leading-relaxed">&quot;{testimonials[currentTestimonial].story}&quot;</p>
               </motion.div>
               
               {/* Enhanced Testimonial Dots */}
@@ -552,23 +596,23 @@ export default function LandingPage() {
             >
               <div className="glass-card p-8 hover-lift">
                 <div className="flex items-center mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-r from-heritage-gold to-yellow-400 rounded-xl flex items-center justify-center mr-4 text-xl">
+                  <div className="w-12 h-12 bg-gradient-to-r from-yellow-800 to-heritage-gold rounded-xl flex items-center justify-center mr-4 text-xl">
                     🗺️
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-800">Interactive Heritage Map</h3>
+                  <h3 className="text-2xl font-bold gradient-text-gold">Interactive Heritage Map</h3>
                 </div>
                 <div className="space-y-4">
                   <div className="flex items-center gap-3 group">
                     <div className="w-3 h-3 bg-heritage-gold rounded-full group-hover:scale-125 transition-transform duration-300"></div>
-                    <span className="text-gray-700 group-hover:text-gray-900 transition-colors duration-300">✨ Explore African regions and cultural connections</span>
+                    <span className="text-gray-300 group-hover:text-gray-900 transition-colors duration-300">✨ Explore African regions and cultural connections</span>
                   </div>
                   <div className="flex items-center gap-3 group">
                     <div className="w-3 h-3 bg-heritage-bronze rounded-full group-hover:scale-125 transition-transform duration-300"></div>
-                    <span className="text-gray-700 group-hover:text-gray-900 transition-colors duration-300">✨ Discover your ancestral homelands</span>
+                    <span className="text-gray-300 group-hover:text-gray-900 transition-colors duration-300">✨ Discover your ancestral homelands</span>
                   </div>
                   <div className="flex items-center gap-3 group">
                     <div className="w-3 h-3 bg-heritage-copper rounded-full group-hover:scale-125 transition-transform duration-300"></div>
-                    <span className="text-gray-700 group-hover:text-gray-900 transition-colors duration-300">✨ Connect with cultural practices and traditions</span>
+                    <span className="text-gray-300 group-hover:text-gray-900 transition-colors duration-300">✨ Connect with cultural practices and traditions</span>
                   </div>
                 </div>
                 
@@ -591,10 +635,10 @@ export default function LandingPage() {
             >
               <div className="glass-card p-8 hover-lift">
                 <div className="flex items-center mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-r from-heritage-gold to-yellow-400 rounded-xl flex items-center justify-center mr-4 text-xl">
+                  <div className="w-12 h-12 bg-gradient-to-r from-heritage-gold to-yellow-800 rounded-xl flex items-center justify-center mr-4 text-xl">
                     🧬
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-800">DNA Integration Preview</h3>
+                  <h3 className="text-2xl font-bold gradient-text-gold">DNA Integration Preview</h3>
                 </div>
                 
                 <div className="space-y-4">
@@ -844,7 +888,7 @@ export default function LandingPage() {
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 gradient-text-gold">
                 Take Your Ubuntu Journey <span className="gradient-text">Everywhere</span>
               </h2>
-              <p className="text-xl text-gray-600 mb-8">
+              <p className="text-xl  mb-8">
                 Access your heritage discovery, community circles, and wisdom lessons on any device
               </p>
               
@@ -943,7 +987,7 @@ export default function LandingPage() {
               <div className="glass-card p-8 hover-lift">
                 <div className="text-6xl mb-4">📱</div>
                 <h3 className="text-2xl font-bold mb-2 gradient-text-gold">Mobile App Preview</h3>
-                <p className="text-gray-600">Heritage discovery, community circles, and offline learning in your pocket</p>
+                <p className="text-gray-300">Heritage discovery, community circles, and offline learning in your pocket</p>
               </div>
             </motion.div>
           </div>
@@ -1071,7 +1115,7 @@ export default function LandingPage() {
                       <p className="text-sm font-medium">{elder.expertise}</p>
                     </div>
                     <blockquote className="italic border-l-4 border-gradient-to-b from-heritage-gold to-yellow-400 pl-4">
-                      "{elder.quote}"
+                      &quot;{elder.quote}&quot;
                     </blockquote>
                   </CardContent>
                 </Card>
@@ -1099,7 +1143,7 @@ export default function LandingPage() {
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 gradient-text-gold">
               Join Global <span className="gradient-text">Ubuntu Celebrations</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl max-w-3xl mx-auto">
               Participate in cultural ceremonies, workshops, and community gatherings from around the world
             </p>
           </motion.div>
@@ -1121,8 +1165,8 @@ export default function LandingPage() {
                         <Calendar className="w-4 h-4 text-white" />
                       </div>
                       <div>
-                        <h4 className="font-semibold text-gray-900">Kwanzaa Celebration</h4>
-                        <p className="text-sm text-gray-600">December 26, 2024 • Virtual</p>
+                        <h4 className="font-semibold gradient-text-gold">Kwanzaa Celebration</h4>
+                        <p className="text-sm">December 26, 2024 • Virtual</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-4 p-4 glass-card rounded-lg hover-lift">
@@ -1130,8 +1174,8 @@ export default function LandingPage() {
                         <Calendar className="w-4 h-4 text-white" />
                       </div>
                       <div>
-                        <h4 className="font-semibold text-gray-900">Ancestral Healing Workshop</h4>
-                        <p className="text-sm text-gray-600">January 15, 2024 • Hybrid</p>
+                        <h4 className="font-semibold gradient-text-gold">Ancestral Healing Workshop</h4>
+                        <p className="text-sm">January 15, 2024 • Hybrid</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-4 p-4 glass-card rounded-lg hover-lift">
@@ -1139,8 +1183,8 @@ export default function LandingPage() {
                         <Calendar className="w-4 h-4 text-white" />
                       </div>
                       <div>
-                        <h4 className="font-semibold text-gray-900">Ubuntu Leadership Summit</h4>
-                        <p className="text-sm text-gray-600">February 8, 2024 • In-Person</p>
+                        <h4 className="font-semibold gradient-text-gold">Ubuntu Leadership Summit</h4>
+                        <p className="text-sm ">February 8, 2024 • In-Person</p>
                       </div>
                     </div>
                   </div>
@@ -1161,14 +1205,14 @@ export default function LandingPage() {
                   <div className="space-y-4">
                     <div className="glass-card p-6 rounded-lg hover-lift">
                       <h4 className="font-semibold mb-2 gradient-text-gold">Traditional Welcome Ceremony</h4>
-                      <p className="text-gray-600 mb-4">Experience the warmth of African hospitality and community connection</p>
+                      <p className="mb-4">Experience the warmth of African hospitality and community connection</p>
                       <Button className="glass-button text-ubuntu-600 hover:text-white">
                         Join Ceremony
                       </Button>
                     </div>
                     <div className="glass-card p-6 rounded-lg hover-lift">
                       <h4 className="font-semibold mb-2 gradient-text-gold">Elder Wisdom Circle</h4>
-                      <p className="text-gray-600 mb-4">Learn from traditional wisdom keepers and cultural mentors</p>
+                      <p className="mb-4">Learn from traditional wisdom keepers and cultural mentors</p>
                       <Button className="glass-button text-heritage-gold hover:text-white">
                         Register Now
                       </Button>
@@ -1194,7 +1238,7 @@ export default function LandingPage() {
             <div className="col-span-1 md:col-span-2">
               <h3 className="text-2xl font-bold gradient-text-gold mb-4">Asante</h3>
               <p className="text-gray-300 mb-6">
-                "I am because we are" - Join the global Ubuntu community and discover your ancestral wisdom.
+                &quot;I am because we are&quot; - Join the global Ubuntu community and discover your ancestral wisdom.
               </p>
               <div className="flex space-x-4">
                 <div className="w-10 h-10 glass-card rounded-full flex items-center justify-center hover-lift">
@@ -1240,6 +1284,13 @@ export default function LandingPage() {
           </div>
         </div>
       </footer>
+
+      {/* Newsletter Popup */}
+      <NewsletterPopup
+        isOpen={showNewsletterPopup}
+        onClose={() => setShowNewsletterPopup(false)}
+        onSubscribe={handleNewsletterSubscribe}
+      />
     </div>
   );
 }

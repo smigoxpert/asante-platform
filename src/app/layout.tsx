@@ -79,7 +79,7 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         
         {/* Preload critical images */}
-        <link rel="preload" as="image" href="/images/paths/asante-logo.png" />
+        {/* <link rel="preload" as="image" href="/images/paths/asante-logo.png" /> */}
         
         {/* Performance optimizations */}
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />

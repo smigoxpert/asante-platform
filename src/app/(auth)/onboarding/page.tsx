@@ -13,7 +13,7 @@ export default function OnboardingPage() {
             Welcome to Your <span className="text-amber-600">Ubuntu Journey</span>
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Let's personalize your learning experience and connect you with your heritage
+            Let&apos;s personalize your learning experience and connect you with your heritage
           </p>
         </div>
 

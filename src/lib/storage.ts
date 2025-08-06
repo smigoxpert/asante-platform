@@ -81,7 +81,16 @@ class StorageManager {
       
       if (!compressed) return null;
 
+      // Check if the data looks like valid JSON before parsing
       const serialized = this.decompressData(compressed);
+      
+      // Validate that it's valid JSON before parsing
+      if (!serialized || typeof serialized !== 'string' || !serialized.trim().startsWith('{')) {
+        console.warn(`Invalid storage data for key ${key}: not valid JSON`);
+        this.remove(key, type); // Clean up invalid data
+        return null;
+      }
+
       const item: StorageItem<T> = JSON.parse(serialized);
 
       // Check if data has expired
@@ -93,6 +102,12 @@ class StorageManager {
       return item.value;
     } catch (error) {
       console.warn('Storage get failed:', error);
+      // Clean up corrupted data
+      try {
+        this.remove(key, type);
+      } catch (cleanupError) {
+        console.warn('Failed to cleanup corrupted storage item:', cleanupError);
+      }
       return null;
     }
   }
@@ -171,14 +186,61 @@ class StorageManager {
       let cleaned = 0;
 
       keys.forEach(key => {
-        if (!this.has(key, type)) {
-          cleaned++;
+        try {
+          if (!this.has(key, type)) {
+            cleaned++;
+          }
+        } catch (itemError) {
+          // If individual item fails, remove it and count as cleaned
+          console.warn(`Failed to check storage item ${key}:`, itemError);
+          try {
+            this.remove(key, type);
+            cleaned++;
+          } catch (removeError) {
+            console.warn(`Failed to remove corrupted storage item ${key}:`, removeError);
+          }
         }
       });
 
       return cleaned;
     } catch (error) {
       console.warn('Storage cleanup failed:', error);
+      return 0;
+    }
+  }
+
+  // Clean all corrupted data
+  cleanupCorrupted(type: 'local' | 'session' = 'local'): number {
+    try {
+      const storage = this.getStorage(type);
+      const keys = Object.keys(storage);
+      let cleaned = 0;
+
+      keys.forEach(key => {
+        if (key.startsWith(this.prefix)) {
+          try {
+            const value = storage.getItem(key);
+            if (value) {
+              // Try to parse as JSON to check if it's valid
+              const decompressed = this.decompressData(value);
+              JSON.parse(decompressed);
+            }
+          } catch (parseError) {
+            // If parsing fails, remove the corrupted item
+            console.warn(`Removing corrupted storage item ${key}:`, parseError);
+            try {
+              storage.removeItem(key);
+              cleaned++;
+            } catch (removeError) {
+              console.warn(`Failed to remove corrupted storage item ${key}:`, removeError);
+            }
+          }
+        }
+      });
+
+      return cleaned;
+    } catch (error) {
+      console.warn('Storage corrupted cleanup failed:', error);
       return 0;
     }
   }
@@ -294,6 +356,12 @@ export const storage = {
     const localCleaned = localStorage.cleanup();
     const sessionCleaned = sessionStorage.cleanup();
     return { localCleaned, sessionCleaned };
+  },
+  
+  cleanupCorrupted: () => {
+    const localCorrupted = localStorage.cleanupCorrupted();
+    const sessionCorrupted = sessionStorage.cleanupCorrupted();
+    return { localCorrupted, sessionCorrupted };
   },
   
   getSize: () => ({

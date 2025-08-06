@@ -23,7 +23,7 @@ interface HeroSlide {
   cta: {
     text: string;
     href: string;
-    variant?: 'primary' | 'secondary' | 'outline';
+    variant?: 'default' | 'secondary' | 'outline' | 'destructive' | 'ghost' | 'link';
   };
   badge?: {
     text: string;
@@ -44,7 +44,7 @@ const heroSlides: HeroSlide[] = [
     cta: {
       text: "Start Your Journey",
       href: "/signup",
-      variant: 'primary'
+      variant: 'default'
     },
     badge: {
       text: "Most Popular",
@@ -67,7 +67,7 @@ const heroSlides: HeroSlide[] = [
     cta: {
       text: "Explore Heritage",
       href: "/heritage",
-      variant: 'primary'
+      variant: 'default'
     },
                                         badge: {
                                       text: "Premium",
@@ -91,7 +91,7 @@ const heroSlides: HeroSlide[] = [
     cta: {
       text: "Join Circles",
       href: "/circles",
-      variant: 'primary'
+      variant: 'default'
     },
     badge: {
       text: "New Feature",
@@ -114,7 +114,7 @@ const heroSlides: HeroSlide[] = [
     cta: {
       text: "Explore Paths",
       href: "/wisdom-paths",
-      variant: 'primary'
+      variant: 'default'
     },
     features: [
       "Curated learning journeys",
@@ -133,7 +133,7 @@ const heroSlides: HeroSlide[] = [
     cta: {
       text: "Learn Healing",
       href: "/courses?category=healing",
-      variant: 'primary'
+      variant: 'default'
     },
     features: [
       "Traditional medicine",
@@ -148,10 +148,11 @@ const heroSlides: HeroSlide[] = [
 export function HeroCarousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [slideDirection, setSlideDirection] = useState<'left' | 'right'>('right');
   const autoPlayIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const { page, component, cultural, combine } = useAsanteClasses();
 
-  // Auto-play functionality
+  // Auto-play functionality with 3-second intervals
   useEffect(() => {
     if (!isAutoPlaying) {
       if (autoPlayIntervalRef.current) {
@@ -162,11 +163,12 @@ export function HeroCarousel() {
     }
 
     const interval = setInterval(() => {
+      setSlideDirection('right');
       setCurrentSlide((prev) => {
         const nextSlide = (prev + 1) % heroSlides.length;
         return nextSlide;
       });
-    }, 5000);
+    }, 3000); // 3 seconds for faster transitions
 
     autoPlayIntervalRef.current = interval;
 
@@ -182,20 +184,25 @@ export function HeroCarousel() {
   const handleMouseLeave = useCallback(() => setIsAutoPlaying(true), []);
 
   const goToSlide = (index: number) => {
+    setSlideDirection(index > currentSlide ? 'right' : 'left');
     setCurrentSlide(index);
+    // Pause auto-play briefly when manually navigating
     setIsAutoPlaying(false);
-    // Resume auto-play after manual navigation
     setTimeout(() => setIsAutoPlaying(true), 3000);
   };
 
   const goToPrevious = () => {
+    setSlideDirection('left');
     setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
+    // Pause auto-play briefly when manually navigating
     setIsAutoPlaying(false);
     setTimeout(() => setIsAutoPlaying(true), 3000);
   };
 
   const goToNext = () => {
+    setSlideDirection('right');
     setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    // Pause auto-play briefly when manually navigating
     setIsAutoPlaying(false);
     setTimeout(() => setIsAutoPlaying(true), 3000);
   };
@@ -222,35 +229,39 @@ export function HeroCarousel() {
         onMouseLeave={handleMouseLeave}
       >
         {/* Slide Container */}
-        <div className="relative w-full h-full">
+        <div className="relative w-full h-full overflow-hidden">
           {heroSlides.map((slide, index) => (
             <div
               key={slide.id}
-              className={`absolute inset-0 transition-all duration-700 ease-in-out ${
-                index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
+              className={`absolute inset-0 transition-all duration-700 ease-in-out slide-transition ${
+                index === currentSlide 
+                  ? 'translate-x-0 scale-100 z-10' 
+                  : index < currentSlide 
+                    ? '-translate-x-full scale-95 z-0' 
+                    : 'translate-x-full scale-95 z-0'
               }`}
             >
-                                        {/* Background Image */}
-                          <div className="absolute inset-0">
-                            {/* Fallback gradient background */}
-                            <div className={`absolute inset-0 ${getCulturalThemeClasses(slide.culturalTheme)} opacity-20`}></div>
-                            <picture>
-                              <source
-                                media="(max-width: 768px)"
-                                srcSet={slide.image.mobile}
-                              />
-                              <img
-                                src={slide.image.desktop}
-                                alt={slide.image.alt}
-                                className="w-full h-full object-cover relative z-10"
-                                loading={index === currentSlide ? "eager" : "lazy"}
-                                onError={(e) => {
-                                  // Hide the image if it fails to load, gradient background will show
-                                  const target = e.target as HTMLImageElement;
-                                  target.style.display = 'none';
-                                }}
-                              />
-                            </picture>
+              {/* Background Image */}
+              <div className="absolute inset-0">
+                {/* Fallback gradient background */}
+                <div className={`absolute inset-0 ${getCulturalThemeClasses(slide.culturalTheme)} opacity-20`}></div>
+                <picture>
+                  <source
+                    media="(max-width: 768px)"
+                    srcSet={slide.image.mobile}
+                  />
+                  <img
+                    src={slide.image.desktop}
+                    alt={slide.image.alt}
+                    className="w-full h-full object-cover relative z-10"
+                    loading={index === currentSlide ? "eager" : "lazy"}
+                    onError={(e) => {
+                      // Hide the image if it fails to load, gradient background will show
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                    }}
+                  />
+                </picture>
                 
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-black/40"></div>
@@ -264,88 +275,94 @@ export function HeroCarousel() {
                 </div>
               </div>
 
-                                        {/* Content */}
-                          <div className="relative z-10 h-full flex items-center">
-                            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                              <div className="max-w-6xl">
-                                <div className="grid md:grid-cols-2 gap-6 items-center">
+              {/* Content */}
+              <div className={`relative z-10 h-full flex items-center transition-all duration-500 delay-200 ${
+                index === currentSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}>
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                  <div className="max-w-6xl">
+                    <div className="grid md:grid-cols-2 gap-6 items-center">
                       {/* Text Content */}
-                                                        <div className="text-white space-y-4">
-                                    {slide.badge && (
-                                      <Badge
-                                        variant={slide.badge.variant}
-                                        className={`mb-4 font-ubuntu ${
-                                          slide.badge.text === "Premium" 
-                                            ? "premium-badge" 
-                                            : "bg-white/20 text-white border-white/30"
-                                        }`}
-                                      >
-                                        {slide.badge.icon && (
-                                          <slide.badge.icon className="w-4 h-4 mr-1" />
-                                        )}
-                                        {slide.badge.text}
-                                      </Badge>
-                                    )}
+                      <div className={`text-white space-y-4 transition-all duration-700 delay-300 ${
+                        index === currentSlide ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
+                      }`}>
+                        {slide.badge && (
+                          <Badge
+                            variant={slide.badge.variant}
+                            className={`mb-4 font-ubuntu ${
+                              slide.badge.text === "Premium" 
+                                ? "premium-badge" 
+                                : "bg-white/20 text-white border-white/30"
+                            }`}
+                          >
+                            {slide.badge.icon && (
+                              <slide.badge.icon className="w-4 h-4 mr-1" />
+                            )}
+                            {slide.badge.text}
+                          </Badge>
+                        )}
 
-                                    <div className="space-y-3">
-                                      <h1 className="text-3xl md:text-4xl font-ubuntu font-bold leading-tight text-white drop-shadow-lg">
-                                        {slide.title}
-                                      </h1>
-                                      <p className="text-lg font-ubuntu font-light text-white/90 drop-shadow-md">
-                                        {slide.subtitle}
-                                      </p>
-                                      <p className="text-sm md:text-base text-white/80 font-ubuntu leading-relaxed drop-shadow-sm">
-                                        {slide.description}
-                                      </p>
-                                    </div>
+                        <div className="space-y-3">
+                          <h1 className="text-3xl md:text-4xl font-ubuntu font-bold leading-tight text-white drop-shadow-lg">
+                            {slide.title}
+                          </h1>
+                          <p className="text-lg font-ubuntu font-light text-white/90 drop-shadow-md">
+                            {slide.subtitle}
+                          </p>
+                          <p className="text-sm md:text-base text-white/80 font-ubuntu leading-relaxed drop-shadow-sm">
+                            {slide.description}
+                          </p>
+                        </div>
 
-                                                            {/* Features List */}
-                                    {slide.features && (
-                                      <div className="grid grid-cols-2 gap-2 mt-6">
-                                        {slide.features.map((feature, idx) => (
-                                          <div key={idx} className="flex items-center space-x-2 text-white/90">
-                                            <Star className="w-4 h-4 text-heritage-gold" />
-                                            <span className="text-sm font-ubuntu drop-shadow-sm">{feature}</span>
-                                          </div>
-                                        ))}
-                                      </div>
-                                    )}
+                        {/* Features List */}
+                        {slide.features && (
+                          <div className="grid grid-cols-2 gap-2 mt-6">
+                            {slide.features.map((feature, idx) => (
+                              <div key={idx} className="flex items-center space-x-2 text-white/90">
+                                <Star className="w-4 h-4 text-heritage-gold" />
+                                <span className="text-sm font-ubuntu drop-shadow-sm">{feature}</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
 
-                                                            {/* CTA Button */}
-                                    <div className="pt-3">
-                                      <Link href={slide.cta.href}>
-                                        <Button
-                                          size="lg"
-                                          variant={slide.cta.variant}
-                                          className="btn-primary-glass font-ubuntu text-base px-6 py-2 hover:scale-105 transition-transform duration-200"
-                                        >
-                                          {slide.cta.text}
-                                        </Button>
-                                      </Link>
-                                    </div>
+                        {/* CTA Button */}
+                        <div className="pt-3">
+                          <Link href={slide.cta.href}>
+                            <Button
+                              size="lg"
+                              variant={slide.cta.variant}
+                              className="btn-primary-glass font-ubuntu text-base px-6 py-2 hover:scale-105 transition-transform duration-200"
+                            >
+                              {slide.cta.text}
+                            </Button>
+                          </Link>
+                        </div>
                       </div>
 
-                                                        {/* Visual Element */}
-                                  <div className="hidden md:block">
-                                    <div className="relative">
-                                      {/* Floating Cultural Elements */}
-                                      <div className={`absolute top-0 right-0 w-32 h-32 rounded-full ${getCulturalThemeClasses(slide.culturalTheme)} opacity-20 blur-xl animate-pulse`}></div>
-                                      <div className={`absolute bottom-0 left-0 w-24 h-24 rounded-full ${getCulturalThemeClasses(slide.culturalTheme)} opacity-30 blur-lg animate-pulse`} style={{animationDelay: '1s'}}></div>
+                      {/* Visual Element */}
+                      <div className={`hidden md:block transition-all duration-700 delay-400 ${
+                        index === currentSlide ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
+                      }`}>
+                        <div className="relative">
+                          {/* Floating Cultural Elements */}
+                          <div className={`absolute top-0 right-0 w-32 h-32 rounded-full ${getCulturalThemeClasses(slide.culturalTheme)} opacity-20 blur-xl animate-pulse`}></div>
+                          <div className={`absolute bottom-0 left-0 w-24 h-24 rounded-full ${getCulturalThemeClasses(slide.culturalTheme)} opacity-30 blur-lg animate-pulse`} style={{animationDelay: '1s'}}></div>
 
-                                      {/* Cultural Icons */}
-                                      <div className="relative z-10 flex justify-center">
-                                        <div className="glass-element w-40 h-40 flex items-center justify-center">
-                                          <div className="text-white text-5xl">
-                                            {slide.culturalTheme === 'ubuntu' && <Users className="w-14 h-14" />}
-                                            {slide.culturalTheme === 'heritage' && <Heart className="w-14 h-14" />}
-                                            {slide.culturalTheme === 'community' && <Users className="w-14 h-14" />}
-                                            {slide.culturalTheme === 'wisdom' && <BookOpen className="w-14 h-14" />}
-                                            {slide.culturalTheme === 'healing' && <Heart className="w-14 h-14" />}
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
+                          {/* Cultural Icons */}
+                          <div className="relative z-10 flex justify-center">
+                            <div className="glass-element w-40 h-40 flex items-center justify-center">
+                              <div className="text-white text-5xl">
+                                {slide.culturalTheme === 'ubuntu' && <Users className="w-14 h-14" />}
+                                {slide.culturalTheme === 'heritage' && <Heart className="w-14 h-14" />}
+                                {slide.culturalTheme === 'community' && <Users className="w-14 h-14" />}
+                                {slide.culturalTheme === 'wisdom' && <BookOpen className="w-14 h-14" />}
+                                {slide.culturalTheme === 'healing' && <Heart className="w-14 h-14" />}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -354,61 +371,40 @@ export function HeroCarousel() {
           ))}
         </div>
 
-                            {/* Navigation Buttons */}
-                    <button
-                      onClick={goToPrevious}
-                      className="hero-nav-button absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center"
-                      aria-label="Previous slide"
-                    >
-                      <ChevronLeft className="w-5 h-5" />
-                    </button>
+        {/* Navigation Buttons */}
+        <button
+          onClick={goToPrevious}
+          className="hero-nav-button absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center"
+          aria-label="Previous slide"
+        >
+          <ChevronLeft className="w-5 h-5" />
+        </button>
 
-                    <button
-                      onClick={goToNext}
-                      className="hero-nav-button absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center"
-                      aria-label="Next slide"
-                    >
-                      <ChevronRight className="w-5 h-5" />
-                    </button>
+        <button
+          onClick={goToNext}
+          className="hero-nav-button absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center"
+          aria-label="Next slide"
+        >
+          <ChevronRight className="w-5 h-5" />
+        </button>
 
-                            {/* Slide Indicators */}
-                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex space-x-2">
-                      {heroSlides.map((_, index) => (
-                        <button
-                          key={index}
-                          onClick={() => goToSlide(index)}
-                          className={`hero-indicator w-3 h-3 ${
-                            index === currentSlide ? 'active' : ''
-                          }`}
-                          aria-label={`Go to slide ${index + 1}`}
-                        />
-                      ))}
-                    </div>
+        {/* Progress Bar */}
+        <div className="hero-progress-bar absolute bottom-0 left-0 right-0 h-1">
+          <div
+            className="hero-progress-fill h-full"
+            style={{
+              width: `${((currentSlide + 1) / heroSlides.length) * 100}%`
+            }}
+          />
+        </div>
 
-                    {/* Progress Bar */}
-                    <div className="hero-progress-bar absolute bottom-0 left-0 right-0 h-1">
-                      <div
-                        className="hero-progress-fill h-full"
-                        style={{
-                          width: `${((currentSlide + 1) / heroSlides.length) * 100}%`
-                        }}
-                      />
-                    </div>
-
-                    {/* Auto-play Status Indicator */}
-                    <div className="absolute top-4 right-4 z-20">
-                      <button
-                        onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-                        className={`w-3 h-3 rounded-full ${isAutoPlaying ? 'bg-green-400 animate-pulse' : 'bg-red-400'} hover:scale-125 transition-transform`} 
-                        title={isAutoPlaying ? 'Auto-play active (click to pause)' : 'Auto-play paused (click to resume)'} />
-                    </div>
-
-                    {/* Current Slide Indicator */}
-                    <div className="absolute top-4 left-4 z-20">
-                      <div className="bg-black/50 text-white px-2 py-1 rounded text-xs">
-                        {currentSlide + 1} / {heroSlides.length}
-                      </div>
-                    </div>
+        {/* Auto-play Status Indicator (Optional - can be removed for cleaner look) */}
+        <div className="absolute top-4 right-4 z-20">
+          <button
+            onClick={() => setIsAutoPlaying(!isAutoPlaying)}
+            className={`w-3 h-3 rounded-full ${isAutoPlaying ? 'bg-green-400 animate-pulse' : 'bg-red-400'} hover:scale-125 transition-transform opacity-60 hover:opacity-100`} 
+            title={isAutoPlaying ? 'Auto-play active (3s intervals - click to pause)' : 'Auto-play paused (click to resume)'} />
+        </div>
       </div>
     </div>
   );

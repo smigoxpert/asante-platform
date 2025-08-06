@@ -121,7 +121,7 @@ export default function SignupPage() {
             {/* Inspirational Quote */}
             <div className="mt-6 p-4 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
               <p className="text-white/80 text-sm italic font-ubuntu">
-                "I am because we are" - Ubuntu Philosophy
+                &quot;I am because we are&quot; - Ubuntu Philosophy
               </p>
             </div>
           </div>
@@ -353,7 +353,7 @@ export default function SignupPage() {
           {/* Footer Quote */}
           <div className="text-center mt-8">
             <p className="text-white/70 text-xs font-ubuntu italic">
-              "The quality of being human shows itself through Ubuntu" - Desmond Tutu
+              &quot;The quality of being human shows itself through Ubuntu&quot; - Desmond Tutu
             </p>
           </div>
         </div>
