@@ -1,29 +1,40 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 import AuthenticatedLayout from "@/components/layout/AuthenticatedLayout";
-import { FaCrown, FaHeart, FaStar, FaUsers, FaDollarSign, FaLandmark } from "react-icons/fa";
-import { IoMdSchool } from "react-icons/io";
-import { GiOpenBook } from "react-icons/gi";
-
-interface WisdomPath {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  rating: number;
-  totalRatings: number;
-  duration: string;
-  category: string;
-  culturalRegion: string;
-  difficulty: string;
-  enrollmentCount: number;
-  price: string;
-  features: string[];
-}
+import {
+  FaSearch,
+  FaFilter,
+  FaStar,
+  FaClock,
+  FaUsers,
+  FaGraduationCap,
+  FaGlobe,
+  FaCrown,
+  FaHeart,
+  FaLeaf,
+  FaPrayingHands,
+  FaPalette,
+  FaShieldAlt,
+  FaBalanceScale,
+  FaSeedling,
+  FaMountain,
+  FaWater,
+  FaFire,
+  FaWind,
+  FaTree,
+  FaSun,
+  FaMoon,
+  FaCompass,
+  FaChevronLeft,
+  FaChevronRight
+} from "react-icons/fa";
+import { courseTemplates } from "@/lib/course-templates";
 
 interface Testimonial {
   id: string;
@@ -41,130 +52,64 @@ interface FAQ {
 }
 
 export default function CoursesPage() {
+  const router = useRouter();
   const [expandedFAQ, setExpandedFAQ] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
-  const wisdomPaths: WisdomPath[] = [
-    {
-      id: "1",
-      title: "Ancestral Wisdom Foundations",
-      description: "Discover the power of storytelling and oral traditions passed down through generations",
-      image: "/images/paths/ancestral-wisdom.jpg",
-      rating: 4.8,
-      totalRatings: 1247,
-      duration: "32.5 hours",
-      category: "Cultural Heritage",
-      culturalRegion: "Pan-African",
-      difficulty: "Beginner",
-      enrollmentCount: 15420,
-      price: "Free",
-      features: ["Storytelling Mastery", "Oral History", "Cultural Preservation", "Community Building"]
-    },
-    {
-      id: "2",
-      title: "Ubuntu Leadership",
-      description: "Master community-centered leadership principles that serve the collective good",
-      image: "/images/paths/ubuntu-leadership.jpg",
-      rating: 4.9,
-      totalRatings: 892,
-      duration: "28.3 hours",
-      category: "Leadership",
-      culturalRegion: "Southern Africa",
-      difficulty: "Intermediate",
-      enrollmentCount: 8930,
-      price: "$49",
-      features: ["Community Leadership", "Conflict Resolution", "Collective Decision Making", "Service Leadership"]
-    },
-    {
-      id: "3",
-      title: "Sacred Relationships",
-      description: "Build meaningful connections through Ubuntu principles and ancestral wisdom",
-      image: "/images/paths/sacred-relationships.jpg",
-      rating: 4.7,
-      totalRatings: 1567,
-      duration: "24.1 hours",
-      category: "Relationships",
-      culturalRegion: "West Africa",
-      difficulty: "Beginner",
-      enrollmentCount: 12340,
-      price: "$39",
-      features: ["Family Harmony", "Community Bonds", "Intergenerational Connection", "Spiritual Relationships"]
-    },
-    {
-      id: "4",
-      title: "Traditional Healing & Medicine",
-      description: "Learn ancient African healing practices and holistic wellness approaches",
-      image: "/images/paths/healing-medicine.jpg",
-      rating: 4.6,
-      totalRatings: 2341,
-      duration: "45.2 hours",
-      category: "Wellness",
-      culturalRegion: "East Africa",
-      difficulty: "Advanced",
-      enrollmentCount: 6780,
-      price: "$79",
-      features: ["Herbal Medicine", "Energy Healing", "Spiritual Wellness", "Community Health"]
-    },
-    {
-      id: "5",
-      title: "Creative Expression & Arts",
-      description: "Express your soul through traditional African arts, music, and creative practices",
-      image: "/images/paths/creative-expression.jpg",
-      rating: 4.8,
-      totalRatings: 987,
-      duration: "38.7 hours",
-      category: "Arts & Culture",
-      culturalRegion: "Central Africa",
-      difficulty: "Intermediate",
-      enrollmentCount: 5670,
-      price: "$59",
-      features: ["Traditional Arts", "Music & Rhythm", "Dance & Movement", "Creative Storytelling"]
-    },
-    {
-      id: "6",
-      title: "Spiritual Awakening",
-      description: "Deepen your spiritual connection through traditional African spirituality",
-      image: "/images/paths/spiritual-development.jpg",
-      rating: 4.9,
-      totalRatings: 1456,
-      duration: "52.4 hours",
-      category: "Spirituality",
-      culturalRegion: "North Africa",
-      difficulty: "Advanced",
-      enrollmentCount: 4320,
-      price: "$89",
-      features: ["Ancestral Connection", "Meditation Practices", "Ritual & Ceremony", "Spiritual Growth"]
-    },
-    {
-      id: "7",
-      title: "Community Building",
-      description: "Learn to create and sustain vibrant, supportive communities",
-      image: "/images/paths/community-building.jpg",
-      rating: 4.7,
-      totalRatings: 1123,
-      duration: "29.8 hours",
-      category: "Community",
-      culturalRegion: "Pan-African",
-      difficulty: "Intermediate",
-      enrollmentCount: 7890,
-      price: "$49",
-      features: ["Community Organization", "Event Planning", "Conflict Resolution", "Sustainable Development"]
-    },
-    {
-      id: "8",
-      title: "Economic Empowerment",
-      description: "Build wealth and financial independence through community-based economics",
-      image: "/images/paths/economic-empowerment.jpg",
-      rating: 4.6,
-      totalRatings: 2341,
-      duration: "41.3 hours",
-      category: "Economics",
-      culturalRegion: "West Africa",
-      difficulty: "Intermediate",
-      enrollmentCount: 6540,
-      price: "$69",
-      features: ["Cooperative Economics", "Entrepreneurship", "Wealth Building", "Community Investment"]
+  const courses = courseTemplates;
+  const coursesPerPage = 4; // Show 4 courses per page
+  const totalPages = Math.ceil(courses.length / coursesPerPage);
+
+  // Filter courses based on search and category
+  const filteredCourses = courses.filter(course => {
+    const matchesSearch = course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         course.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === "all" || course.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
+
+  const currentCourses = filteredCourses.slice(
+    currentPage * coursesPerPage,
+    (currentPage + 1) * coursesPerPage
+  );
+
+  const goToNextPage = () => {
+    setCurrentPage((prev) => (prev + 1) % Math.ceil(filteredCourses.length / coursesPerPage));
+  };
+
+  const goToPreviousPage = () => {
+    setCurrentPage((prev) => (prev - 1 + Math.ceil(filteredCourses.length / coursesPerPage)) % Math.ceil(filteredCourses.length / coursesPerPage));
+  };
+
+  // Reset to first page when filters change
+  useEffect(() => {
+    setCurrentPage(0);
+  }, [searchTerm, selectedCategory]);
+
+  const renderStars = (rating: number) => {
+    return Array.from({ length: 5 }, (_, i) => (
+      <FaStar
+        key={i}
+        className={`w-4 h-4 ${i < Math.floor(rating) ? 'text-yellow-400 fill-current' : 'text-gray-300'}`}
+      />
+    ));
+  };
+
+  const getCategoryIcon = (category: string) => {
+    switch (category) {
+      case "Cultural Heritage": return <FaGraduationCap className="w-5 h-5" />;
+      case "Leadership": return <FaCrown className="w-5 h-5" />;
+      case "Relationships": return <FaHeart className="w-5 h-5" />;
+      case "Wellness": return <FaLeaf className="w-5 h-5" />;
+      case "Arts & Culture": return <FaPalette className="w-5 h-5" />;
+      case "Spirituality": return <FaPrayingHands className="w-5 h-5" />;
+      default: return <FaGlobe className="w-5 h-5" />;
     }
-  ];
+  };
+
+  const categories = ["all", ...Array.from(new Set(courses.map(course => course.category)))];
 
   const testimonials: Testimonial[] = [
     {
@@ -172,7 +117,7 @@ export default function CoursesPage() {
       content: "Asante has truly transformed my understanding of my heritage and given me the tools to build stronger community connections. The Ubuntu Leadership course changed how I approach every relationship.",
       author: "Amani Johnson",
       title: "Community Organizer, Detroit",
-      avatar: "/images/testimonials/amani.jpg",
+      avatar: "A",
       rating: 5
     },
     {
@@ -180,7 +125,7 @@ export default function CoursesPage() {
       content: "Through the Ancestral Wisdom course, I discovered stories from my grandmother that I never knew existed. Now I'm passing these traditions to my children and our community.",
       author: "Maya Osei",
       title: "Educator & Storyteller, Atlanta",
-      avatar: "/images/testimonials/maya.jpg",
+      avatar: "M",
       rating: 5
     },
     {
@@ -188,7 +133,7 @@ export default function CoursesPage() {
       content: "The Traditional Healing course helped me reconnect with my roots and find holistic wellness practices that work for my family. It's more than education—it's transformation.",
       author: "Kwame Williams",
       title: "Wellness Coach, Chicago",
-      avatar: "/images/testimonials/kwame.jpg",
+      avatar: "K",
       rating: 5
     }
   ];
@@ -197,59 +142,39 @@ export default function CoursesPage() {
     {
       id: "1",
       question: "Who are Asante Wisdom Paths for?",
-      answer: "Asante Wisdom Paths are designed for anyone seeking to connect with African heritage, build stronger communities, and develop leadership skills rooted in Ubuntu principles. Whether you're exploring your ancestry, looking to serve your community, or seeking personal transformation, our courses provide the guidance and tools you need."
+      answer: "Asante Wisdom Paths are designed for anyone seeking to connect with African heritage, wisdom traditions, and community building. Whether you're just beginning your journey or are already deeply involved in cultural practices, our courses offer valuable insights and practical skills."
     },
     {
       id: "2",
       question: "Is any prior knowledge of African culture required?",
-      answer: "No prior knowledge is required. Our courses are designed to be accessible to learners of all backgrounds and experience levels. We welcome everyone who is curious about African wisdom and committed to personal and community growth."
+      answer: "No prior knowledge is required! Our courses are designed to be accessible to beginners while also providing depth for those with existing knowledge. We welcome learners from all backgrounds and experience levels."
     },
     {
       id: "3",
       question: "How are the Wisdom Paths structured?",
-      answer: "Each Wisdom Path combines traditional African knowledge with modern applications. Courses include video lessons, interactive exercises, community discussions, and practical projects. You'll learn from elders, cultural practitioners, and community leaders who bring authentic wisdom and real-world experience."
+      answer: "Each Wisdom Path is structured as a comprehensive journey with multiple modules and lessons. You'll find a mix of video content, interactive exercises, community discussions, and practical applications designed to help you integrate the wisdom into your daily life."
     },
     {
       id: "4",
       question: "Can I connect with other learners and build community?",
-      answer: "Absolutely! Community is at the heart of Asante. Each course includes access to discussion forums, virtual circle gatherings, and opportunities to connect with fellow learners. You'll also have access to our global network of Ubuntu practitioners and cultural leaders."
+      answer: "Absolutely! Community is at the heart of our platform. You can join discussion forums, participate in live community circles, connect with mentors, and build meaningful relationships with fellow learners who share your interests and goals."
     },
     {
       id: "5",
       question: "Are there opportunities for in-person learning and ceremonies?",
-      answer: "Yes! We offer both virtual and in-person learning experiences. Many courses include optional in-person gatherings, ceremonies, and community events. We also partner with local cultural organizations to provide authentic, immersive learning experiences."
+      answer: "Yes! We regularly host in-person events, ceremonies, and community gatherings. These include traditional ceremonies, cultural celebrations, community service projects, and special events that bring our online community together in meaningful ways."
     },
     {
       id: "6",
       question: "How do I know which Wisdom Path is right for me?",
-      answer: "Start with our Heritage Discovery assessment to understand your interests and goals. You can also explore our free introductory courses to get a feel for different paths. Our community advisors are available to help you choose the right journey for your personal and spiritual growth."
+      answer: "Start by exploring the course descriptions and taking our guided assessment. You can also try our free introductory lessons to get a feel for different paths. Many learners find themselves drawn to multiple paths and choose to explore them at their own pace."
     }
   ];
-
-  const renderStars = (rating: number) => {
-    return (
-      <div className="flex items-center space-x-1">
-        {[1, 2, 3, 4, 5].map((star) => (
-          <svg
-            key={star}
-            className={`w-4 h-4 ${
-              star <= rating ? "text-yellow-400 fill-current" : "text-gray-300"
-            }`}
-            viewBox="0 0 20 20"
-          >
-            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-          </svg>
-        ))}
-        <span className="text-sm font-semibold text-gray-700 ml-1">{rating}</span>
-      </div>
-    );
-  };
 
   return (
     <AuthenticatedLayout>
       <div className="px-6 py-8">
         <div className="max-w-7xl mx-auto space-y-16">
-          
           {/* Hero Section */}
           <section className="text-center">
             <div className="max-w-4xl mx-auto">
@@ -262,94 +187,153 @@ export default function CoursesPage() {
             </div>
           </section>
 
-          {/* Wisdom Paths Grid */}
+          {/* Featured Wisdom Courses */}
           <section>
             <div className="mb-8">
               <h2 className="text-3xl font-ubuntu font-bold text-gray-900 mb-4">Featured Wisdom Courses</h2>
-              <p className="text-lg text-gray-600 font-ubuntu">
-                Choose your journey of transformation and cultural connection
-              </p>
+              <p className="text-lg text-gray-600 font-ubuntu">Choose your journey of transformation and cultural connection</p>
             </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {wisdomPaths.map((path) => (
-                <Card key={path.id} className="bg-white shadow-lg hover:shadow-xl transition-all duration-300 group">
-                  <div className="relative">
-                    <div className="aspect-video bg-gradient-to-br from-heritage-gold/20 to-heritage-bronze/20 rounded-t-lg flex items-center justify-center">
-                      <div className="text-4xl">
-                        {path.image.includes('ancestral') ? <FaLandmark className="w-12 h-12 text-heritage-gold" /> : 
-                        path.image.includes('ubuntu') ? <FaCrown className="w-12 h-12 text-heritage-gold" /> :
-                        path.image.includes('relationships') ? <FaHeart className="w-12 h-12 text-heritage-gold" /> :
-                        path.image.includes('healing') ? <IoMdSchool className="w-12 h-12 text-heritage-gold" /> :
-                        path.image.includes('creative') ? <GiOpenBook className="w-12 h-12 text-heritage-gold" /> :
-                        path.image.includes('spiritual') ? <FaStar className="w-12 h-12 text-heritage-gold" /> :
-                        path.image.includes('community') ? <FaUsers className="w-12 h-12 text-heritage-gold" /> : <FaDollarSign className="w-12 h-12 text-heritage-gold" />}
+
+            {/* Search and Filter */}
+            <div className="mb-8 flex flex-col sm:flex-row gap-4">
+              <div className="relative flex-1">
+                <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                <Input
+                  placeholder="Search courses..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10"
+                />
+              </div>
+              <div className="flex gap-2">
+                {categories.map((category) => (
+                  <Button
+                    key={category}
+                    variant={selectedCategory === category ? "default" : "outline"}
+                    onClick={() => setSelectedCategory(category)}
+                    className="font-ubuntu"
+                  >
+                    {category === "all" ? "All" : category}
+                  </Button>
+                ))}
+              </div>
+            </div>
+
+            {/* Courses Carousel */}
+            <div className="relative">
+              {/* Navigation Buttons */}
+              {filteredCourses.length > coursesPerPage && (
+                <>
+                  <Button
+                    onClick={goToPreviousPage}
+                    variant="outline"
+                    size="icon"
+                    className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-12 z-10 bg-white shadow-lg hover:bg-gray-50"
+                  >
+                    <FaChevronLeft className="w-4 h-4" />
+                  </Button>
+                  <Button
+                    onClick={goToNextPage}
+                    variant="outline"
+                    size="icon"
+                    className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-12 z-10 bg-white shadow-lg hover:bg-gray-50"
+                  >
+                    <FaChevronRight className="w-4 h-4" />
+                  </Button>
+                </>
+              )}
+
+              {/* Courses Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {currentCourses.map((course) => (
+                  <Card key={course.id} className="bg-white shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer" onClick={() => router.push(`/courses/${course.id}`)}>
+                    <div className="relative">
+                      <div className="aspect-video bg-gradient-to-br from-heritage-gold/20 to-heritage-bronze/20 rounded-t-lg flex items-center justify-center">
+                        <div className="text-4xl">
+                          {getCategoryIcon(course.category)}
+                        </div>
                       </div>
-                    </div>
-                    <Badge className="absolute top-3 left-3 bg-heritage-gold/90 text-white">
-                      {path.category}
-                    </Badge>
-                  </div>
-                  
-                  <CardHeader className="pb-4">
-                    <CardTitle className="text-lg font-ubuntu font-bold text-gray-900 group-hover:text-heritage-gold transition-colors">
-                      {path.title}
-                    </CardTitle>
-                    <CardDescription className="font-ubuntu text-gray-600 text-sm">
-                      {path.description}
-                    </CardDescription>
-                  </CardHeader>
-                  
-                  <CardContent className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        {renderStars(path.rating)}
-                        <span className="text-sm text-gray-500">({path.totalRatings.toLocaleString()})</span>
-                      </div>
-                      <Badge variant="outline" className="border-heritage-gold/30 text-heritage-gold">
-                        {path.difficulty}
+                      <Badge className="absolute top-3 left-3 bg-heritage-gold/90 text-white">
+                        {course.category}
                       </Badge>
                     </div>
                     
-                    <div className="flex items-center justify-between text-sm text-gray-600">
-                      <span>{path.duration}</span>
-                      <span>{path.enrollmentCount.toLocaleString()} enrolled</span>
-                    </div>
+                    <CardHeader className="pb-4">
+                      <CardTitle className="text-lg font-ubuntu font-bold text-gray-900 group-hover:text-heritage-gold transition-colors">
+                        {course.title}
+                      </CardTitle>
+                      <CardDescription className="font-ubuntu text-gray-600 text-sm">
+                        {course.description}
+                      </CardDescription>
+                    </CardHeader>
                     
-                    <div className="flex flex-wrap gap-2">
-                      {path.features.slice(0, 2).map((feature, index) => (
-                        <Badge key={index} variant="secondary" className="text-xs bg-heritage-gold/10 text-heritage-gold">
-                          {feature}
+                    <CardContent className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-2">
+                          {renderStars(course.rating)}
+                          <span className="text-sm text-gray-500">({course.totalRatings.toLocaleString()})</span>
+                        </div>
+                        <Badge variant="outline" className="border-heritage-gold/30 text-heritage-gold">
+                          {course.difficulty}
                         </Badge>
-                      ))}
-                      {path.features.length > 2 && (
-                        <Badge variant="secondary" className="text-xs bg-gray-100 text-gray-600">
-                          +{path.features.length - 2} more
-                        </Badge>
-                      )}
-                    </div>
-                    
-                    <div className="flex items-center justify-between">
-                      <span className="text-lg font-ubuntu font-bold text-heritage-gold">
-                        {path.price}
-                      </span>
-                      <Button className="bg-heritage-gold hover:bg-heritage-bronze text-white font-ubuntu">
-                        Start Learning
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-            
-            <div className="text-center mt-8">
-              <Button 
-                size="lg"
-                variant="outline"
-                className="border-heritage-gold text-heritage-gold hover:bg-heritage-gold/10 font-ubuntu px-8"
-              >
-                View All Wisdom Paths
-              </Button>
+                      </div>
+                      
+                      <div className="flex items-center justify-between text-sm text-gray-600">
+                        <span>{course.duration}</span>
+                        <span>{course.enrollmentCount.toLocaleString()} enrolled</span>
+                      </div>
+                      
+                      <div className="flex flex-wrap gap-2">
+                        {course.features.slice(0, 2).map((feature, index) => (
+                          <Badge key={index} variant="secondary" className="text-xs bg-heritage-gold/10 text-heritage-gold">
+                            {feature}
+                          </Badge>
+                        ))}
+                        {course.features.length > 2 && (
+                          <Badge variant="secondary" className="text-xs bg-gray-100 text-gray-600">
+                            +{course.features.length - 2} more
+                          </Badge>
+                        )}
+                      </div>
+                      
+                      <div className="flex items-center justify-between">
+                        <span className="text-lg font-ubuntu font-bold text-heritage-gold">
+                          {course.price}
+                        </span>
+                        <Button className="bg-heritage-gold hover:bg-heritage-bronze text-white font-ubuntu">
+                          Start Learning
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              {/* Carousel Indicators */}
+              {filteredCourses.length > coursesPerPage && (
+                <div className="flex justify-center mt-8 space-x-2">
+                  {Array.from({ length: Math.ceil(filteredCourses.length / coursesPerPage) }, (_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setCurrentPage(i)}
+                      className={`w-3 h-3 rounded-full transition-colors ${
+                        i === currentPage ? 'bg-heritage-gold' : 'bg-gray-300 hover:bg-gray-400'
+                      }`}
+                    />
+                  ))}
+                </div>
+              )}
+
+              {/* Show All Courses Button */}
+              <div className="text-center mt-8">
+                <Button 
+                  onClick={() => router.push('/wisdom-paths')} 
+                  variant="outline" 
+                  className="border-heritage-gold text-heritage-gold hover:bg-heritage-gold/10 font-ubuntu px-8"
+                >
+                  View All Wisdom Paths
+                </Button>
+              </div>
             </div>
           </section>
 
