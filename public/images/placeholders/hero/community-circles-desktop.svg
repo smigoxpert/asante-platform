@@ -1,0 +1,110 @@
+<svg width="1340" height="600" viewBox="0 0 1340 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="communityGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7C3AED;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#EC4899;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F43F5E;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1340" height="600" fill="url(#communityGradient)"/>
+  
+  <!-- Main Circle -->
+  <g opacity="0.6">
+    <circle cx="670" cy="300" r="150" fill="none" stroke="white" stroke-width="3"/>
+    <circle cx="670" cy="300" r="120" fill="none" stroke="white" stroke-width="2" opacity="0.7"/>
+    <circle cx="670" cy="300" r="90" fill="none" stroke="white" stroke-width="1" opacity="0.5"/>
+  </g>
+  
+  <!-- People Around the Circle -->
+  <g opacity="0.9">
+    <!-- Person 1 (Top) -->
+    <circle cx="670" cy="150" r="20" fill="white"/>
+    <rect x="650" y="170" width="40" height="50" fill="white" rx="20"/>
+    
+    <!-- Person 2 (Top Right) -->
+    <circle cx="770" cy="200" r="18" fill="white"/>
+    <rect x="752" y="218" width="36" height="45" fill="white" rx="18"/>
+    
+    <!-- Person 3 (Right) -->
+    <circle cx="820" cy="300" r="19" fill="white"/>
+    <rect x="801" y="318" width="38" height="47" fill="white" rx="19"/>
+    
+    <!-- Person 4 (Bottom Right) -->
+    <circle cx="770" cy="400" r="17" fill="white"/>
+    <rect x="753" y="417" width="34" height="43" fill="white" rx="17"/>
+    
+    <!-- Person 5 (Bottom) -->
+    <circle cx="670" cy="450" r="21" fill="white"/>
+    <rect x="649" y="471" width="42" height="52" fill="white" rx="21"/>
+    
+    <!-- Person 6 (Bottom Left) -->
+    <circle cx="570" cy="400" r="18" fill="white"/>
+    <rect x="552" y="417" width="36" height="45" fill="white" rx="18"/>
+    
+    <!-- Person 7 (Left) -->
+    <circle cx="520" cy="300" r="20" fill="white"/>
+    <rect x="500" y="318" width="40" height="50" fill="white" rx="20"/>
+    
+    <!-- Person 8 (Top Left) -->
+    <circle cx="570" cy="200" r="19" fill="white"/>
+    <rect x="551" y="218" width="38" height="47" fill="white" rx="19"/>
+  </g>
+  
+  <!-- Connecting Lines -->
+  <g stroke="white" stroke-width="2" opacity="0.6">
+    <line x1="670" y1="170" x2="770" y2="200"/>
+    <line x1="820" y1="300" x2="770" y2="400"/>
+    <line x1="670" y1="450" x2="570" y2="400"/>
+    <line x1="520" y1="300" x2="570" y2="200"/>
+    <line x1="670" y1="170" x2="570" y2="200"/>
+    <line x1="820" y1="300" x2="670" y2="450"/>
+    <line x1="520" y1="300" x2="670" y2="450"/>
+    <line x1="770" y1="200" x2="520" y2="300"/>
+  </g>
+  
+  <!-- Smaller Circles -->
+  <g opacity="0.4">
+    <circle cx="200" cy="150" r="80" fill="none" stroke="white" stroke-width="2"/>
+    <circle cx="1140" cy="450" r="70" fill="none" stroke="white" stroke-width="2"/>
+    <circle cx="1140" cy="150" r="60" fill="none" stroke="white" stroke-width="2"/>
+    <circle cx="200" cy="450" r="90" fill="none" stroke="white" stroke-width="2"/>
+  </g>
+  
+  <!-- People in Smaller Circles -->
+  <g opacity="0.7">
+    <!-- Small Circle 1 -->
+    <circle cx="200" cy="150" r="15" fill="white"/>
+    <circle cx="240" cy="130" r="12" fill="white"/>
+    <circle cx="160" cy="130" r="12" fill="white"/>
+    
+    <!-- Small Circle 2 -->
+    <circle cx="1140" cy="450" r="14" fill="white"/>
+    <circle cx="1180" cy="430" r="11" fill="white"/>
+    <circle cx="1100" cy="430" r="11" fill="white"/>
+    
+    <!-- Small Circle 3 -->
+    <circle cx="1140" cy="150" r="13" fill="white"/>
+    <circle cx="1180" cy="130" r="10" fill="white"/>
+    <circle cx="1100" cy="130" r="10" fill="white"/>
+    
+    <!-- Small Circle 4 -->
+    <circle cx="200" cy="450" r="16" fill="white"/>
+    <circle cx="240" cy="430" r="13" fill="white"/>
+    <circle cx="160" cy="430" r="13" fill="white"/>
+  </g>
+  
+  <!-- Ubuntu Symbol in Center -->
+  <g opacity="0.8">
+    <circle cx="670" cy="300" r="40" fill="none" stroke="white" stroke-width="3"/>
+    <text x="670" y="305" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="16" font-weight="bold">I AM</text>
+    <text x="670" y="325" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="16" font-weight="bold">BECAUSE</text>
+    <text x="670" y="345" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="16" font-weight="bold">WE ARE</text>
+  </g>
+  
+  <!-- Text Overlay -->
+  <text x="670" y="580" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="24" font-weight="bold" opacity="0.9">
+    Community Circles - Ubuntu Philosophy
+  </text>
+</svg> 

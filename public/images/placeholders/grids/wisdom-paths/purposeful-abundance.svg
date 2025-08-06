@@ -1,0 +1,114 @@
+<svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="purposefulAbundanceGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#D97706;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#F59E0B;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FCD34D;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="abundanceGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#FEF3C7;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#FDE68A;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="300" height="200" fill="url(#purposefulAbundanceGradient)"/>
+  
+  <!-- Abundance Glow -->
+  <circle cx="150" cy="100" r="80" fill="url(#abundanceGlow)" opacity="0.7"/>
+  
+  <!-- Prosperity Tree -->
+  <g opacity="0.95">
+    <!-- Tree Trunk -->
+    <path d="M140 180 L140 120 Q140 100 160 100 Q180 100 180 120 L180 180" fill="none" stroke="white" stroke-width="4"/>
+    
+    <!-- Tree Crown -->
+    <circle cx="160" cy="90" r="30" fill="white" opacity="0.9"/>
+    <circle cx="130" cy="80" r="20" fill="white" opacity="0.8"/>
+    <circle cx="190" cy="80" r="20" fill="white" opacity="0.8"/>
+    <circle cx="140" cy="60" r="15" fill="white" opacity="0.7"/>
+    <circle cx="180" cy="60" r="15" fill="white" opacity="0.7"/>
+    
+    <!-- Golden Fruits -->
+    <circle cx="150" cy="85" r="8" fill="#FCD34D"/>
+    <circle cx="170" cy="75" r="6" fill="#FCD34D"/>
+    <circle cx="130" cy="75" r="6" fill="#FCD34D"/>
+    <circle cx="160" cy="55" r="5" fill="#FCD34D"/>
+    <circle cx="140" cy="55" r="5" fill="#FCD34D"/>
+  </g>
+  
+  <!-- Prosperity Symbols -->
+  <g opacity="0.9">
+    <!-- Coins Stack -->
+    <circle cx="80" cy="60" r="10" fill="#FCD34D"/>
+    <circle cx="85" cy="55" r="8" fill="#FCD34D"/>
+    <circle cx="90" cy="50" r="6" fill="#FCD34D"/>
+    <circle cx="95" cy="45" r="4" fill="#FCD34D"/>
+    
+    <!-- Gold Bars -->
+    <rect x="220" y="60" width="25" height="15" fill="#FCD34D"/>
+    <rect x="225" y="55" width="20" height="10" fill="#FCD34D"/>
+    <rect x="230" y="50" width="15" height="8" fill="#FCD34D"/>
+    
+    <!-- Diamond -->
+    <polygon points="150,40 160,30 170,40 160,50" fill="white"/>
+    <polygon points="150,40 155,35 160,40 155,45" fill="#FCD34D"/>
+  </g>
+  
+  <!-- Community Sharing -->
+  <g opacity="0.8">
+    <!-- People Sharing -->
+    <g transform="translate(70, 140)">
+      <circle cx="0" cy="0" r="12" fill="white"/>
+      <rect x="-10" y="12" width="20" height="25" fill="white" rx="10"/>
+    </g>
+    
+    <g transform="translate(230, 140)">
+      <circle cx="0" cy="0" r="12" fill="white"/>
+      <rect x="-10" y="12" width="20" height="25" fill="white" rx="10"/>
+    </g>
+    
+    <!-- Sharing Hands -->
+    <path d="M90 160 Q120 150 150 160 Q180 170 210 160" stroke="white" stroke-width="3" fill="none"/>
+    <path d="M90 165 Q120 155 150 165 Q180 175 210 165" stroke="white" stroke-width="2" fill="none"/>
+  </g>
+  
+  <!-- Abundance Elements -->
+  <g opacity="0.7">
+    <!-- Wheat/Agriculture -->
+    <path d="M50 100 Q55 90 60 100 Q55 110 50 100" fill="white"/>
+    <path d="M55 90 Q60 80 65 90 Q60 100 55 90" fill="white"/>
+    <path d="M60 80 Q65 70 70 80 Q65 90 60 80" fill="white"/>
+    
+    <!-- Fruits -->
+    <circle cx="250" cy="100" r="8" fill="white"/>
+    <circle cx="245" cy="95" r="6" fill="white"/>
+    <circle cx="255" cy="95" r="6" fill="white"/>
+    
+    <!-- Water/Flow -->
+    <path d="M40 180 Q60 170 80 180" stroke="white" stroke-width="2" fill="none"/>
+    <path d="M220 180 Q240 170 260 180" stroke="white" stroke-width="2" fill="none"/>
+  </g>
+  
+  <!-- Prosperity Flow -->
+  <g opacity="0.6">
+    <path d="M50 60 Q100 80 150 100 Q200 120 250 140" stroke="#FCD34D" stroke-width="2" fill="none"/>
+    <path d="M250 60 Q200 80 150 100 Q100 120 50 140" stroke="#FCD34D" stroke-width="2" fill="none"/>
+  </g>
+  
+  <!-- Sparkles/Abundance -->
+  <g opacity="0.9">
+    <path d="M30 40 Q35 35 40 40 Q35 45 30 40" fill="#FCD34D"/>
+    <path d="M270 40 Q275 35 280 40 Q275 45 270 40" fill="#FCD34D"/>
+    <path d="M40 30 Q45 25 50 30 Q45 35 40 30" fill="#FCD34D"/>
+    <path d="M260 30 Q265 25 270 30 Q265 35 260 30" fill="#FCD34D"/>
+    <path d="M150 20 Q155 15 160 20 Q155 25 150 20" fill="#FCD34D"/>
+    <path d="M70 170 Q75 165 80 170 Q75 175 70 170" fill="#FCD34D"/>
+    <path d="M220 170 Q225 165 230 170 Q225 175 220 170" fill="#FCD34D"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="150" y="190" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="12" font-weight="bold">
+    Purposeful Abundance
+  </text>
+</svg> 

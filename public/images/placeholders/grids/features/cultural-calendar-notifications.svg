@@ -1,0 +1,160 @@
+<svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="culturalCalendarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#D4AF37;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF6B35;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="300" height="200" fill="url(#culturalCalendarGradient)"/>
+  
+  <!-- Calendar Interface -->
+  <g opacity="0.9">
+    <!-- Calendar Body -->
+    <rect x="80" y="40" width="140" height="120" fill="white" rx="8"/>
+    <rect x="85" y="45" width="130" height="110" fill="none" stroke="white" stroke-width="1" opacity="0.3"/>
+    
+    <!-- Calendar Header -->
+    <rect x="80" y="40" width="140" height="25" fill="white" opacity="0.8" rx="8"/>
+    <text x="150" y="56" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="10" font-weight="bold">Cultural Calendar</text>
+  </g>
+  
+  <!-- Calendar Grid -->
+  <g opacity="0.8">
+    <!-- Day Headers -->
+    <rect x="85" y="70" width="18" height="15" fill="white" opacity="0.7"/>
+    <text x="94" y="80" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8" font-weight="bold">S</text>
+    
+    <rect x="103" y="70" width="18" height="15" fill="white" opacity="0.7"/>
+    <text x="112" y="80" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8" font-weight="bold">M</text>
+    
+    <rect x="121" y="70" width="18" height="15" fill="white" opacity="0.7"/>
+    <text x="130" y="80" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8" font-weight="bold">T</text>
+    
+    <rect x="139" y="70" width="18" height="15" fill="white" opacity="0.7"/>
+    <text x="148" y="80" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8" font-weight="bold">W</text>
+    
+    <rect x="157" y="70" width="18" height="15" fill="white" opacity="0.7"/>
+    <text x="166" y="80" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8" font-weight="bold">T</text>
+    
+    <rect x="175" y="70" width="18" height="15" fill="white" opacity="0.7"/>
+    <text x="184" y="80" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8" font-weight="bold">F</text>
+    
+    <rect x="193" y="70" width="18" height="15" fill="white" opacity="0.7"/>
+    <text x="202" y="80" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8" font-weight="bold">S</text>
+    
+    <!-- Calendar Days -->
+    <rect x="85" y="85" width="18" height="18" fill="white" opacity="0.6"/>
+    <text x="94" y="96" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8">1</text>
+    
+    <rect x="103" y="85" width="18" height="18" fill="white" opacity="0.6"/>
+    <text x="112" y="96" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8">2</text>
+    
+    <rect x="121" y="85" width="18" height="18" fill="white" opacity="0.6"/>
+    <text x="130" y="96" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8">3</text>
+    
+    <!-- Cultural Event Day -->
+    <rect x="139" y="85" width="18" height="18" fill="#FF6B35" opacity="0.8"/>
+    <text x="148" y="96" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8" font-weight="bold">4</text>
+    <circle cx="148" cy="90" r="2" fill="white"/>
+    
+    <rect x="157" y="85" width="18" height="18" fill="white" opacity="0.6"/>
+    <text x="166" y="96" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8">5</text>
+    
+    <rect x="175" y="85" width="18" height="18" fill="white" opacity="0.6"/>
+    <text x="184" y="96" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8">6</text>
+    
+    <rect x="193" y="85" width="18" height="18" fill="white" opacity="0.6"/>
+    <text x="202" y="96" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8">7</text>
+    
+    <!-- Second Row -->
+    <rect x="85" y="103" width="18" height="18" fill="white" opacity="0.6"/>
+    <text x="94" y="114" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8">8</text>
+    
+    <rect x="103" y="103" width="18" height="18" fill="white" opacity="0.6"/>
+    <text x="112" y="114" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8">9</text>
+    
+    <!-- Heritage Day -->
+    <rect x="121" y="103" width="18" height="18" fill="#D4AF37" opacity="0.8"/>
+    <text x="130" y="114" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8" font-weight="bold">10</text>
+    <circle cx="130" cy="108" r="2" fill="white"/>
+    
+    <rect x="139" y="103" width="18" height="18" fill="white" opacity="0.6"/>
+    <text x="148" y="114" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8">11</text>
+    
+    <rect x="157" y="103" width="18" height="18" fill="white" opacity="0.6"/>
+    <text x="166" y="114" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8">12</text>
+    
+    <rect x="175" y="103" width="18" height="18" fill="white" opacity="0.6"/>
+    <text x="184" y="114" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8">13</text>
+    
+    <rect x="193" y="103" width="18" height="18" fill="white" opacity="0.6"/>
+    <text x="202" y="114" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8">14</text>
+  </g>
+  
+  <!-- Event Details -->
+  <g opacity="0.8">
+    <!-- Event Card -->
+    <rect x="85" y="130" width="130" height="25" fill="white" opacity="0.9" rx="4"/>
+    <text x="90" y="142" fill="white" font-family="Arial, sans-serif" font-size="8" font-weight="bold">Kwanzaa Celebration</text>
+    <text x="90" y="150" fill="white" font-family="Arial, sans-serif" font-size="6">Dec 26 - Jan 1</text>
+  </g>
+  
+  <!-- Notifications -->
+  <g opacity="0.9">
+    <!-- Notification Bell -->
+    <path d="M240 50 Q250 40 260 50 Q250 60 240 50" fill="white"/>
+    <rect x="245" y="50" width="10" height="15" fill="white"/>
+    <circle cx="250" cy="45" r="2" fill="#FF4444"/>
+    
+    <!-- Notification Panel -->
+    <rect x="200" y="70" width="80" height="60" fill="white" rx="5"/>
+    <rect x="205" y="75" width="70" height="50" fill="none" stroke="white" stroke-width="1" opacity="0.3"/>
+    
+    <!-- Notification Items -->
+    <rect x="210" y="80" width="60" height="8" fill="white" opacity="0.7"/>
+    <rect x="210" y="90" width="50" height="6" fill="white" opacity="0.5"/>
+    
+    <rect x="210" y="100" width="60" height="8" fill="white" opacity="0.7"/>
+    <rect x="210" y="110" width="45" height="6" fill="white" opacity="0.5"/>
+    
+    <rect x="210" y="120" width="60" height="8" fill="white" opacity="0.7"/>
+    <rect x="210" y="130" width="55" height="6" fill="white" opacity="0.5"/>
+  </g>
+  
+  <!-- Cultural Symbols -->
+  <g opacity="0.7">
+    <!-- Kwanzaa Candles -->
+    <rect x="40" y="80" width="3" height="20" fill="white"/>
+    <rect x="45" y="80" width="3" height="20" fill="white"/>
+    <rect x="50" y="80" width="3" height="20" fill="white"/>
+    <rect x="55" y="80" width="3" height="20" fill="white"/>
+    <rect x="60" y="80" width="3" height="20" fill="white"/>
+    <rect x="65" y="80" width="3" height="20" fill="white"/>
+    <rect x="70" y="80" width="3" height="20" fill="white"/>
+    
+    <!-- Traditional Drum -->
+    <ellipse cx="40" cy="130" rx="12" ry="8" fill="none" stroke="white" stroke-width="2"/>
+    <ellipse cx="40" cy="130" rx="8" ry="5" fill="none" stroke="white" stroke-width="1"/>
+    <rect x="32" y="130" width="16" height="4" fill="white"/>
+  </g>
+  
+  <!-- Time Indicators -->
+  <g opacity="0.8">
+    <!-- Clock -->
+    <circle cx="60" cy="50" r="12" fill="none" stroke="white" stroke-width="2"/>
+    <line x1="60" y1="50" x2="60" y2="42" stroke="white" stroke-width="2"/>
+    <line x1="60" y1="50" x2="66" y2="50" stroke="white" stroke-width="2"/>
+    <circle cx="60" cy="50" r="2" fill="white"/>
+    
+    <!-- Reminder Icon -->
+    <path d="M250 30 Q260 20 270 30 Q260 40 250 30" fill="white"/>
+    <rect x="255" y="30" width="10" height="8" fill="white"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="150" y="190" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="12" font-weight="bold">
+    Cultural Calendar & Notifications
+  </text>
+</svg> 

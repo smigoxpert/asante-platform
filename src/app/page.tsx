@@ -2,10 +2,14 @@
 
 import { useState, useEffect } from 'react';
 import Link from "next/link";
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Logo } from "@/components/ui/logo";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { HeroCarousel } from "@/components/marketing/HeroCarousel";
+import { wisdomPathsGridPlaceholders, communityGridPlaceholders, mobileFeaturesGridPlaceholders, subscriptionTiersGridPlaceholders, eldersGridPlaceholders } from "@/lib/placeholder-images";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { useStorage, useAnalytics } from "@/hooks/useStorage";
 import { storage } from "@/lib/storage";
@@ -24,7 +28,8 @@ import {
   Video,
   MessageCircle,
   Award,
-  Zap
+  Zap,
+  ArrowRight
 } from 'lucide-react';
 
 // Mock data for the landing page
@@ -221,23 +226,25 @@ export default function LandingPage() {
   const heroOpacity = useTransform(scrollY, [0, 300], [1, 0.8]);
   const heroScale = useTransform(scrollY, [0, 300], [1, 0.95]);
 
-  // Intersection Observer for scroll animations
+  // Optimized Intersection Observer for scroll animations
   useEffect(() => {
     const observerOptions = {
       threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
+      rootMargin: '0px 0px -100px 0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('animate');
+          // Unobserve after animation to improve performance
+          observer.unobserve(entry.target);
         }
       });
     }, observerOptions);
 
-    // Observe all elements with animation classes
-    const animatedElements = document.querySelectorAll('.fade-in-up, .fade-in-left, .fade-in-right, .scale-in');
+    // Observe only essential elements for better performance
+    const animatedElements = document.querySelectorAll('.fade-in-up');
     animatedElements.forEach((el) => observer.observe(el));
 
     return () => {
@@ -318,13 +325,64 @@ export default function LandingPage() {
   }, [addEvent]);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
+      {/* Header */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/40">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <div className="flex items-center space-x-8">
+              <Logo size="lg" textColor="text-white" />
+              <nav className="hidden md:flex items-center space-x-6">
+                <Link href="#features" className="text-foreground/80 hover:text-foreground transition-colors font-ubuntu">
+                  Features
+                </Link>
+                <Link href="#testimonials" className="text-foreground/80 hover:text-foreground transition-colors font-ubuntu">
+                  Stories
+                </Link>
+                <Link href="#pricing" className="text-foreground/80 hover:text-foreground transition-colors font-ubuntu">
+                  Pricing
+                </Link>
+                <Link href="/about" className="text-foreground/80 hover:text-foreground transition-colors font-ubuntu">
+                  About
+                </Link>
+              </nav>
+            </div>
+            
+            <div className="flex items-center space-x-4">
+              <ThemeToggle />
+              <Link href="/login">
+                <Button variant="ghost" className="font-ubuntu">
+                  Sign In
+                </Button>
+              </Link>
+              <Link href="/signup">
+                <Button className="font-ubuntu">
+                  Get Started
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </header>
 
-
-
+      {/* Hero Carousel */}
+      <motion.section 
+        className="pt-20 pb-8 px-4 sm:px-6 lg:px-8"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        <HeroCarousel />
+      </motion.section>
 
       {/* Trust Indicators Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden glassmorphism-bg-dark bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+      <motion.section 
+        className="relative min-h-screen flex items-center justify-center overflow-hidden glassmorphism-bg-dark bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 pt-8"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 1, ease: "easeOut" }}
+      >
         {/* Enhanced Floating Particles */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="floating-particle w-2 h-2" style={{ left: '10%', top: '15%', animationDelay: '0s' }}></div>
@@ -343,7 +401,7 @@ export default function LandingPage() {
             <motion.h2 
               className="text-5xl md:text-7xl font-bold mb-6 gradient-text"
               initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, ease: "easeOut" }}
             >
               Join <span className="gradient-text-gold animate-pulse">{stats.users.toLocaleString()}+</span> Ubuntu Seekers Worldwide
@@ -352,7 +410,7 @@ export default function LandingPage() {
             <motion.p
               className="text-xl text-white/80 max-w-3xl mx-auto mb-8"
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
               Discover your roots, connect with your heritage, and understand your place in the global African family
@@ -361,13 +419,15 @@ export default function LandingPage() {
             <motion.div
               className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12"
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
             >
-              <Button size="lg" className="glass-button text-white px-10 py-4 text-lg hover-lift">
-                <Link href="/signup">Begin Heritage Discovery</Link>
-              </Button>
-              <Button size="lg" className="glass-button text-white px-10 py-4 text-lg hover-lift">
+              <Link href="/signup">
+                <Button size="lg" className="btn-primary-glass px-10 py-4 text-lg hover-lift">
+                  Begin Heritage Discovery
+                </Button>
+              </Link>
+              <Button size="lg" className="btn-secondary-glass px-10 py-4 text-lg hover-lift">
                 <Download className="mr-2" />
                 Download Mobile App
               </Button>
@@ -378,7 +438,7 @@ export default function LandingPage() {
               <motion.div 
                 className="text-center glass-card p-6 parallax-element"
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
               >
                 <div className="text-4xl font-bold gradient-text-gold mb-2">{stats.connections.toLocaleString()}</div>
@@ -387,7 +447,7 @@ export default function LandingPage() {
               <motion.div 
                 className="text-center glass-card p-6 parallax-element"
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
                 <div className="text-4xl font-bold gradient-text-gold mb-2">{stats.circles}</div>
@@ -396,7 +456,7 @@ export default function LandingPage() {
               <motion.div 
                 className="text-center glass-card p-6 parallax-element"
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
               >
                 <div className="text-4xl font-bold gradient-text-gold mb-2">50+</div>
@@ -447,10 +507,16 @@ export default function LandingPage() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Heritage Discovery Preview */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden glassmorphism-bg bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50">
+      <motion.section 
+        className="relative min-h-screen flex items-center justify-center overflow-hidden glassmorphism-bg bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 1, ease: "easeOut" }}
+      >
         {/* Enhanced Floating Particles */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="floating-particle w-2 h-2" style={{ left: '15%', top: '20%', animationDelay: '0.5s' }}></div>
@@ -470,10 +536,10 @@ export default function LandingPage() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
           >
-            <h2 className="text-5xl md:text-7xl font-bold mb-6 gradient-text-gold">
-              Uncover Your <span className="gradient-text animate-pulse">Ancestral Wisdom</span>
+            <h2 className="text-5xl md:text-7xl font-bold mb-6">
+              Uncover Your <span className="gradient-text-gold animate-pulse drop-shadow-lg">Ancestral Wisdom</span>
             </h2>
-            <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+            <p className="text-xl max-w-3xl mx-auto font-medium">
               Discover your roots, connect with your heritage, and understand your place in the global African family through cutting-edge DNA analysis and cultural mapping
             </p>
           </motion.div>
@@ -574,7 +640,7 @@ export default function LandingPage() {
           </div>
 
           <motion.div 
-            className="text-center mt-16"
+            className="text-center mt-16 mb-20"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
@@ -587,7 +653,7 @@ export default function LandingPage() {
             </Button>
           </motion.div>
         </div>
-      </section>
+      </motion.section>
       
         {/* Learning Paths Preview */}
         <section className="py-20 px-4 sm:px-6 lg:px-8 glassmorphism-bg bg-gradient-to-br from-ubuntu-50 to-ubuntu-100">
@@ -601,29 +667,35 @@ export default function LandingPage() {
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 gradient-text-gold">
               Transform Through <span className="gradient-text">Ancient Wisdom</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl max-w-3xl mx-auto">
               Six transformative paths guided by African wisdom traditions and Ubuntu philosophy
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {wisdomPaths.map((path, index) => (
-              <motion.div
+              <div
                 key={path.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="fade-in-up"
               >
-                <Card className="glass-card hover-lift border-ubuntu-200/30">
-                  <CardHeader>
+                <Card className="glass-card hover-lift border-ubuntu-200/30 overflow-hidden">
+                  <div className="relative h-48 bg-gradient-to-br from-ubuntu-400/10 to-ubuntu-600/10">
+                    <img
+                      src={wisdomPathsGridPlaceholders[path.category as keyof typeof wisdomPathsGridPlaceholders] || wisdomPathsGridPlaceholders["ubuntu-leadership"]}
+                      alt={`${path.title} wisdom path`}
+                      className="w-full h-full object-cover rounded-t-lg"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                  </div>
+                  <CardHeader className="pb-4">
                     <div className="w-12 h-12 bg-gradient-to-r from-ubuntu-400 to-ubuntu-600 rounded-full flex items-center justify-center mb-4">
                       <path.icon className="w-6 h-6 text-white" />
                     </div>
                     <CardTitle className="text-ubuntu-600 gradient-text-gold">{path.title}</CardTitle>
-                    <CardDescription className="text-gray-600">{path.description}</CardDescription>
+                    <CardDescription className=" font-medium">{path.description}</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="flex items-center justify-between text-sm text-gray-600 mb-4">
+                    <div className="flex items-center justify-between text-sm   mb-4">
                       <span>{path.duration}</span>
                       <div className="flex space-x-1">
                         {[...Array(5)].map((_, i) => (
@@ -641,7 +713,7 @@ export default function LandingPage() {
                     </Button>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -659,7 +731,7 @@ export default function LandingPage() {
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 gradient-text-gold">
               Experience Ubuntu: <span className="gradient-text">I Am Because We Are</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl max-w-3xl mx-auto">
               Join a global community of seekers, learners, and wisdom keepers
             </p>
           </motion.div>
@@ -670,15 +742,23 @@ export default function LandingPage() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <Card className="glass-card hover-lift border-heritage-gold/20">
-                <CardHeader>
+              <Card className="glass-card hover-lift border-heritage-gold/20 overflow-hidden">
+                <div className="relative h-48 bg-gradient-to-br from-heritage-gold/10 to-yellow-400/10">
+                  <img
+                    src={communityGridPlaceholders["video-testimonials"]}
+                    alt="Video Testimonials"
+                    className="w-full h-full object-cover rounded-t-lg"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                </div>
+                <CardHeader className="pb-4">
                   <div className="w-12 h-12 bg-gradient-to-r from-heritage-gold to-yellow-400 rounded-full flex items-center justify-center mb-4">
                     <Video className="w-6 h-6 text-white" />
                   </div>
                   <CardTitle className="text-heritage-gold gradient-text-gold">Video Testimonials</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-gray-600">
+                  <p className=" font-medium">
                     Hear from Ubuntu Circle members about their transformative journeys and community connections.
                   </p>
                 </CardContent>
@@ -690,15 +770,23 @@ export default function LandingPage() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <Card className="glass-card hover-lift border-heritage-gold/20">
-                <CardHeader>
+              <Card className="glass-card hover-lift border-heritage-gold/20 overflow-hidden">
+                <div className="relative h-48 bg-gradient-to-br from-heritage-gold/10 to-yellow-400/10">
+                  <img
+                    src={communityGridPlaceholders["live-community-feed"]}
+                    alt="Live Community Feed"
+                    className="w-full h-full object-cover rounded-t-lg"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                </div>
+                <CardHeader className="pb-4">
                   <div className="w-12 h-12 bg-gradient-to-r from-heritage-gold to-yellow-400 rounded-full flex items-center justify-center mb-4">
                     <MessageCircle className="w-6 h-6 text-white" />
                   </div>
                   <CardTitle className="text-heritage-gold gradient-text-gold">Live Community Feed</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-gray-600">
+                  <p className=" font-medium">
                     See real-time heritage discoveries and transformations happening in our global community.
                   </p>
                 </CardContent>
@@ -710,15 +798,23 @@ export default function LandingPage() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <Card className="glass-card hover-lift border-heritage-gold/20">
-                <CardHeader>
+              <Card className="glass-card hover-lift border-heritage-gold/20 overflow-hidden">
+                <div className="relative h-48 bg-gradient-to-br from-heritage-gold/10 to-yellow-400/10">
+                  <img
+                    src={communityGridPlaceholders["impact-stories"]}
+                    alt="Impact Stories"
+                    className="w-full h-full object-cover rounded-t-lg"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                </div>
+                <CardHeader className="pb-4">
                   <div className="w-12 h-12 bg-gradient-to-r from-heritage-gold to-yellow-400 rounded-full flex items-center justify-center mb-4">
                     <Award className="w-6 h-6 text-white" />
                   </div>
                   <CardTitle className="text-heritage-gold gradient-text-gold">Impact Stories</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-gray-600">
+                  <p className=" font-medium">
                     Discover how our community is creating positive change through Ubuntu principles.
                   </p>
                 </CardContent>
@@ -752,30 +848,77 @@ export default function LandingPage() {
                 Access your heritage discovery, community circles, and wisdom lessons on any device
               </p>
               
-              <div className="space-y-4 mb-8">
-                <div className="flex items-center gap-3 group">
-                  <div className="w-8 h-8 bg-gradient-to-r from-heritage-gold to-yellow-400 rounded-full flex items-center justify-center">
-                    <Zap className="w-4 h-4 text-white" />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div className="glass-card p-4 hover-lift border-heritage-gold/20 overflow-hidden">
+                  <div className="relative h-32 bg-gradient-to-br from-heritage-gold/10 to-yellow-400/10 mb-4">
+                    <img
+                      src={mobileFeaturesGridPlaceholders["offline-cultural-content"]}
+                      alt="Offline Cultural Content"
+                      className="w-full h-full object-cover rounded-lg"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                   </div>
-                  <span className="group-hover:text-heritage-gold transition-colors duration-300">Offline Cultural Content</span>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-8 h-8 bg-gradient-to-r from-heritage-gold to-yellow-400 rounded-full flex items-center justify-center">
+                      <Zap className="w-4 h-4 text-white" />
+                    </div>
+                    <span className="font-semibold text-heritage-gold">Offline Cultural Content</span>
+                  </div>
+                  <p className="text-sm   font-medium">Access wisdom and heritage content without internet</p>
                 </div>
-                <div className="flex items-center gap-3 group">
-                  <div className="w-8 h-8 bg-gradient-to-r from-heritage-gold to-yellow-400 rounded-full flex items-center justify-center">
-                    <Video className="w-4 h-4 text-white" />
+
+                <div className="glass-card p-4 hover-lift border-heritage-gold/20 overflow-hidden">
+                  <div className="relative h-32 bg-gradient-to-br from-heritage-gold/10 to-yellow-400/10 mb-4">
+                    <img
+                      src={mobileFeaturesGridPlaceholders["ubuntu-circle-video-calls"]}
+                      alt="Ubuntu Circle Video Calls"
+                      className="w-full h-full object-cover rounded-lg"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                   </div>
-                  <span className="group-hover:text-heritage-gold transition-colors duration-300">Ubuntu Circle Video Calls</span>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-8 h-8 bg-gradient-to-r from-heritage-gold to-yellow-400 rounded-full flex items-center justify-center">
+                      <Video className="w-4 h-4 text-white" />
+                    </div>
+                    <span className="font-semibold text-heritage-gold">Ubuntu Circle Video Calls</span>
+                  </div>
+                  <p className="text-sm   font-medium">Connect with community members worldwide</p>
                 </div>
-                <div className="flex items-center gap-3 group">
-                  <div className="w-8 h-8 bg-gradient-to-r from-heritage-gold to-yellow-400 rounded-full flex items-center justify-center">
-                    <Globe className="w-4 h-4 text-white" />
+
+                <div className="glass-card p-4 hover-lift border-heritage-gold/20 overflow-hidden">
+                  <div className="relative h-32 bg-gradient-to-br from-heritage-gold/10 to-yellow-400/10 mb-4">
+                    <img
+                      src={mobileFeaturesGridPlaceholders["heritage-photo-capture"]}
+                      alt="Heritage Photo Capture"
+                      className="w-full h-full object-cover rounded-lg"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                   </div>
-                  <span className="group-hover:text-heritage-gold transition-colors duration-300">Heritage Photo Capture</span>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-8 h-8 bg-gradient-to-r from-heritage-gold to-yellow-400 rounded-full flex items-center justify-center">
+                      <Globe className="w-4 h-4 text-white" />
+                    </div>
+                    <span className="font-semibold text-heritage-gold">Heritage Photo Capture</span>
+                  </div>
+                  <p className="text-sm   font-medium">Capture and identify cultural artifacts</p>
                 </div>
-                <div className="flex items-center gap-3 group">
-                  <div className="w-8 h-8 bg-gradient-to-r from-heritage-gold to-yellow-400 rounded-full flex items-center justify-center">
-                    <Calendar className="w-4 h-4 text-white" />
+
+                <div className="glass-card p-4 hover-lift border-heritage-gold/20 overflow-hidden">
+                  <div className="relative h-32 bg-gradient-to-br from-heritage-gold/10 to-yellow-400/10 mb-4">
+                    <img
+                      src={mobileFeaturesGridPlaceholders["cultural-calendar-notifications"]}
+                      alt="Cultural Calendar & Notifications"
+                      className="w-full h-full object-cover rounded-lg"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                   </div>
-                  <span className="group-hover:text-heritage-gold transition-colors duration-300">Cultural Calendar & Notifications</span>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-8 h-8 bg-gradient-to-r from-heritage-gold to-yellow-400 rounded-full flex items-center justify-center">
+                      <Calendar className="w-4 h-4 text-white" />
+                    </div>
+                    <span className="font-semibold text-heritage-gold">Cultural Calendar & Notifications</span>
+                  </div>
+                  <p className="text-sm   font-medium">Stay connected to cultural events and celebrations</p>
                 </div>
               </div>
 
@@ -832,13 +975,21 @@ export default function LandingPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
-                <Card className={`relative glass-card hover-lift ${tier.popular ? 'border-heritage-gold/50' : 'border-white/20'}`}>
+                <Card className={`relative glass-card hover-lift overflow-hidden ${tier.popular ? 'border-heritage-gold/50' : 'border-white/20'}`}>
                   {tier.popular && (
-                    <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-heritage-gold to-yellow-400 text-white">
+                    <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-heritage-gold to-yellow-400 text-white z-10">
                       Most Popular
                     </Badge>
                   )}
-                  <CardHeader className="text-center">
+                  <div className="relative h-48 bg-gradient-to-br from-heritage-gold/10 to-yellow-400/10">
+                    <img
+                      src={subscriptionTiersGridPlaceholders[tier.tier as keyof typeof subscriptionTiersGridPlaceholders] || subscriptionTiersGridPlaceholders["seeker"]}
+                      alt={`${tier.name} subscription tier`}
+                      className="w-full h-full object-cover rounded-t-lg"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                  </div>
+                  <CardHeader className="text-center pb-4">
                     <CardTitle className="gradient-text-gold">{tier.name}</CardTitle>
                     <div className="text-3xl font-bold text-gray-900">
                       ${tier.price}
@@ -850,7 +1001,7 @@ export default function LandingPage() {
                       {tier.features.map((feature, featureIndex) => (
                         <li key={featureIndex} className="flex items-center gap-2">
                           <div className="w-2 h-2 bg-gradient-to-r from-heritage-gold to-yellow-400 rounded-full"></div>
-                          <span className="text-sm text-gray-600">{feature}</span>
+                          <span className="text-sm font-medium">{feature}</span>
                         </li>
                       ))}
                     </ul>
@@ -898,20 +1049,28 @@ export default function LandingPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
-                <Card className="glass-card hover-lift border-heritage-gold/20">
-                  <CardHeader className="text-center">
+                <Card className="glass-card hover-lift border-heritage-gold/20 overflow-hidden">
+                  <div className="relative h-48 bg-gradient-to-br from-heritage-gold/10 to-yellow-400/10">
+                    <img
+                      src={eldersGridPlaceholders[`elder-${elder.id}` as keyof typeof eldersGridPlaceholders] || eldersGridPlaceholders["elder-1"]}
+                      alt={`${elder.name} elder`}
+                      className="w-full h-full object-cover rounded-t-lg"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                  </div>
+                  <CardHeader className="text-center pb-4">
                     <div className="w-20 h-20 bg-gradient-to-r from-heritage-gold to-yellow-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl text-white">
                       {elder.name.charAt(0)}
                     </div>
                     <CardTitle className="gradient-text-gold">{elder.name}</CardTitle>
-                    <CardDescription className="text-gray-600">{elder.background}</CardDescription>
+                    <CardDescription className=" font-medium">{elder.background}</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="mb-4">
-                      <h4 className="font-semibold text-gray-900 mb-2">Expertise</h4>
-                      <p className="text-sm text-gray-600">{elder.expertise}</p>
+                      <h4 className="font-semibold mb-2">Expertise</h4>
+                      <p className="text-sm font-medium">{elder.expertise}</p>
                     </div>
-                    <blockquote className="italic text-gray-700 border-l-4 border-gradient-to-b from-heritage-gold to-yellow-400 pl-4">
+                    <blockquote className="italic border-l-4 border-gradient-to-b from-heritage-gold to-yellow-400 pl-4">
                       "{elder.quote}"
                     </blockquote>
                   </CardContent>

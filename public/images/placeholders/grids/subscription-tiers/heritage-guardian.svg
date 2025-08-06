@@ -1,0 +1,84 @@
+<svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="heritageGuardianGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#D4AF37;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF6B35;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="300" height="200" fill="url(#heritageGuardianGradient)"/>
+  
+  <!-- Guardian Figure -->
+  <g opacity="0.9">
+    <!-- Guardian -->
+    <circle cx="150" cy="100" r="25" fill="white"/>
+    <rect x="125" y="125" width="50" height="60" fill="white" rx="25"/>
+    
+    <!-- Crown/Guardian Hat -->
+    <path d="M125 85 Q150 75 175 85 Q170 95 150 90 Q130 95 125 85" fill="white"/>
+    <rect x="145" y="75" width="10" height="8" fill="white" rx="5"/>
+    
+    <!-- Guardian Staff -->
+    <rect x="200" y="60" width="6" height="50" fill="white"/>
+    <circle cx="203" cy="60" r="8" fill="white"/>
+  </g>
+  
+  <!-- Heritage Elements -->
+  <g opacity="0.8">
+    <!-- Family Tree -->
+    <path d="M80 60 L80 100" stroke="white" stroke-width="3"/>
+    <path d="M80 80 L60 80" stroke="white" stroke-width="2"/>
+    <path d="M80 80 L100 80" stroke="white" stroke-width="2"/>
+    <circle cx="60" cy="80" r="6" fill="white"/>
+    <circle cx="100" cy="80" r="6" fill="white"/>
+    <circle cx="80" cy="100" r="6" fill="white"/>
+    
+    <!-- DNA Helix -->
+    <path d="M220 60 Q240 70 220 80 Q200 90 220 100 Q240 110 220 120" stroke="white" stroke-width="2" fill="none"/>
+    <path d="M200 60 Q220 70 200 80 Q180 90 200 100 Q220 110 200 120" stroke="white" stroke-width="2" fill="none"/>
+    <line x1="220" y1="70" x2="200" y2="70" stroke="white" stroke-width="1"/>
+    <line x1="220" y1="90" x2="200" y2="90" stroke="white" stroke-width="1"/>
+    <line x1="220" y1="110" x2="200" y2="110" stroke="white" stroke-width="1"/>
+  </g>
+  
+  <!-- Advanced Features -->
+  <g opacity="0.7">
+    <!-- Elder Guidance -->
+    <path d="M50 140 Q70 130 90 140 Q70 150 50 140" fill="white"/>
+    <circle cx="70" cy="135" r="3" fill="white"/>
+    
+    <!-- Cultural Mentorship -->
+    <rect x="210" y="140" width="30" height="20" fill="white" rx="3"/>
+    <circle cx="220" cy="150" r="3" fill="white"/>
+    <circle cx="230" cy="150" r="3" fill="white"/>
+    
+    <!-- Heritage Tools -->
+    <rect x="40" y="160" width="25" height="15" fill="white" rx="2"/>
+    <line x1="45" y1="165" x2="60" y2="165" stroke="white" stroke-width="1"/>
+    
+    <!-- Family Tree Building -->
+    <path d="M235 160 L235 175" stroke="white" stroke-width="2"/>
+    <path d="M235 165 L225 165" stroke="white" stroke-width="1"/>
+    <path d="M235 165 L245 165" stroke="white" stroke-width="1"/>
+    <circle cx="225" cy="165" r="2" fill="white"/>
+    <circle cx="245" cy="165" r="2" fill="white"/>
+  </g>
+  
+  <!-- Guardian Symbols -->
+  <g opacity="0.8">
+    <!-- Shield -->
+    <path d="M150 30 L170 40 L170 60 L150 70 L130 60 L130 40 Z" fill="none" stroke="white" stroke-width="2"/>
+    <path d="M150 40 L160 45 L160 55 L150 60 L140 55 L140 45 Z" fill="white"/>
+    
+    <!-- Key -->
+    <rect x="250" y="30" width="4" height="20" fill="white"/>
+    <circle cx="252" cy="30" r="6" fill="none" stroke="white" stroke-width="2"/>
+    <rect x="248" y="25" width="8" height="8" fill="white" rx="2"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="150" y="190" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="12" font-weight="bold">
+    Heritage Guardian
+  </text>
+</svg> 

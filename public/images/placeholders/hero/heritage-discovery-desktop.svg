@@ -1,0 +1,99 @@
+<svg width="1340" height="600" viewBox="0 0 1340 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="heritageGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#059669;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#0D9488;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0891B2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#D4AF37;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFD700;stop-opacity:1" />
+    </linearGradient>
+    <filter id="premiumGlow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1340" height="600" fill="url(#heritageGradient)"/>
+  
+  <!-- Family Tree Structure -->
+  <g opacity="0.8">
+    <!-- Main Trunk -->
+    <path d="M670 500 L670 300" stroke="url(#goldGradient)" stroke-width="8" filter="url(#premiumGlow)"/>
+    
+    <!-- Branches -->
+    <path d="M670 300 L450 200" stroke="url(#goldGradient)" stroke-width="4" filter="url(#premiumGlow)"/>
+    <path d="M670 300 L890 200" stroke="url(#goldGradient)" stroke-width="4" filter="url(#premiumGlow)"/>
+    <path d="M670 300 L350 150" stroke="url(#goldGradient)" stroke-width="4" filter="url(#premiumGlow)"/>
+    <path d="M670 300 L990 150" stroke="url(#goldGradient)" stroke-width="4" filter="url(#premiumGlow)"/>
+    
+    <!-- Sub-branches -->
+    <path d="M450 200 L300 120" stroke="url(#goldGradient)" stroke-width="2" opacity="0.7"/>
+    <path d="M450 200 L550 120" stroke="url(#goldGradient)" stroke-width="2" opacity="0.7"/>
+    <path d="M890 200 L790 120" stroke="url(#goldGradient)" stroke-width="2" opacity="0.7"/>
+    <path d="M890 200 L990 120" stroke="url(#goldGradient)" stroke-width="2" opacity="0.7"/>
+  </g>
+  
+  <!-- Family Members (Circles) -->
+  <g opacity="0.9">
+    <!-- Root/Ancestor -->
+    <circle cx="670" cy="500" r="25" fill="url(#goldGradient)" filter="url(#premiumGlow)"/>
+    <text x="670" y="505" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="12" font-weight="bold">Root</text>
+    
+    <!-- Parents -->
+    <circle cx="450" cy="200" r="20" fill="url(#goldGradient)" filter="url(#premiumGlow)"/>
+    <circle cx="890" cy="200" r="20" fill="url(#goldGradient)" filter="url(#premiumGlow)"/>
+    
+    <!-- Grandparents -->
+    <circle cx="350" cy="150" r="18" fill="url(#goldGradient)" filter="url(#premiumGlow)"/>
+    <circle cx="550" cy="120" r="18" fill="url(#goldGradient)" filter="url(#premiumGlow)"/>
+    <circle cx="790" cy="120" r="18" fill="url(#goldGradient)" filter="url(#premiumGlow)"/>
+    <circle cx="990" cy="150" r="18" fill="url(#goldGradient)" filter="url(#premiumGlow)"/>
+    
+    <!-- Great Grandparents -->
+    <circle cx="300" cy="120" r="15" fill="url(#goldGradient)" opacity="0.8"/>
+    <circle cx="990" cy="120" r="15" fill="url(#goldGradient)" opacity="0.8"/>
+  </g>
+  
+  <!-- Cultural Symbols -->
+  <g opacity="0.7">
+    <!-- Adinkra Symbols -->
+    <circle cx="200" cy="100" r="30" fill="none" stroke="white" stroke-width="2"/>
+    <path d="M200 70 L200 130 M170 100 L230 100" stroke="white" stroke-width="2"/>
+    
+    <!-- Sankofa Bird -->
+    <path d="M1100 100 Q1120 80 1140 100 Q1120 120 1100 100" fill="none" stroke="white" stroke-width="2"/>
+    <circle cx="1135" cy="95" r="3" fill="white"/>
+    
+    <!-- Ankh Symbol -->
+    <path d="M1200 200 L1200 250 M1180 220 L1220 220 M1190 200 L1210 200 L1210 250 L1190 250 Z" fill="none" stroke="white" stroke-width="2"/>
+  </g>
+  
+  <!-- DNA Helix Pattern -->
+  <g opacity="0.4">
+    <path d="M100 400 Q150 350 200 400 Q250 450 300 400 Q350 350 400 400" stroke="white" stroke-width="1" fill="none"/>
+    <path d="M100 420 Q150 470 200 420 Q250 370 300 420 Q350 470 400 420" stroke="white" stroke-width="1" fill="none"/>
+    
+    <!-- Connecting lines -->
+    <line x1="150" y1="350" x2="150" y2="470" stroke="white" stroke-width="1" opacity="0.3"/>
+    <line x1="250" y1="450" x2="250" y2="370" stroke="white" stroke-width="1" opacity="0.3"/>
+    <line x1="350" y1="350" x2="350" y2="470" stroke="white" stroke-width="1" opacity="0.3"/>
+  </g>
+  
+  <!-- Premium Badge -->
+  <g filter="url(#premiumGlow)">
+    <circle cx="1200" cy="80" r="40" fill="url(#goldGradient)"/>
+    <text x="1200" y="85" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold">PREMIUM</text>
+    <text x="1200" y="100" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="10">FEATURE</text>
+  </g>
+  
+  <!-- Text Overlay -->
+  <text x="670" y="580" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="24" font-weight="bold" opacity="0.9">
+    Heritage Discovery - Premium Feature
+  </text>
+</svg> 

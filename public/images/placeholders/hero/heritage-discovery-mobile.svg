@@ -1,0 +1,65 @@
+<svg width="768" height="500" viewBox="0 0 768 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="heritageGradientMobile" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#059669;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#0D9488;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0891B2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="goldGradientMobile" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#D4AF37;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFD700;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="768" height="500" fill="url(#heritageGradientMobile)"/>
+  
+  <!-- Family Tree Structure (Simplified) -->
+  <g opacity="0.8">
+    <!-- Main Trunk -->
+    <path d="M384 450 L384 250" stroke="url(#goldGradientMobile)" stroke-width="6"/>
+    
+    <!-- Branches -->
+    <path d="M384 250 L250 180" stroke="url(#goldGradientMobile)" stroke-width="3"/>
+    <path d="M384 250 L518 180" stroke="url(#goldGradientMobile)" stroke-width="3"/>
+    <path d="M384 250 L200 120" stroke="url(#goldGradientMobile)" stroke-width="3"/>
+    <path d="M384 250 L568 120" stroke="url(#goldGradientMobile)" stroke-width="3"/>
+  </g>
+  
+  <!-- Family Members (Circles) -->
+  <g opacity="0.9">
+    <!-- Root/Ancestor -->
+    <circle cx="384" cy="450" r="20" fill="url(#goldGradientMobile)"/>
+    
+    <!-- Parents -->
+    <circle cx="250" cy="180" r="16" fill="url(#goldGradientMobile)"/>
+    <circle cx="518" cy="180" r="16" fill="url(#goldGradientMobile)"/>
+    
+    <!-- Grandparents -->
+    <circle cx="200" cy="120" r="14" fill="url(#goldGradientMobile)"/>
+    <circle cx="568" cy="120" r="14" fill="url(#goldGradientMobile)"/>
+  </g>
+  
+  <!-- Cultural Symbols -->
+  <g opacity="0.7">
+    <!-- Adinkra Symbol -->
+    <circle cx="120" cy="80" r="25" fill="none" stroke="white" stroke-width="2"/>
+    <path d="M120 55 L120 105 M95 80 L145 80" stroke="white" stroke-width="2"/>
+    
+    <!-- Sankofa Bird -->
+    <path d="M650 80 Q670 60 690 80 Q670 100 650 80" fill="none" stroke="white" stroke-width="2"/>
+    <circle cx="685" cy="75" r="2" fill="white"/>
+  </g>
+  
+  <!-- Premium Badge -->
+  <g>
+    <circle cx="700" cy="60" r="30" fill="url(#goldGradientMobile)"/>
+    <text x="700" y="65" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="10" font-weight="bold">PREMIUM</text>
+    <text x="700" y="78" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8">FEATURE</text>
+  </g>
+  
+  <!-- Text Overlay -->
+  <text x="384" y="480" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="18" font-weight="bold" opacity="0.9">
+    Heritage Discovery
+  </text>
+</svg> 

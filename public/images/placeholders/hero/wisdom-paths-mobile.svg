@@ -1,0 +1,69 @@
+<svg width="768" height="500" viewBox="0 0 768 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="wisdomGradientMobile" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3730A3;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3B82F6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#06B6D4;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="768" height="500" fill="url(#wisdomGradientMobile)"/>
+  
+  <!-- Wisdom Path Lines (Simplified) -->
+  <g opacity="0.6">
+    <path d="M100 400 Q250 350 400 250 Q550 150 700 100" stroke="white" stroke-width="2" fill="none"/>
+    <path d="M100 380 Q250 330 400 230 Q550 130 700 80" stroke="white" stroke-width="1" fill="none" opacity="0.7"/>
+  </g>
+  
+  <!-- Path Nodes -->
+  <g opacity="0.9">
+    <circle cx="100" cy="400" r="18" fill="white"/>
+    <circle cx="250" cy="350" r="15" fill="white"/>
+    <circle cx="400" cy="250" r="16" fill="white"/>
+    <circle cx="550" cy="150" r="14" fill="white"/>
+    <circle cx="700" cy="100" r="12" fill="white"/>
+  </g>
+  
+  <!-- Traditional Symbols (Simplified) -->
+  <g opacity="0.8">
+    <!-- Adinkra Symbol -->
+    <circle cx="200" cy="320" r="25" fill="none" stroke="white" stroke-width="2"/>
+    <path d="M200 295 L200 345 M175 320 L225 320" stroke="white" stroke-width="2"/>
+    
+    <!-- Sankofa Bird -->
+    <path d="M450 200 Q470 180 490 200 Q470 220 450 200" fill="none" stroke="white" stroke-width="2"/>
+    <circle cx="485" cy="195" r="2" fill="white"/>
+    
+    <!-- Ankh Symbol -->
+    <path d="M600 120 L600 170 M580 140 L620 140 M590 120 L610 120 L610 170 L590 170 Z" fill="none" stroke="white" stroke-width="2"/>
+  </g>
+  
+  <!-- Learning Elements (Simplified) -->
+  <g opacity="0.7">
+    <!-- Book -->
+    <rect x="80" y="150" width="30" height="40" fill="white" rx="2"/>
+    <rect x="85" y="155" width="20" height="30" fill="none" stroke="white" stroke-width="1"/>
+    <line x1="85" y1="165" x2="105" y2="165" stroke="white" stroke-width="1"/>
+    <line x1="85" y1="175" x2="105" y2="175" stroke="white" stroke-width="1"/>
+    
+    <!-- Tablet -->
+    <rect x="650" y="300" width="60" height="45" fill="white" rx="6"/>
+    <rect x="655" y="305" width="50" height="35" fill="none" stroke="white" stroke-width="1"/>
+    <circle cx="670" cy="320" r="2" fill="white"/>
+    <circle cx="680" cy="320" r="2" fill="white"/>
+    <circle cx="690" cy="320" r="2" fill="white"/>
+  </g>
+  
+  <!-- Wisdom Quote -->
+  <g opacity="0.8">
+    <text x="384" y="450" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="12" font-style="italic">
+      "Knowledge is like a garden"
+    </text>
+  </g>
+  
+  <!-- Text Overlay -->
+  <text x="384" y="480" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="18" font-weight="bold" opacity="0.9">
+    Wisdom Paths
+  </text>
+</svg> 

@@ -4,6 +4,7 @@
   "description": "African heritage and Ubuntu transformation platform",
   "scripts": {
     "dev": "next dev",
+    "dev:clean": "./scripts/dev.sh",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

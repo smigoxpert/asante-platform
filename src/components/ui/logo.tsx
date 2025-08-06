@@ -6,9 +6,10 @@ interface LogoProps {
   showText?: boolean;
   href?: string;
   className?: string;
+  textColor?: string;
 }
 
-export function Logo({ size = "md", showText = true, href, className = "" }: LogoProps) {
+export function Logo({ size = "md", showText = true, href, className = "", textColor = "text-gray-900" }: LogoProps) {
   const sizeClasses = {
     sm: "w-8 h-8",
     md: "w-10 h-10", 
@@ -47,7 +48,7 @@ export function Logo({ size = "md", showText = true, href, className = "" }: Log
       </div>
       {showText && (
         <div>
-          <h1 className={`${textSizes[size]} font-ubuntu font-bold text-gray-900`}>
+          <h1 className={`${textSizes[size]} font-ubuntu font-bold ${textColor}`}>
             Asante
           </h1>
         </div>

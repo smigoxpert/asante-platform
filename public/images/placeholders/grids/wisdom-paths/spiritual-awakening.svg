@@ -1,0 +1,122 @@
+<svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="spiritualAwakeningGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1E1B4B;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3730A3;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6366F1;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="spiritualAura" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#C7D2FE;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#A5B4FC;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="300" height="200" fill="url(#spiritualAwakeningGradient)"/>
+  
+  <!-- Spiritual Aura -->
+  <circle cx="150" cy="100" r="85" fill="url(#spiritualAura)" opacity="0.6"/>
+  
+  <!-- Enlightened Figure -->
+  <g opacity="0.95">
+    <!-- Head -->
+    <circle cx="150" cy="85" r="22" fill="white"/>
+    
+    <!-- Body -->
+    <rect x="128" y="107" width="44" height="55" fill="white" rx="22"/>
+    
+    <!-- Third Eye -->
+    <circle cx="150" cy="80" r="5" fill="none" stroke="#6366F1" stroke-width="2"/>
+    <circle cx="150" cy="80" r="3" fill="#6366F1"/>
+    
+    <!-- Crown Chakra -->
+    <circle cx="150" cy="60" r="8" fill="#C7D2FE"/>
+    <circle cx="150" cy="60" r="12" fill="none" stroke="#C7D2FE" stroke-width="1"/>
+    <circle cx="150" cy="60" r="16" fill="none" stroke="#C7D2FE" stroke-width="1"/>
+  </g>
+  
+  <!-- Spiritual Energy Field -->
+  <g opacity="0.7">
+    <!-- Energy Rings -->
+    <circle cx="150" cy="100" r="70" fill="none" stroke="white" stroke-width="2" opacity="0.8"/>
+    <circle cx="150" cy="100" r="55" fill="none" stroke="white" stroke-width="1" opacity="0.6"/>
+    <circle cx="150" cy="100" r="40" fill="none" stroke="white" stroke-width="1" opacity="0.4"/>
+    <circle cx="150" cy="100" r="25" fill="none" stroke="white" stroke-width="1" opacity="0.2"/>
+  </g>
+  
+  <!-- Spiritual Symbols -->
+  <g opacity="0.9">
+    <!-- Ankh (Life Force) -->
+    <path d="M80 60 L80 90 M70 75 L90 75 M75 60 L85 60 L85 90 L75 90 Z" fill="none" stroke="white" stroke-width="2"/>
+    
+    <!-- Eye of Horus (Protection) -->
+    <path d="M220 60 Q240 50 260 60 Q240 70 220 60" fill="none" stroke="white" stroke-width="2"/>
+    <circle cx="240" cy="55" r="6" fill="none" stroke="white" stroke-width="2"/>
+    <circle cx="240" cy="55" r="3" fill="white"/>
+    
+    <!-- Djed Pillar (Stability) -->
+    <rect x="80" y="140" width="12" height="40" fill="none" stroke="white" stroke-width="2"/>
+    <rect x="76" y="130" width="20" height="8" fill="none" stroke="white" stroke-width="2"/>
+    <rect x="76" y="180" width="20" height="8" fill="none" stroke="white" stroke-width="2"/>
+    
+    <!-- Lotus Flower (Enlightenment) -->
+    <g transform="translate(220, 140)">
+      <circle cx="0" cy="0" r="10" fill="white"/>
+      <circle cx="15" cy="-12" r="8" fill="white"/>
+      <circle cx="15" cy="12" r="8" fill="white"/>
+      <circle cx="0" cy="24" r="8" fill="white"/>
+      <circle cx="-15" cy="12" r="8" fill="white"/>
+      <circle cx="-15" cy="-12" r="8" fill="white"/>
+    </g>
+  </g>
+  
+  <!-- Energy Rays -->
+  <g opacity="0.8">
+    <!-- Vertical Rays -->
+    <line x1="150" y1="20" x2="150" y2="40" stroke="white" stroke-width="2"/>
+    <line x1="150" y1="160" x2="150" y2="180" stroke="white" stroke-width="2"/>
+    
+    <!-- Horizontal Rays -->
+    <line x1="20" y1="100" x2="40" y2="100" stroke="white" stroke-width="2"/>
+    <line x1="260" y1="100" x2="280" y2="100" stroke="white" stroke-width="2"/>
+    
+    <!-- Diagonal Rays -->
+    <line x1="30" y1="30" x2="50" y2="50" stroke="white" stroke-width="1" opacity="0.8"/>
+    <line x1="270" y1="30" x2="250" y2="50" stroke="white" stroke-width="1" opacity="0.8"/>
+    <line x1="30" y1="170" x2="50" y2="150" stroke="white" stroke-width="1" opacity="0.8"/>
+    <line x1="270" y1="170" x2="250" y2="150" stroke="white" stroke-width="1" opacity="0.8"/>
+  </g>
+  
+  <!-- Sacred Geometry -->
+  <g opacity="0.6">
+    <!-- Triangle (Fire) -->
+    <polygon points="150,20 130,50 170,50" fill="none" stroke="white" stroke-width="1"/>
+    <!-- Inverted Triangle (Water) -->
+    <polygon points="150,180 130,150 170,150" fill="none" stroke="white" stroke-width="1"/>
+    <!-- Hexagon (Balance) -->
+    <polygon points="150,100 170,110 170,130 150,140 130,130 130,110" fill="none" stroke="white" stroke-width="1"/>
+  </g>
+  
+  <!-- Spiritual Particles -->
+  <g opacity="0.9">
+    <circle cx="60" cy="40" r="2" fill="#C7D2FE"/>
+    <circle cx="120" cy="30" r="2" fill="#C7D2FE"/>
+    <circle cx="180" cy="35" r="2" fill="#C7D2FE"/>
+    <circle cx="240" cy="45" r="2" fill="#C7D2FE"/>
+    <circle cx="70" cy="170" r="2" fill="#C7D2FE"/>
+    <circle cx="130" cy="175" r="2" fill="#C7D2FE"/>
+    <circle cx="190" cy="170" r="2" fill="#C7D2FE"/>
+    <circle cx="250" cy="165" r="2" fill="#C7D2FE"/>
+  </g>
+  
+  <!-- Energy Flow -->
+  <g opacity="0.5">
+    <path d="M50 60 Q100 80 150 100 Q200 120 250 140" stroke="#C7D2FE" stroke-width="1" fill="none"/>
+    <path d="M250 60 Q200 80 150 100 Q100 120 50 140" stroke="#C7D2FE" stroke-width="1" fill="none"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="150" y="190" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="12" font-weight="bold">
+    Spiritual Awakening
+  </text>
+</svg> 

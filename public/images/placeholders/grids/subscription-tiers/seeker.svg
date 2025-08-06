@@ -1,0 +1,66 @@
+<svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="seekerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#D4AF37;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF6B35;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="300" height="200" fill="url(#seekerGradient)"/>
+  
+  <!-- Seeker Figure -->
+  <g opacity="0.9">
+    <!-- Person -->
+    <circle cx="150" cy="100" r="25" fill="white"/>
+    <rect x="125" y="125" width="50" height="60" fill="white" rx="25"/>
+    
+    <!-- Journey Path -->
+    <path d="M50 150 Q100 120 150 150 Q200 180 250 150" stroke="white" stroke-width="3" fill="none" opacity="0.8"/>
+    
+    <!-- Footprints -->
+    <path d="M80 145 L85 150 L80 155" stroke="white" stroke-width="2" fill="none" opacity="0.7"/>
+    <path d="M120 140 L125 145 L120 150" stroke="white" stroke-width="2" fill="none" opacity="0.7"/>
+    <path d="M180 155 L185 160 L180 165" stroke="white" stroke-width="2" fill="none" opacity="0.7"/>
+    <path d="M220 150 L225 155 L220 160" stroke="white" stroke-width="2" fill="none" opacity="0.7"/>
+  </g>
+  
+  <!-- Basic Features -->
+  <g opacity="0.8">
+    <!-- Heritage Discovery -->
+    <circle cx="80" cy="60" r="15" fill="white"/>
+    <path d="M80 50 L80 70 M70 60 L90 60" stroke="white" stroke-width="2"/>
+    
+    <!-- Community Access -->
+    <circle cx="220" cy="60" r="15" fill="white"/>
+    <circle cx="215" cy="55" r="3" fill="white"/>
+    <circle cx="225" cy="55" r="3" fill="white"/>
+    <circle cx="220" cy="65" r="3" fill="white"/>
+    
+    <!-- Wisdom Lessons -->
+    <rect x="40" y="80" width="25" height="30" fill="white" rx="3"/>
+    <line x1="45" y1="85" x2="60" y2="85" stroke="white" stroke-width="1"/>
+    <line x1="45" y1="90" x2="60" y2="90" stroke="white" stroke-width="1"/>
+    <line x1="45" y1="95" x2="55" y2="95" stroke="white" stroke-width="1"/>
+    
+    <!-- Mobile App -->
+    <rect x="235" y="80" width="20" height="30" fill="white" rx="3"/>
+    <rect x="240" y="85" width="10" height="20" fill="none" stroke="white" stroke-width="1"/>
+  </g>
+  
+  <!-- Seeker Elements -->
+  <g opacity="0.7">
+    <!-- Compass -->
+    <circle cx="150" cy="40" r="12" fill="none" stroke="white" stroke-width="2"/>
+    <path d="M150 28 L150 32 M150 48 L150 52 M138 40 L142 40 M158 40 L162 40" stroke="white" stroke-width="2"/>
+    <path d="M150 28 L155 40 L150 52 L145 40 Z" fill="white"/>
+    
+    <!-- Question Mark -->
+    <text x="250" y="120" fill="white" font-family="Arial, sans-serif" font-size="24" font-weight="bold">?</text>
+  </g>
+  
+  <!-- Text -->
+  <text x="150" y="190" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="12" font-weight="bold">
+    Seeker
+  </text>
+</svg> 

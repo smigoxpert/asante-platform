@@ -1,0 +1,54 @@
+<svg width="768" height="500" viewBox="0 0 768 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ubuntuGradientMobile" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#D4AF37;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#FF6B35;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F7931E;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="768" height="500" fill="url(#ubuntuGradientMobile)"/>
+  
+  <!-- Cultural Circle Pattern -->
+  <g opacity="0.3">
+    <circle cx="150" cy="120" r="60" fill="none" stroke="white" stroke-width="2" opacity="0.6"/>
+    <circle cx="150" cy="120" r="40" fill="none" stroke="white" stroke-width="1" opacity="0.4"/>
+    
+    <circle cx="618" cy="380" r="70" fill="none" stroke="white" stroke-width="2" opacity="0.5"/>
+    <circle cx="618" cy="380" r="50" fill="none" stroke="white" stroke-width="1" opacity="0.3"/>
+  </g>
+  
+  <!-- People Silhouettes (Simplified for mobile) -->
+  <g opacity="0.8">
+    <!-- Person 1 -->
+    <circle cx="250" cy="250" r="20" fill="white"/>
+    <rect x="230" y="270" width="40" height="45" fill="white" rx="20"/>
+    
+    <!-- Person 2 -->
+    <circle cx="350" cy="230" r="18" fill="white"/>
+    <rect x="332" y="248" width="36" height="40" fill="white" rx="18"/>
+    
+    <!-- Person 3 -->
+    <circle cx="450" cy="270" r="19" fill="white"/>
+    <rect x="431" y="289" width="38" height="42" fill="white" rx="19"/>
+  </g>
+  
+  <!-- Connecting Lines -->
+  <g stroke="white" stroke-width="2" opacity="0.6">
+    <line x1="270" y1="250" x2="332" y2="230"/>
+    <line x1="368" y1="248" x2="431" y2="270"/>
+  </g>
+  
+  <!-- Wisdom Symbols -->
+  <g opacity="0.7">
+    <!-- Adinkra Symbol -->
+    <circle cx="600" cy="150" r="25" fill="none" stroke="white" stroke-width="2"/>
+    <path d="M600 125 L600 175 M575 150 L625 150" stroke="white" stroke-width="2"/>
+  </g>
+  
+  <!-- Text Overlay -->
+  <text x="384" y="420" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="18" font-weight="bold" opacity="0.9">
+    Ubuntu Journey
+  </text>
+</svg> 

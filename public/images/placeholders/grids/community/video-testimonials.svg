@@ -1,0 +1,88 @@
+<svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="videoTestimonialsGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#D4AF37;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF6B35;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="300" height="200" fill="url(#videoTestimonialsGradient)"/>
+  
+  <!-- Video Screen -->
+  <g opacity="0.9">
+    <rect x="80" y="60" width="140" height="80" fill="white" rx="8"/>
+    <rect x="85" y="65" width="130" height="70" fill="none" stroke="white" stroke-width="1" opacity="0.3"/>
+    
+    <!-- Video Content -->
+    <circle cx="150" cy="100" r="15" fill="white" opacity="0.8"/>
+    <polygon points="145,95 145,105 155,100" fill="white"/>
+    
+    <!-- Video Controls -->
+    <rect x="90" y="150" width="20" height="4" fill="white" opacity="0.7"/>
+    <rect x="120" y="150" width="20" height="4" fill="white" opacity="0.7"/>
+    <rect x="150" y="150" width="20" height="4" fill="white" opacity="0.7"/>
+    <rect x="180" y="150" width="20" height="4" fill="white" opacity="0.7"/>
+  </g>
+  
+  <!-- People Testimonials -->
+  <g opacity="0.8">
+    <!-- Person 1 -->
+    <circle cx="60" cy="80" r="12" fill="white"/>
+    <rect x="48" y="92" width="24" height="30" fill="white" rx="12"/>
+    
+    <!-- Person 2 -->
+    <circle cx="240" cy="80" r="12" fill="white"/>
+    <rect x="228" y="92" width="24" height="30" fill="white" rx="12"/>
+    
+    <!-- Person 3 -->
+    <circle cx="60" cy="140" r="10" fill="white"/>
+    <rect x="50" y="150" width="20" height="25" fill="white" rx="10"/>
+    
+    <!-- Person 4 -->
+    <circle cx="240" cy="140" r="10" fill="white"/>
+    <rect x="230" y="150" width="20" height="25" fill="white" rx="10"/>
+  </g>
+  
+  <!-- Speech Bubbles -->
+  <g opacity="0.7">
+    <!-- Bubble 1 -->
+    <path d="M80 50 Q90 40 100 50 Q90 60 80 50" fill="white"/>
+    <rect x="70" y="30" width="20" height="20" fill="white" rx="10"/>
+    
+    <!-- Bubble 2 -->
+    <path d="M200 50 Q210 40 220 50 Q210 60 200 50" fill="white"/>
+    <rect x="210" y="30" width="20" height="20" fill="white" rx="10"/>
+    
+    <!-- Bubble 3 -->
+    <path d="M80 170 Q90 160 100 170 Q90 180 80 170" fill="white"/>
+    <rect x="70" y="150" width="20" height="20" fill="white" rx="10"/>
+    
+    <!-- Bubble 4 -->
+    <path d="M200 170 Q210 160 220 170 Q210 180 200 170" fill="white"/>
+    <rect x="210" y="150" width="20" height="20" fill="white" rx="10"/>
+  </g>
+  
+  <!-- Video Icons -->
+  <g opacity="0.8">
+    <!-- Camera -->
+    <rect x="40" y="40" width="25" height="20" fill="none" stroke="white" stroke-width="2" rx="3"/>
+    <circle cx="52" cy="50" r="6" fill="none" stroke="white" stroke-width="2"/>
+    <rect x="45" y="35" width="15" height="8" fill="white"/>
+    
+    <!-- Microphone -->
+    <rect x="235" y="40" width="8" height="20" fill="white"/>
+    <circle cx="239" cy="35" r="6" fill="none" stroke="white" stroke-width="2"/>
+  </g>
+  
+  <!-- Play Button -->
+  <g opacity="0.9">
+    <circle cx="150" cy="100" r="20" fill="none" stroke="white" stroke-width="3"/>
+    <polygon points="145,90 145,110 165,100" fill="white"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="150" y="190" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="12" font-weight="bold">
+    Video Testimonials
+  </text>
+</svg> 
